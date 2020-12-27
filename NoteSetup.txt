@@ -3,9 +3,9 @@
 
 Setup new project
 	cd D:\TheWorld\Client
-	md TheWorld_GDNative
-	cd TheWorld_GDNative
-	git init
+	md TheWorld_GD_ClientDll
+	cd TheWorld_GD_ClientDll
+	git init (meglio creare la repos in GitHub e clonarla in locale quindi proseguire aggiungendo il resto)
 	git submodule add https://github.com/GodotNativeTools/godot-cpp
 	cd godot-cpp
 	git submodule init
