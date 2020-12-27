@@ -47,7 +47,7 @@
 
   <meta name="viewport" content="width=device-width">
   
-  <title>TheWorld_GD_ClientDll/README.md at main · Roc0/TheWorld_GD_ClientDll</title>
+  <title>TheWorld_GD_ClientDll/.gitignore at main · Roc0/TheWorld_GD_ClientDll</title>
     <meta name="description" content="Contribute to Roc0/TheWorld_GD_ClientDll development by creating an account on GitHub.">
     <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub">
   <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
@@ -61,11 +61,11 @@
     
 
   <link rel="assets" href="https://github.githubassets.com/">
-    <link rel="shared-web-socket" href="wss://alive.github.com/_sockets/u/11485534/ws?session=eyJ2IjoiVjMiLCJ1IjoxMTQ4NTUzNCwicyI6NjI1ODUzNTMwLCJjIjoyNDc2OTkyOTEsInQiOjE2MDkwNjQwNTh9--9412cae14761a78e4891da66c69e6a258a1bf136af6cb8638c1b3e550866f1a7" data-refresh-url="/_alive">
+    <link rel="shared-web-socket" href="wss://alive.github.com/_sockets/u/11485534/ws?session=eyJ2IjoiVjMiLCJ1IjoxMTQ4NTUzNCwicyI6NjI1ODUzNTMwLCJjIjoxMjk0OTE3ODQ3LCJ0IjoxNjA5MDY0MDY2fQ==--187a5a8690d05fb2591a503553bb9a0d75d1c303db8fe1fe78c99f720cc6361e" data-refresh-url="/_alive">
     <link rel="shared-web-socket-src" href="/socket-worker-5029ae85.js">
   <link rel="sudo-modal" href="/sessions/sudo_modal">
 
-  <meta name="request-id" content="E5B4:1047:1EAA8C6:2C72E20:5FE85E79" data-pjax-transient="true" /><meta name="html-safe-nonce" content="73daf01e4cb22c77980aec4cca285895aef65ded10b2f6a290563b82b8b23290" data-pjax-transient="true" /><meta name="visitor-payload" content="eyJyZWZlcnJlciI6Imh0dHBzOi8vZ2l0aHViLmNvbS9Sb2MwL1RoZVdvcmxkX0dEX0NsaWVudERsbCIsInJlcXVlc3RfaWQiOiJFNUI0OjEwNDc6MUVBQThDNjoyQzcyRTIwOjVGRTg1RTc5IiwidmlzaXRvcl9pZCI6IjI1NzM5MjgzNDY3MzI0MzQxNCIsInJlZ2lvbl9lZGdlIjoiZnJhIiwicmVnaW9uX3JlbmRlciI6ImlhZCJ9" data-pjax-transient="true" /><meta name="visitor-hmac" content="8ccd1b27c58b293d989e1f06b84bced65d1b600424a6e4da5bd0bdc51f1b59a3" data-pjax-transient="true" />
+  <meta name="request-id" content="E5B7:A66C:770AFF8:AA542AB:5FE85E81" data-pjax-transient="true" /><meta name="html-safe-nonce" content="73daf01e4cb22c77980aec4cca285895aef65ded10b2f6a290563b82b8b23290" data-pjax-transient="true" /><meta name="visitor-payload" content="eyJyZWZlcnJlciI6Imh0dHBzOi8vZ2l0aHViLmNvbS9Sb2MwL1RoZVdvcmxkX0dEX0NsaWVudERsbCIsInJlcXVlc3RfaWQiOiJFNUI3OkE2NkM6NzcwQUZGODpBQTU0MkFCOjVGRTg1RTgxIiwidmlzaXRvcl9pZCI6IjI1NzM5MjgzNDY3MzI0MzQxNCIsInJlZ2lvbl9lZGdlIjoiZnJhIiwicmVnaW9uX3JlbmRlciI6ImlhZCJ9" data-pjax-transient="true" /><meta name="visitor-hmac" content="041d659714295db93e6c3e8c9c54532d490051b152a199dde01641069433e5ca" data-pjax-transient="true" />
 
     <meta name="hovercard-subject-tag" content="repository:324734231" data-pjax-transient>
 
@@ -104,7 +104,7 @@
 
       <meta name="expected-hostname" content="github.com">
 
-      <meta name="js-proxy-site-detection-payload" content="NGE3ZTZhZWE4OGFiOGM3YjRmZTk2MmI1NzUwMTcwMzk0ODJjYTAwMDQyODJmNTNjNzg4M2ViY2Y0ZGU2NWVlNnx7InJlbW90ZV9hZGRyZXNzIjoiMTg1LjMwLjY1LjEwMiIsInJlcXVlc3RfaWQiOiJFNUI0OjEwNDc6MUVBQThDNjoyQzcyRTIwOjVGRTg1RTc5IiwidGltZXN0YW1wIjoxNjA5MDY0MDU4LCJob3N0IjoiZ2l0aHViLmNvbSJ9">
+      <meta name="js-proxy-site-detection-payload" content="NmZhNGVhOWZhYTQ2MDljOWVlYmNhNTg1MGEyZjQwMTQ0N2E3YWM3Zjc3NTM4NjdlOWYyOGM4MTQ4ZTdkOTBhM3x7InJlbW90ZV9hZGRyZXNzIjoiMTg1LjMwLjY1LjEwMiIsInJlcXVlc3RfaWQiOiJFNUI3OkE2NkM6NzcwQUZGODpBQTU0MkFCOjVGRTg1RTgxIiwidGltZXN0YW1wIjoxNjA5MDY0MDY2LCJob3N0IjoiZ2l0aHViLmNvbSJ9">
 
     <meta name="enabled-features" content="MARKETPLACE_PENDING_INSTALLATIONS,JS_HTTP_CACHE_HEADERS,ACTIONS_ENVIRONMENTS,ACTIONS_ENVIRONMENTS,TASK_LIST_AUTOCOMPLETE,MULTI_WORD_SUGGESTER">
 
@@ -119,7 +119,7 @@
 
 
 
-    <link rel="canonical" href="https://github.com/Roc0/TheWorld_GD_ClientDll/blob/main/README.md" data-pjax-transient>
+    <link rel="canonical" href="https://github.com/Roc0/TheWorld_GD_ClientDll/blob/main/.gitignore" data-pjax-transient>
 
 
   <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
@@ -193,7 +193,7 @@
           spellcheck="false"
           autocomplete="off"
           >
-          <input type="hidden" value="lC2Ppq9cP+n1DdEEa9NzYT6lC2AKcDqk2h1sESScKCBF9gDaakuFLfPSW0PHsKqj1Ezc7shtdywqV/E09fa+xQ==" data-csrf="true" class="js-data-jump-to-suggestions-path-csrf" />
+          <input type="hidden" value="75JU6eTIwt972XExFyKMf5HVNFWwPQ+SLJRU8TUezMU+SduVId94G30G+3a7QVW9ezzj23IgQhrc3snU5HRaIA==" data-csrf="true" class="js-data-jump-to-suggestions-path-csrf" />
           <input type="hidden" class="js-site-search-type-field" name="type" >
             <img src="https://github.githubassets.com/images/search-key-slash.svg" alt="" class="mr-2 header-search-key-slash">
 
@@ -383,7 +383,7 @@
       <img class="avatar avatar-user" src="https://avatars2.githubusercontent.com/u/11485534?s=40&amp;v=4" width="20" height="20" alt="@Roc0" />
       Roc0
 </a>
-    <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/logout" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="h+++8qPM60iYJfCTfhtV35x7C/PduoXHdj1/Wqq3GISHtsa3rHFgwe6ni9VMvoPml3GauHISAZ9E4mGMdfE7iA==" />
+    <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/logout" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="dl4oiP0ZOQ/j4yR9/jUaZJ97nr8I0liNDyKE0Kc0ZSN2B1DN8qSyhpVhXzvMkMxdlHEP9Kd63NU9/ZoGeHJGLw==" />
       <button type="submit" class="Header-link mr-0 mr-md-3 py-2 py-md-3 border-top border-md-top-0 border-white-fade-15 d-md-none btn-link d-block width-full text-left" data-ga-click="Header, sign out, icon:logout" style="padding-left: 2px;">
         <svg class="octicon octicon-sign-out v-align-middle" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M2 2.75C2 1.784 2.784 1 3.75 1h2.5a.75.75 0 010 1.5h-2.5a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h2.5a.75.75 0 010 1.5h-2.5A1.75 1.75 0 012 13.25V2.75zm10.44 4.5H6.75a.75.75 0 000 1.5h5.69l-1.97 1.97a.75.75 0 101.06 1.06l3.25-3.25a.75.75 0 000-1.06l-3.25-3.25a.75.75 0 10-1.06 1.06l1.97 1.97z"></path></svg>
         Sign out
@@ -403,7 +403,7 @@
     <div class="Header-item mr-0 mr-md-3 flex-order-1 flex-md-order-none">
         
 
-    <notification-indicator class="js-socket-channel" data-channel="eyJjIjoibm90aWZpY2F0aW9uLWNoYW5nZWQ6MTE0ODU1MzQiLCJ0IjoxNjA5MDY0MDU4fQ==--dae36b24cca360bc15efeace39966da45f81781b11d3bbc17d4070a427024061">
+    <notification-indicator class="js-socket-channel" data-channel="eyJjIjoibm90aWZpY2F0aW9uLWNoYW5nZWQ6MTE0ODU1MzQiLCJ0IjoxNjA5MDY0MDY2fQ==--bdd5c9567a1b55591719826d12a817e9394017084b81add12b22577894b6d8df">
       <a href="/notifications"
          class="Header-link notification-indicator position-relative tooltipped tooltipped-sw"
          
@@ -582,7 +582,7 @@
         data-action="toggle:notifications-list-subscription-form#detailsToggled"
       >
 
-      <summary class="btn btn-sm rounded-right-0" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;WATCH_BUTTON&quot;,&quot;repository_id&quot;:324734231,&quot;originating_url&quot;:&quot;https://github.com/Roc0/TheWorld_GD_ClientDll/blob/main/README.md&quot;,&quot;user_id&quot;:11485534}}" data-hydro-click-hmac="8c160ea4cbe662190c96b4ce58780b59645565e085d5cd9f6a43a99b7d5560df" data-ga-click="Repository, click Watch settings, action:blob#show" aria-label="Notifications settings">
+      <summary class="btn btn-sm rounded-right-0" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;WATCH_BUTTON&quot;,&quot;repository_id&quot;:324734231,&quot;originating_url&quot;:&quot;https://github.com/Roc0/TheWorld_GD_ClientDll/blob/main/.gitignore&quot;,&quot;user_id&quot;:11485534}}" data-hydro-click-hmac="4af7cc17a82f7508a6c09834656c28c0010f3512762b3045aade23643c9ad5eb" data-ga-click="Repository, click Watch settings, action:blob#show" aria-label="Notifications settings">
           <span data-menu-button>
             <span
               
@@ -626,7 +626,7 @@
             </header>
 
             <div class="SelectMenu-list">
-              <form data-target="notifications-list-subscription-form.form" data-action="submit:notifications-list-subscription-form#submitForm" action="/notifications/subscribe" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="LZ7Gdn0BFU8waMNqrA6A+i4y8sP5XjjfWIag/ABqHO6iAQRSARQ74Way8cIT9nS9ak67vY/XSia9vZ7/3m5Svw==" />
+              <form data-target="notifications-list-subscription-form.form" data-action="submit:notifications-list-subscription-form#submitForm" action="/notifications/subscribe" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="XNdfl/yhqs7NZfIXG1OPHjhaoTBxg19jdbIIWGe3JpjTSJ2zgLSEYJu/wL+kq3tZfCboTgcKLZqQiTZbubNoyQ==" />
 
                 <input type="hidden" name="repository_id" value="324734231">
 
@@ -728,7 +728,7 @@
 
         <details-dialog class="notifications-component-dialog " data-target="notifications-list-subscription-form.customDialog" hidden>
           <div class="SelectMenu-modal notifications-component-dialog-modal overflow-visible">
-            <form data-target="notifications-list-subscription-form.customform" data-action="submit:notifications-list-subscription-form#submitCustomForm" action="/notifications/subscribe" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="VBfh/jVr0fa71RB8D7p2vK3XShcX0ac8tnWu796YlArbiCPaSX7/WO0PItSwQoL76asDaWFY1cVTTpDsAJzaWw==" />
+            <form data-target="notifications-list-subscription-form.customform" data-action="submit:notifications-list-subscription-form#submitCustomForm" action="/notifications/subscribe" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="D9RMzgNHwgdxq5mDMlvva/j+cZCCp1xGLbsAPQqpXtWAS47qf1LsqSdxqyuNoxssvII47vQuLr/IgD4+1K0QhA==" />
 
               <input type="hidden" name="repository_id" value="324734231">
 
@@ -865,9 +865,9 @@
 
   <li>
         <div class="d-block js-toggler-container js-social-container starring-container ">
-    <form class="starred js-social-form" action="/Roc0/TheWorld_GD_ClientDll/unstar" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="W6FT8R+G+LTRtIds9P9LcAlHSCfavfifyx1uBRF+K/YspHFyjBIB6JPpg0btPm+caIzD/COSUZq0WQWfAe3uwg==" />
+    <form class="starred js-social-form" action="/Roc0/TheWorld_GD_ClientDll/unstar" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="Inm7P4pB0Ht4j0G8mz38GcNq0NHoaEqOictJw+1faWJVfJm8GdUpJzrSRZaC/Nj1oqFbChFH44v2jyJZ/cysVg==" />
       <input type="hidden" name="context" value="repository">
-      <button type="submit" class="btn btn-sm btn-with-count  js-toggler-target" aria-label="Unstar this repository" title="Unstar Roc0/TheWorld_GD_ClientDll" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;UNSTAR_BUTTON&quot;,&quot;repository_id&quot;:324734231,&quot;originating_url&quot;:&quot;https://github.com/Roc0/TheWorld_GD_ClientDll/blob/main/README.md&quot;,&quot;user_id&quot;:11485534}}" data-hydro-click-hmac="4b9292322204b851fd1aaa5e63d8816d1b2e1a505da4f1e2c3f094500056a963" data-ga-click="Repository, click unstar button, action:blob#show; text:Unstar">        <svg class="octicon octicon-star-fill mr-1" height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"></path></svg>
+      <button type="submit" class="btn btn-sm btn-with-count  js-toggler-target" aria-label="Unstar this repository" title="Unstar Roc0/TheWorld_GD_ClientDll" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;UNSTAR_BUTTON&quot;,&quot;repository_id&quot;:324734231,&quot;originating_url&quot;:&quot;https://github.com/Roc0/TheWorld_GD_ClientDll/blob/main/.gitignore&quot;,&quot;user_id&quot;:11485534}}" data-hydro-click-hmac="73baaa7a55ac3d3c1444270ce7fe4edf7689beb5cf5b820b923b6584db73a1fc" data-ga-click="Repository, click unstar button, action:blob#show; text:Unstar">        <svg class="octicon octicon-star-fill mr-1" height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"></path></svg>
         <span>
           Unstar
 </span></button>        <a class="social-count js-social-count" href="/Roc0/TheWorld_GD_ClientDll/stargazers"
@@ -875,9 +875,9 @@
            0
         </a>
 </form>
-    <form class="unstarred js-social-form" action="/Roc0/TheWorld_GD_ClientDll/star" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="ODlR1qCol1BeWKoHleqGhcWBeE/mm6yFYztzUeKaSSfQDfFdJzkElAGuv3ZgUhP395vE9AOK3ZpkW58M9GAlbQ==" />
+    <form class="unstarred js-social-form" action="/Roc0/TheWorld_GD_ClientDll/star" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="jqT+ap2+81AbaB3bV7sCznCqReC9y6HLckm6wEHjDP1mkF7hGi9glESeCKqiA5e8QrD5W1ja0NR1KVadVxlgtw==" />
       <input type="hidden" name="context" value="repository">
-      <button type="submit" class="btn btn-sm btn-with-count  js-toggler-target" aria-label="Unstar this repository" title="Star Roc0/TheWorld_GD_ClientDll" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;STAR_BUTTON&quot;,&quot;repository_id&quot;:324734231,&quot;originating_url&quot;:&quot;https://github.com/Roc0/TheWorld_GD_ClientDll/blob/main/README.md&quot;,&quot;user_id&quot;:11485534}}" data-hydro-click-hmac="1a3486714c1dc4bfabc972c8e9eb7233fad70e4f4882d0219e874e86f0fadfce" data-ga-click="Repository, click star button, action:blob#show; text:Star">        <svg class="octicon octicon-star mr-1" height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg>
+      <button type="submit" class="btn btn-sm btn-with-count  js-toggler-target" aria-label="Unstar this repository" title="Star Roc0/TheWorld_GD_ClientDll" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;STAR_BUTTON&quot;,&quot;repository_id&quot;:324734231,&quot;originating_url&quot;:&quot;https://github.com/Roc0/TheWorld_GD_ClientDll/blob/main/.gitignore&quot;,&quot;user_id&quot;:11485534}}" data-hydro-click-hmac="848dcf88d420aac68821537f90fc53270f6787282a15d0b7ca4a11e3a37508db" data-ga-click="Repository, click star button, action:blob#show; text:Star">        <svg class="octicon octicon-star mr-1" height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg>
         <span>
           Star
 </span></button>        <a class="social-count js-social-count" href="/Roc0/TheWorld_GD_ClientDll/stargazers"
@@ -894,7 +894,7 @@
                       <summary
                     class="btn btn-sm btn-with-count"
                     title="Fork your own copy of Roc0/TheWorld_GD_ClientDll to your account"
-                    data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;FORK_BUTTON&quot;,&quot;repository_id&quot;:324734231,&quot;originating_url&quot;:&quot;https://github.com/Roc0/TheWorld_GD_ClientDll/blob/main/README.md&quot;,&quot;user_id&quot;:11485534}}" data-hydro-click-hmac="d3f57ecfa8b9556cd069df90371a54318ceac377dfb35316964bc655f9f61b1d" data-ga-click="Repository, show fork modal, action:blob#show; text:Fork">
+                    data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;FORK_BUTTON&quot;,&quot;repository_id&quot;:324734231,&quot;originating_url&quot;:&quot;https://github.com/Roc0/TheWorld_GD_ClientDll/blob/main/.gitignore&quot;,&quot;user_id&quot;:11485534}}" data-hydro-click-hmac="ac0c3c3dc98f9c97a42da7bfd108f67c1a54c73614b4d0722dc04c4c0cb2550d" data-ga-click="Repository, show fork modal, action:blob#show; text:Fork">
                     <svg class="octicon octicon-repo-forked" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path></svg>
                     Fork
                   </summary>
@@ -1071,9 +1071,9 @@
   
 
 
-    <a class="d-none js-permalink-shortcut" data-hotkey="y" href="/Roc0/TheWorld_GD_ClientDll/blob/9683cd96c21560a81ebbdc30eef0d303195d9dfc/README.md">Permalink</a>
+    <a class="d-none js-permalink-shortcut" data-hotkey="y" href="/Roc0/TheWorld_GD_ClientDll/blob/9683cd96c21560a81ebbdc30eef0d303195d9dfc/.gitignore">Permalink</a>
 
-    <!-- blob contrib key: blob_contributors:v22:b8c4d514597c491ab265990a3cc282132ed7aa2d9fd5b0450399e34702150fd8 -->
+    <!-- blob contrib key: blob_contributors:v22:4982194435f88896ca9667bbbc4a377b7bd8d39a2a71182bb963b588c4c90e02 -->
 
     <div class="d-flex flex-items-start flex-shrink-0 pb-3 flex-wrap flex-md-nowrap flex-justify-between flex-md-justify-start">
       
@@ -1087,7 +1087,7 @@
       <span class="dropdown-caret"></span>
     </summary>
 
-    <details-menu class="SelectMenu SelectMenu--hasFilter" src="/Roc0/TheWorld_GD_ClientDll/refs/main/README.md?source_action=show&amp;source_controller=blob" preload>
+    <details-menu class="SelectMenu SelectMenu--hasFilter" src="/Roc0/TheWorld_GD_ClientDll/refs/main/.gitignore?source_action=show&amp;source_controller=blob" preload>
       <div class="SelectMenu-modal">
         <include-fragment class="SelectMenu-loading" aria-label="Menu is loading">
           <svg class="octicon octicon-octoface anim-pulse" height="32" viewBox="0 0 24 24" version="1.1" width="32" aria-hidden="true"><path d="M7.75 11c-.69 0-1.25.56-1.25 1.25v1.5a1.25 1.25 0 102.5 0v-1.5C9 11.56 8.44 11 7.75 11zm1.27 4.5a.469.469 0 01.48-.5h5a.47.47 0 01.48.5c-.116 1.316-.759 2.5-2.98 2.5s-2.864-1.184-2.98-2.5zm7.23-4.5c-.69 0-1.25.56-1.25 1.25v1.5a1.25 1.25 0 102.5 0v-1.5c0-.69-.56-1.25-1.25-1.25z"></path><path fill-rule="evenodd" d="M21.255 3.82a1.725 1.725 0 00-2.141-1.195c-.557.16-1.406.44-2.264.866-.78.386-1.647.93-2.293 1.677A18.442 18.442 0 0012 5c-.93 0-1.784.059-2.569.17-.645-.74-1.505-1.28-2.28-1.664a13.876 13.876 0 00-2.265-.866 1.725 1.725 0 00-2.141 1.196 23.645 23.645 0 00-.69 3.292c-.125.97-.191 2.07-.066 3.112C1.254 11.882 1 13.734 1 15.527 1 19.915 3.13 23 12 23c8.87 0 11-3.053 11-7.473 0-1.794-.255-3.647-.99-5.29.127-1.046.06-2.15-.066-3.125a23.652 23.652 0 00-.689-3.292zM20.5 14c.5 3.5-1.5 6.5-8.5 6.5s-9-3-8.5-6.5c.583-4 3-6 8.5-6s7.928 2 8.5 6z"></path></svg>
@@ -1099,7 +1099,7 @@
 </div>
 
       <h2 id="blob-path" class="breadcrumb flex-auto min-width-0 text-normal mx-0 mx-md-3 width-full width-md-auto flex-order-1 flex-md-order-none mt-3 mt-md-0">
-        <span class="js-repo-root text-bold"><span class="js-path-segment d-inline-block wb-break-all"><a data-pjax="true" href="/Roc0/TheWorld_GD_ClientDll"><span>TheWorld_GD_ClientDll</span></a></span></span><span class="separator">/</span><strong class="final-path">README.md</strong>
+        <span class="js-repo-root text-bold"><span class="js-path-segment d-inline-block wb-break-all"><a data-pjax="true" href="/Roc0/TheWorld_GD_ClientDll"><span>TheWorld_GD_ClientDll</span></a></span></span><span class="separator">/</span><strong class="final-path">.gitignore</strong>
       </h2>
       <a href="/Roc0/TheWorld_GD_ClientDll/find/main"
             class="js-pjax-capture-input btn mr-2 d-none d-md-block"
@@ -1114,7 +1114,7 @@
 </summary>  <div>
     <ul class="dropdown-menu dropdown-menu-sw">
             <li class="d-block d-md-none">
-              <a class="dropdown-item d-flex flex-items-baseline" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;FIND_FILE_BUTTON&quot;,&quot;repository_id&quot;:324734231,&quot;originating_url&quot;:&quot;https://github.com/Roc0/TheWorld_GD_ClientDll/blob/main/README.md&quot;,&quot;user_id&quot;:11485534}}" data-hydro-click-hmac="6cfd4a8237ebdd5b2968932b616cfe8abe894886fb270ee1a3353a0eec7471b9" data-ga-click="Repository, find file, location:repo overview" data-hotkey="t" data-pjax="true" href="/Roc0/TheWorld_GD_ClientDll/find/main">
+              <a class="dropdown-item d-flex flex-items-baseline" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;FIND_FILE_BUTTON&quot;,&quot;repository_id&quot;:324734231,&quot;originating_url&quot;:&quot;https://github.com/Roc0/TheWorld_GD_ClientDll/blob/main/.gitignore&quot;,&quot;user_id&quot;:11485534}}" data-hydro-click-hmac="dc71125525ddfbe78d16414755af1e60a61f2d768302a5158c8d2e7a756b244b" data-ga-click="Repository, find file, location:repo overview" data-hotkey="t" data-pjax="true" href="/Roc0/TheWorld_GD_ClientDll/find/main">
                 <span class="flex-auto">Go to file</span>
                 <span class="text-small text-gray" aria-hidden="true">T</span>
 </a>            </li>
@@ -1128,7 +1128,7 @@
             </li>
             <li class="dropdown-divider" role="none"></li>
             <li>
-              <clipboard-copy value="README.md" class="dropdown-item cursor-pointer" data-toggle-for="blob-more-options-details">
+              <clipboard-copy value=".gitignore" class="dropdown-item cursor-pointer" data-toggle-for="blob-more-options-details">
                 Copy path
               </clipboard-copy>
             </li>
@@ -1138,7 +1138,7 @@
 
 
     <div class="Box d-flex flex-column flex-shrink-0 mb-3">
-      <include-fragment src="/Roc0/TheWorld_GD_ClientDll/contributors/main/README.md" class="commit-loader">
+      <include-fragment src="/Roc0/TheWorld_GD_ClientDll/contributors/main/.gitignore" class="commit-loader">
         <div class="Box-header Box-header--blue d-flex flex-items-center">
           <div class="Skeleton avatar avatar-user flex-shrink-0 ml-n1 mr-n1 mt-n1 mb-n1" style="width:24px;height:24px;"></div>
           <div class="Skeleton Skeleton--text col-5 ml-2">&nbsp;</div>
@@ -1161,34 +1161,34 @@
 <div class="Box-header py-2 d-flex flex-column flex-shrink-0 flex-md-row flex-md-items-center">
   <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
 
-      1 lines (1 sloc)
+      350 lines (282 sloc)
       <span class="file-info-divider"></span>
-    23 Bytes
+    5.86 KB
   </div>
 
   <div class="d-flex py-1 py-md-0 flex-auto flex-order-1 flex-md-order-2 flex-sm-grow-0 flex-justify-between">
 
     <div class="BtnGroup">
-      <a href="/Roc0/TheWorld_GD_ClientDll/raw/main/README.md" id="raw-url" role="button" class="btn btn-sm BtnGroup-item ">Raw</a>
-        <a href="/Roc0/TheWorld_GD_ClientDll/blame/main/README.md" data-hotkey="b" role="button" class="btn js-update-url-with-hash btn-sm BtnGroup-item ">Blame</a>
+      <a href="/Roc0/TheWorld_GD_ClientDll/raw/main/.gitignore" id="raw-url" role="button" class="btn btn-sm BtnGroup-item ">Raw</a>
+        <a href="/Roc0/TheWorld_GD_ClientDll/blame/main/.gitignore" data-hotkey="b" role="button" class="btn js-update-url-with-hash btn-sm BtnGroup-item ">Blame</a>
     </div>
 
     <div>
           <a class="btn-octicon tooltipped tooltipped-nw js-remove-unless-platform"
              data-platforms="windows,mac"
-             href="x-github-client://openRepo/https://github.com/Roc0/TheWorld_GD_ClientDll?branch=main&amp;filepath=README.md"
+             href="x-github-client://openRepo/https://github.com/Roc0/TheWorld_GD_ClientDll?branch=main&amp;filepath=.gitignore"
              aria-label="Open this file in GitHub Desktop"
              data-ga-click="Repository, open with desktop">
               <svg class="octicon octicon-device-desktop" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M1.75 2.5h12.5a.25.25 0 01.25.25v7.5a.25.25 0 01-.25.25H1.75a.25.25 0 01-.25-.25v-7.5a.25.25 0 01.25-.25zM14.25 1H1.75A1.75 1.75 0 000 2.75v7.5C0 11.216.784 12 1.75 12h3.727c-.1 1.041-.52 1.872-1.292 2.757A.75.75 0 004.75 16h6.5a.75.75 0 00.565-1.243c-.772-.885-1.193-1.716-1.292-2.757h3.727A1.75 1.75 0 0016 10.25v-7.5A1.75 1.75 0 0014.25 1zM9.018 12H6.982a5.72 5.72 0 01-.765 2.5h3.566a5.72 5.72 0 01-.765-2.5z"></path></svg>
           </a>
 
-          <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="inline-form js-update-url-with-hash" action="/Roc0/TheWorld_GD_ClientDll/edit/main/README.md" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="Mfd/VaJG/u6+0x4Oc/2qQ7T5tp3Sv1mkD/fOQLEPdAvE8lrWQOSADQiu+xwG2w0c9+8d+hU+lZGJKjT9++UCzg==" />
+          <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="inline-form js-update-url-with-hash" action="/Roc0/TheWorld_GD_ClientDll/edit/main/.gitignore" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="n+mlC3780WwI1vRAAueysl9QaEIvjjclE4lWCqOqAIPvFE5DWbcE0sKhpPbmuhfQrBDsfjNjJTk9FJJmQBT6QA==" />
             <button class="btn-octicon tooltipped tooltipped-nw" type="submit"
               aria-label="Edit this file" data-hotkey="e" data-disable-with>
               <svg class="octicon octicon-pencil" height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M11.013 1.427a1.75 1.75 0 012.474 0l1.086 1.086a1.75 1.75 0 010 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 01-.927-.928l.929-3.25a1.75 1.75 0 01.445-.758l8.61-8.61zm1.414 1.06a.25.25 0 00-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 000-.354l-1.086-1.086zM11.189 6.25L9.75 4.81l-6.286 6.287a.25.25 0 00-.064.108l-.558 1.953 1.953-.558a.249.249 0 00.108-.064l6.286-6.286z"></path></svg>
             </button>
 </form>
-          <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="inline-form" action="/Roc0/TheWorld_GD_ClientDll/delete/main/README.md" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="Kch3zovZbjrBsDck1/zoh+HeAfaa+pO+U73gxTXjocGlxEvSNiUw0Bofxv9OdbuiPsIb+vI1f0R6rqCgk/NkNA==" />
+          <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="inline-form" action="/Roc0/TheWorld_GD_ClientDll/delete/main/.gitignore" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="QKJ4zZb81bIhxQGqNI7rgFEhVEmM1f/M14CRapW4N15xo5JT6IWIgnlXqi/NAM+/O/lsjx0pPh/KPv8fkcfdMw==" />
             <button class="btn-octicon btn-octicon-danger tooltipped tooltipped-nw" type="submit"
               aria-label="Delete this file" data-disable-with>
               <svg class="octicon octicon-trashcan" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M6.5 1.75a.25.25 0 01.25-.25h2.5a.25.25 0 01.25.25V3h-3V1.75zm4.5 0V3h2.25a.75.75 0 010 1.5H2.75a.75.75 0 010-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75zM4.496 6.675a.75.75 0 10-1.492.15l.66 6.6A1.75 1.75 0 005.405 15h5.19c.9 0 1.652-.681 1.741-1.576l.66-6.6a.75.75 0 00-1.492-.149l-.66 6.6a.25.25 0 01-.249.225h-5.19a.25.25 0 01-.249-.225l-.66-6.6z"></path></svg>
@@ -1198,9 +1198,1502 @@
 </div>
 
       
-  <div id="readme" class="Box-body readme blob js-code-block-container p-5 p-xl-6 gist-border-0">
-    <article class="markdown-body entry-content container-lg" itemprop="text"><h1><a id="user-content-theworld_gd_clientdll" class="anchor" aria-hidden="true" href="#theworld_gd_clientdll"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>TheWorld_GD_ClientDll</h1>
-</article>
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-ignore-list  gist-border-0">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip>
+      <tr>
+        <td id="L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span># Ignore Visual Studio temporary files, build results, and</span></td>
+      </tr>
+      <tr>
+        <td id="L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="LC2" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span># files generated by popular Visual Studio add-ons.</span></td>
+      </tr>
+      <tr>
+        <td id="L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="LC3" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span>#</span></td>
+      </tr>
+      <tr>
+        <td id="L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="LC4" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span># Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore</span></td>
+      </tr>
+      <tr>
+        <td id="L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="LC5" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="LC6" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> User-specific files</span></td>
+      </tr>
+      <tr>
+        <td id="L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="LC7" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.rsuser</span></td>
+      </tr>
+      <tr>
+        <td id="L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="LC8" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.suo</span></td>
+      </tr>
+      <tr>
+        <td id="L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="LC9" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.user</span></td>
+      </tr>
+      <tr>
+        <td id="L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="LC10" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.userosscache</span></td>
+      </tr>
+      <tr>
+        <td id="L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="LC11" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.sln.docstates</span></td>
+      </tr>
+      <tr>
+        <td id="L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="LC12" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="LC13" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> User-specific files (MonoDevelop/Xamarin Studio)</span></td>
+      </tr>
+      <tr>
+        <td id="L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="LC14" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.userprefs</span></td>
+      </tr>
+      <tr>
+        <td id="L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="LC15" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="LC16" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Mono auto generated files</span></td>
+      </tr>
+      <tr>
+        <td id="L17" class="blob-num js-line-number" data-line-number="17"></td>
+        <td id="LC17" class="blob-code blob-code-inner js-file-line"><span class="pl-e">mono_crash.</span><span class="pl-k">*</span></td>
+      </tr>
+      <tr>
+        <td id="L18" class="blob-num js-line-number" data-line-number="18"></td>
+        <td id="LC18" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L19" class="blob-num js-line-number" data-line-number="19"></td>
+        <td id="LC19" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Build results</span></td>
+      </tr>
+      <tr>
+        <td id="L20" class="blob-num js-line-number" data-line-number="20"></td>
+        <td id="LC20" class="blob-code blob-code-inner js-file-line">[<span class="pl-c1">Dd</span>]<span class="pl-e">ebug</span>/</td>
+      </tr>
+      <tr>
+        <td id="L21" class="blob-num js-line-number" data-line-number="21"></td>
+        <td id="LC21" class="blob-code blob-code-inner js-file-line">[<span class="pl-c1">Dd</span>]<span class="pl-e">ebugPublic</span>/</td>
+      </tr>
+      <tr>
+        <td id="L22" class="blob-num js-line-number" data-line-number="22"></td>
+        <td id="LC22" class="blob-code blob-code-inner js-file-line">[<span class="pl-c1">Rr</span>]<span class="pl-e">elease</span>/</td>
+      </tr>
+      <tr>
+        <td id="L23" class="blob-num js-line-number" data-line-number="23"></td>
+        <td id="LC23" class="blob-code blob-code-inner js-file-line">[<span class="pl-c1">Rr</span>]<span class="pl-e">eleases</span>/</td>
+      </tr>
+      <tr>
+        <td id="L24" class="blob-num js-line-number" data-line-number="24"></td>
+        <td id="LC24" class="blob-code blob-code-inner js-file-line"><span class="pl-e">x64</span>/</td>
+      </tr>
+      <tr>
+        <td id="L25" class="blob-num js-line-number" data-line-number="25"></td>
+        <td id="LC25" class="blob-code blob-code-inner js-file-line"><span class="pl-e">x86</span>/</td>
+      </tr>
+      <tr>
+        <td id="L26" class="blob-num js-line-number" data-line-number="26"></td>
+        <td id="LC26" class="blob-code blob-code-inner js-file-line">[<span class="pl-c1">Aa</span>][<span class="pl-c1">Rr</span>][<span class="pl-c1">Mm</span>]/</td>
+      </tr>
+      <tr>
+        <td id="L27" class="blob-num js-line-number" data-line-number="27"></td>
+        <td id="LC27" class="blob-code blob-code-inner js-file-line">[<span class="pl-c1">Aa</span>][<span class="pl-c1">Rr</span>][<span class="pl-c1">Mm</span>]<span class="pl-e">64</span>/</td>
+      </tr>
+      <tr>
+        <td id="L28" class="blob-num js-line-number" data-line-number="28"></td>
+        <td id="LC28" class="blob-code blob-code-inner js-file-line"><span class="pl-e">bld</span>/</td>
+      </tr>
+      <tr>
+        <td id="L29" class="blob-num js-line-number" data-line-number="29"></td>
+        <td id="LC29" class="blob-code blob-code-inner js-file-line">[<span class="pl-c1">Bb</span>]<span class="pl-e">in</span>/</td>
+      </tr>
+      <tr>
+        <td id="L30" class="blob-num js-line-number" data-line-number="30"></td>
+        <td id="LC30" class="blob-code blob-code-inner js-file-line">[<span class="pl-c1">Oo</span>]<span class="pl-e">bj</span>/</td>
+      </tr>
+      <tr>
+        <td id="L31" class="blob-num js-line-number" data-line-number="31"></td>
+        <td id="LC31" class="blob-code blob-code-inner js-file-line">[<span class="pl-c1">Ll</span>]<span class="pl-e">og</span>/</td>
+      </tr>
+      <tr>
+        <td id="L32" class="blob-num js-line-number" data-line-number="32"></td>
+        <td id="LC32" class="blob-code blob-code-inner js-file-line">[<span class="pl-c1">Ll</span>]<span class="pl-e">ogs</span>/</td>
+      </tr>
+      <tr>
+        <td id="L33" class="blob-num js-line-number" data-line-number="33"></td>
+        <td id="LC33" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L34" class="blob-num js-line-number" data-line-number="34"></td>
+        <td id="LC34" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Visual Studio 2015/2017 cache/options directory</span></td>
+      </tr>
+      <tr>
+        <td id="L35" class="blob-num js-line-number" data-line-number="35"></td>
+        <td id="LC35" class="blob-code blob-code-inner js-file-line"><span class="pl-e">.vs</span>/</td>
+      </tr>
+      <tr>
+        <td id="L36" class="blob-num js-line-number" data-line-number="36"></td>
+        <td id="LC36" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Uncomment if you have tasks that create the project&#39;s static files in wwwroot</span></td>
+      </tr>
+      <tr>
+        <td id="L37" class="blob-num js-line-number" data-line-number="37"></td>
+        <td id="LC37" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span>wwwroot/</span></td>
+      </tr>
+      <tr>
+        <td id="L38" class="blob-num js-line-number" data-line-number="38"></td>
+        <td id="LC38" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L39" class="blob-num js-line-number" data-line-number="39"></td>
+        <td id="LC39" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Visual Studio 2017 auto generated files</span></td>
+      </tr>
+      <tr>
+        <td id="L40" class="blob-num js-line-number" data-line-number="40"></td>
+        <td id="LC40" class="blob-code blob-code-inner js-file-line"><span class="pl-e">Generated</span><span class="pl-cce">\ </span><span class="pl-e">Files</span>/</td>
+      </tr>
+      <tr>
+        <td id="L41" class="blob-num js-line-number" data-line-number="41"></td>
+        <td id="LC41" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L42" class="blob-num js-line-number" data-line-number="42"></td>
+        <td id="LC42" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> MSTest test Results</span></td>
+      </tr>
+      <tr>
+        <td id="L43" class="blob-num js-line-number" data-line-number="43"></td>
+        <td id="LC43" class="blob-code blob-code-inner js-file-line">[<span class="pl-c1">Tt</span>]<span class="pl-e">est</span>[<span class="pl-c1">Rr</span>]<span class="pl-e">esult</span><span class="pl-k">*</span>/</td>
+      </tr>
+      <tr>
+        <td id="L44" class="blob-num js-line-number" data-line-number="44"></td>
+        <td id="LC44" class="blob-code blob-code-inner js-file-line">[<span class="pl-c1">Bb</span>]<span class="pl-e">uild</span>[<span class="pl-c1">Ll</span>]<span class="pl-e">og.</span><span class="pl-k">*</span></td>
+      </tr>
+      <tr>
+        <td id="L45" class="blob-num js-line-number" data-line-number="45"></td>
+        <td id="LC45" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L46" class="blob-num js-line-number" data-line-number="46"></td>
+        <td id="LC46" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> NUnit</span></td>
+      </tr>
+      <tr>
+        <td id="L47" class="blob-num js-line-number" data-line-number="47"></td>
+        <td id="LC47" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.VisualState.xml</span></td>
+      </tr>
+      <tr>
+        <td id="L48" class="blob-num js-line-number" data-line-number="48"></td>
+        <td id="LC48" class="blob-code blob-code-inner js-file-line"><span class="pl-e">TestResult.xml</span></td>
+      </tr>
+      <tr>
+        <td id="L49" class="blob-num js-line-number" data-line-number="49"></td>
+        <td id="LC49" class="blob-code blob-code-inner js-file-line"><span class="pl-e">nunit-</span><span class="pl-k">*</span><span class="pl-e">.xml</span></td>
+      </tr>
+      <tr>
+        <td id="L50" class="blob-num js-line-number" data-line-number="50"></td>
+        <td id="LC50" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L51" class="blob-num js-line-number" data-line-number="51"></td>
+        <td id="LC51" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Build Results of an ATL Project</span></td>
+      </tr>
+      <tr>
+        <td id="L52" class="blob-num js-line-number" data-line-number="52"></td>
+        <td id="LC52" class="blob-code blob-code-inner js-file-line">[<span class="pl-c1">Dd</span>]<span class="pl-e">ebugPS</span>/</td>
+      </tr>
+      <tr>
+        <td id="L53" class="blob-num js-line-number" data-line-number="53"></td>
+        <td id="LC53" class="blob-code blob-code-inner js-file-line">[<span class="pl-c1">Rr</span>]<span class="pl-e">eleasePS</span>/</td>
+      </tr>
+      <tr>
+        <td id="L54" class="blob-num js-line-number" data-line-number="54"></td>
+        <td id="LC54" class="blob-code blob-code-inner js-file-line"><span class="pl-e">dlldata.c</span></td>
+      </tr>
+      <tr>
+        <td id="L55" class="blob-num js-line-number" data-line-number="55"></td>
+        <td id="LC55" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L56" class="blob-num js-line-number" data-line-number="56"></td>
+        <td id="LC56" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Benchmark Results</span></td>
+      </tr>
+      <tr>
+        <td id="L57" class="blob-num js-line-number" data-line-number="57"></td>
+        <td id="LC57" class="blob-code blob-code-inner js-file-line"><span class="pl-e">BenchmarkDotNet.Artifacts</span>/</td>
+      </tr>
+      <tr>
+        <td id="L58" class="blob-num js-line-number" data-line-number="58"></td>
+        <td id="LC58" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L59" class="blob-num js-line-number" data-line-number="59"></td>
+        <td id="LC59" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> .NET Core</span></td>
+      </tr>
+      <tr>
+        <td id="L60" class="blob-num js-line-number" data-line-number="60"></td>
+        <td id="LC60" class="blob-code blob-code-inner js-file-line"><span class="pl-e">project.lock.json</span></td>
+      </tr>
+      <tr>
+        <td id="L61" class="blob-num js-line-number" data-line-number="61"></td>
+        <td id="LC61" class="blob-code blob-code-inner js-file-line"><span class="pl-e">project.fragment.lock.json</span></td>
+      </tr>
+      <tr>
+        <td id="L62" class="blob-num js-line-number" data-line-number="62"></td>
+        <td id="LC62" class="blob-code blob-code-inner js-file-line"><span class="pl-e">artifacts</span>/</td>
+      </tr>
+      <tr>
+        <td id="L63" class="blob-num js-line-number" data-line-number="63"></td>
+        <td id="LC63" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L64" class="blob-num js-line-number" data-line-number="64"></td>
+        <td id="LC64" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> StyleCop</span></td>
+      </tr>
+      <tr>
+        <td id="L65" class="blob-num js-line-number" data-line-number="65"></td>
+        <td id="LC65" class="blob-code blob-code-inner js-file-line"><span class="pl-e">StyleCopReport.xml</span></td>
+      </tr>
+      <tr>
+        <td id="L66" class="blob-num js-line-number" data-line-number="66"></td>
+        <td id="LC66" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L67" class="blob-num js-line-number" data-line-number="67"></td>
+        <td id="LC67" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Files built by Visual Studio</span></td>
+      </tr>
+      <tr>
+        <td id="L68" class="blob-num js-line-number" data-line-number="68"></td>
+        <td id="LC68" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">_i.c</span></td>
+      </tr>
+      <tr>
+        <td id="L69" class="blob-num js-line-number" data-line-number="69"></td>
+        <td id="LC69" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">_p.c</span></td>
+      </tr>
+      <tr>
+        <td id="L70" class="blob-num js-line-number" data-line-number="70"></td>
+        <td id="LC70" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">_h.h</span></td>
+      </tr>
+      <tr>
+        <td id="L71" class="blob-num js-line-number" data-line-number="71"></td>
+        <td id="LC71" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.ilk</span></td>
+      </tr>
+      <tr>
+        <td id="L72" class="blob-num js-line-number" data-line-number="72"></td>
+        <td id="LC72" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.meta</span></td>
+      </tr>
+      <tr>
+        <td id="L73" class="blob-num js-line-number" data-line-number="73"></td>
+        <td id="LC73" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.obj</span></td>
+      </tr>
+      <tr>
+        <td id="L74" class="blob-num js-line-number" data-line-number="74"></td>
+        <td id="LC74" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.iobj</span></td>
+      </tr>
+      <tr>
+        <td id="L75" class="blob-num js-line-number" data-line-number="75"></td>
+        <td id="LC75" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.pch</span></td>
+      </tr>
+      <tr>
+        <td id="L76" class="blob-num js-line-number" data-line-number="76"></td>
+        <td id="LC76" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.pdb</span></td>
+      </tr>
+      <tr>
+        <td id="L77" class="blob-num js-line-number" data-line-number="77"></td>
+        <td id="LC77" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.ipdb</span></td>
+      </tr>
+      <tr>
+        <td id="L78" class="blob-num js-line-number" data-line-number="78"></td>
+        <td id="LC78" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.pgc</span></td>
+      </tr>
+      <tr>
+        <td id="L79" class="blob-num js-line-number" data-line-number="79"></td>
+        <td id="LC79" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.pgd</span></td>
+      </tr>
+      <tr>
+        <td id="L80" class="blob-num js-line-number" data-line-number="80"></td>
+        <td id="LC80" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.rsp</span></td>
+      </tr>
+      <tr>
+        <td id="L81" class="blob-num js-line-number" data-line-number="81"></td>
+        <td id="LC81" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.sbr</span></td>
+      </tr>
+      <tr>
+        <td id="L82" class="blob-num js-line-number" data-line-number="82"></td>
+        <td id="LC82" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.tlb</span></td>
+      </tr>
+      <tr>
+        <td id="L83" class="blob-num js-line-number" data-line-number="83"></td>
+        <td id="LC83" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.tli</span></td>
+      </tr>
+      <tr>
+        <td id="L84" class="blob-num js-line-number" data-line-number="84"></td>
+        <td id="LC84" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.tlh</span></td>
+      </tr>
+      <tr>
+        <td id="L85" class="blob-num js-line-number" data-line-number="85"></td>
+        <td id="LC85" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.tmp</span></td>
+      </tr>
+      <tr>
+        <td id="L86" class="blob-num js-line-number" data-line-number="86"></td>
+        <td id="LC86" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.tmp_proj</span></td>
+      </tr>
+      <tr>
+        <td id="L87" class="blob-num js-line-number" data-line-number="87"></td>
+        <td id="LC87" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">_wpftmp.csproj</span></td>
+      </tr>
+      <tr>
+        <td id="L88" class="blob-num js-line-number" data-line-number="88"></td>
+        <td id="LC88" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.log</span></td>
+      </tr>
+      <tr>
+        <td id="L89" class="blob-num js-line-number" data-line-number="89"></td>
+        <td id="LC89" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.vspscc</span></td>
+      </tr>
+      <tr>
+        <td id="L90" class="blob-num js-line-number" data-line-number="90"></td>
+        <td id="LC90" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.vssscc</span></td>
+      </tr>
+      <tr>
+        <td id="L91" class="blob-num js-line-number" data-line-number="91"></td>
+        <td id="LC91" class="blob-code blob-code-inner js-file-line"><span class="pl-e">.builds</span></td>
+      </tr>
+      <tr>
+        <td id="L92" class="blob-num js-line-number" data-line-number="92"></td>
+        <td id="LC92" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.pidb</span></td>
+      </tr>
+      <tr>
+        <td id="L93" class="blob-num js-line-number" data-line-number="93"></td>
+        <td id="LC93" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.svclog</span></td>
+      </tr>
+      <tr>
+        <td id="L94" class="blob-num js-line-number" data-line-number="94"></td>
+        <td id="LC94" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.scc</span></td>
+      </tr>
+      <tr>
+        <td id="L95" class="blob-num js-line-number" data-line-number="95"></td>
+        <td id="LC95" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L96" class="blob-num js-line-number" data-line-number="96"></td>
+        <td id="LC96" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Chutzpah Test files</span></td>
+      </tr>
+      <tr>
+        <td id="L97" class="blob-num js-line-number" data-line-number="97"></td>
+        <td id="LC97" class="blob-code blob-code-inner js-file-line"><span class="pl-e">_Chutzpah</span><span class="pl-k">*</span></td>
+      </tr>
+      <tr>
+        <td id="L98" class="blob-num js-line-number" data-line-number="98"></td>
+        <td id="LC98" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L99" class="blob-num js-line-number" data-line-number="99"></td>
+        <td id="LC99" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Visual C++ cache files</span></td>
+      </tr>
+      <tr>
+        <td id="L100" class="blob-num js-line-number" data-line-number="100"></td>
+        <td id="LC100" class="blob-code blob-code-inner js-file-line"><span class="pl-e">ipch</span>/</td>
+      </tr>
+      <tr>
+        <td id="L101" class="blob-num js-line-number" data-line-number="101"></td>
+        <td id="LC101" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.aps</span></td>
+      </tr>
+      <tr>
+        <td id="L102" class="blob-num js-line-number" data-line-number="102"></td>
+        <td id="LC102" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.ncb</span></td>
+      </tr>
+      <tr>
+        <td id="L103" class="blob-num js-line-number" data-line-number="103"></td>
+        <td id="LC103" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.opendb</span></td>
+      </tr>
+      <tr>
+        <td id="L104" class="blob-num js-line-number" data-line-number="104"></td>
+        <td id="LC104" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.opensdf</span></td>
+      </tr>
+      <tr>
+        <td id="L105" class="blob-num js-line-number" data-line-number="105"></td>
+        <td id="LC105" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.sdf</span></td>
+      </tr>
+      <tr>
+        <td id="L106" class="blob-num js-line-number" data-line-number="106"></td>
+        <td id="LC106" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.cachefile</span></td>
+      </tr>
+      <tr>
+        <td id="L107" class="blob-num js-line-number" data-line-number="107"></td>
+        <td id="LC107" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.VC.db</span></td>
+      </tr>
+      <tr>
+        <td id="L108" class="blob-num js-line-number" data-line-number="108"></td>
+        <td id="LC108" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.VC.VC.opendb</span></td>
+      </tr>
+      <tr>
+        <td id="L109" class="blob-num js-line-number" data-line-number="109"></td>
+        <td id="LC109" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L110" class="blob-num js-line-number" data-line-number="110"></td>
+        <td id="LC110" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Visual Studio profiler</span></td>
+      </tr>
+      <tr>
+        <td id="L111" class="blob-num js-line-number" data-line-number="111"></td>
+        <td id="LC111" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.psess</span></td>
+      </tr>
+      <tr>
+        <td id="L112" class="blob-num js-line-number" data-line-number="112"></td>
+        <td id="LC112" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.vsp</span></td>
+      </tr>
+      <tr>
+        <td id="L113" class="blob-num js-line-number" data-line-number="113"></td>
+        <td id="LC113" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.vspx</span></td>
+      </tr>
+      <tr>
+        <td id="L114" class="blob-num js-line-number" data-line-number="114"></td>
+        <td id="LC114" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.sap</span></td>
+      </tr>
+      <tr>
+        <td id="L115" class="blob-num js-line-number" data-line-number="115"></td>
+        <td id="LC115" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L116" class="blob-num js-line-number" data-line-number="116"></td>
+        <td id="LC116" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Visual Studio Trace Files</span></td>
+      </tr>
+      <tr>
+        <td id="L117" class="blob-num js-line-number" data-line-number="117"></td>
+        <td id="LC117" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.e2e</span></td>
+      </tr>
+      <tr>
+        <td id="L118" class="blob-num js-line-number" data-line-number="118"></td>
+        <td id="LC118" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L119" class="blob-num js-line-number" data-line-number="119"></td>
+        <td id="LC119" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> TFS 2012 Local Workspace</span></td>
+      </tr>
+      <tr>
+        <td id="L120" class="blob-num js-line-number" data-line-number="120"></td>
+        <td id="LC120" class="blob-code blob-code-inner js-file-line"><span class="pl-e">$tf</span>/</td>
+      </tr>
+      <tr>
+        <td id="L121" class="blob-num js-line-number" data-line-number="121"></td>
+        <td id="LC121" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L122" class="blob-num js-line-number" data-line-number="122"></td>
+        <td id="LC122" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Guidance Automation Toolkit</span></td>
+      </tr>
+      <tr>
+        <td id="L123" class="blob-num js-line-number" data-line-number="123"></td>
+        <td id="LC123" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.gpState</span></td>
+      </tr>
+      <tr>
+        <td id="L124" class="blob-num js-line-number" data-line-number="124"></td>
+        <td id="LC124" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L125" class="blob-num js-line-number" data-line-number="125"></td>
+        <td id="LC125" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> ReSharper is a .NET coding add-in</span></td>
+      </tr>
+      <tr>
+        <td id="L126" class="blob-num js-line-number" data-line-number="126"></td>
+        <td id="LC126" class="blob-code blob-code-inner js-file-line"><span class="pl-e">_ReSharper</span><span class="pl-k">*</span>/</td>
+      </tr>
+      <tr>
+        <td id="L127" class="blob-num js-line-number" data-line-number="127"></td>
+        <td id="LC127" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.</span>[<span class="pl-c1">Rr</span>]<span class="pl-e">e</span>[<span class="pl-c1">Ss</span>]<span class="pl-e">harper</span></td>
+      </tr>
+      <tr>
+        <td id="L128" class="blob-num js-line-number" data-line-number="128"></td>
+        <td id="LC128" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.DotSettings.user</span></td>
+      </tr>
+      <tr>
+        <td id="L129" class="blob-num js-line-number" data-line-number="129"></td>
+        <td id="LC129" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L130" class="blob-num js-line-number" data-line-number="130"></td>
+        <td id="LC130" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> TeamCity is a build add-in</span></td>
+      </tr>
+      <tr>
+        <td id="L131" class="blob-num js-line-number" data-line-number="131"></td>
+        <td id="LC131" class="blob-code blob-code-inner js-file-line"><span class="pl-e">_TeamCity</span><span class="pl-k">*</span></td>
+      </tr>
+      <tr>
+        <td id="L132" class="blob-num js-line-number" data-line-number="132"></td>
+        <td id="LC132" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L133" class="blob-num js-line-number" data-line-number="133"></td>
+        <td id="LC133" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> DotCover is a Code Coverage Tool</span></td>
+      </tr>
+      <tr>
+        <td id="L134" class="blob-num js-line-number" data-line-number="134"></td>
+        <td id="LC134" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.dotCover</span></td>
+      </tr>
+      <tr>
+        <td id="L135" class="blob-num js-line-number" data-line-number="135"></td>
+        <td id="LC135" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L136" class="blob-num js-line-number" data-line-number="136"></td>
+        <td id="LC136" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> AxoCover is a Code Coverage Tool</span></td>
+      </tr>
+      <tr>
+        <td id="L137" class="blob-num js-line-number" data-line-number="137"></td>
+        <td id="LC137" class="blob-code blob-code-inner js-file-line"><span class="pl-e">.axoCover</span>/<span class="pl-k">*</span></td>
+      </tr>
+      <tr>
+        <td id="L138" class="blob-num js-line-number" data-line-number="138"></td>
+        <td id="LC138" class="blob-code blob-code-inner js-file-line"><span class="pl-k">!</span><span class="pl-e">.axoCover</span>/<span class="pl-e">settings.json</span></td>
+      </tr>
+      <tr>
+        <td id="L139" class="blob-num js-line-number" data-line-number="139"></td>
+        <td id="LC139" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L140" class="blob-num js-line-number" data-line-number="140"></td>
+        <td id="LC140" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Visual Studio code coverage results</span></td>
+      </tr>
+      <tr>
+        <td id="L141" class="blob-num js-line-number" data-line-number="141"></td>
+        <td id="LC141" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.coverage</span></td>
+      </tr>
+      <tr>
+        <td id="L142" class="blob-num js-line-number" data-line-number="142"></td>
+        <td id="LC142" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.coveragexml</span></td>
+      </tr>
+      <tr>
+        <td id="L143" class="blob-num js-line-number" data-line-number="143"></td>
+        <td id="LC143" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L144" class="blob-num js-line-number" data-line-number="144"></td>
+        <td id="LC144" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> NCrunch</span></td>
+      </tr>
+      <tr>
+        <td id="L145" class="blob-num js-line-number" data-line-number="145"></td>
+        <td id="LC145" class="blob-code blob-code-inner js-file-line"><span class="pl-e">_NCrunch_</span><span class="pl-k">*</span></td>
+      </tr>
+      <tr>
+        <td id="L146" class="blob-num js-line-number" data-line-number="146"></td>
+        <td id="LC146" class="blob-code blob-code-inner js-file-line"><span class="pl-e">.</span><span class="pl-k">*</span><span class="pl-e">crunch</span><span class="pl-k">*</span><span class="pl-e">.local.xml</span></td>
+      </tr>
+      <tr>
+        <td id="L147" class="blob-num js-line-number" data-line-number="147"></td>
+        <td id="LC147" class="blob-code blob-code-inner js-file-line"><span class="pl-e">nCrunchTemp_</span><span class="pl-k">*</span></td>
+      </tr>
+      <tr>
+        <td id="L148" class="blob-num js-line-number" data-line-number="148"></td>
+        <td id="LC148" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L149" class="blob-num js-line-number" data-line-number="149"></td>
+        <td id="LC149" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> MightyMoose</span></td>
+      </tr>
+      <tr>
+        <td id="L150" class="blob-num js-line-number" data-line-number="150"></td>
+        <td id="LC150" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.mm.</span><span class="pl-k">*</span></td>
+      </tr>
+      <tr>
+        <td id="L151" class="blob-num js-line-number" data-line-number="151"></td>
+        <td id="LC151" class="blob-code blob-code-inner js-file-line"><span class="pl-e">AutoTest.Net</span>/</td>
+      </tr>
+      <tr>
+        <td id="L152" class="blob-num js-line-number" data-line-number="152"></td>
+        <td id="LC152" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L153" class="blob-num js-line-number" data-line-number="153"></td>
+        <td id="LC153" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Web workbench (sass)</span></td>
+      </tr>
+      <tr>
+        <td id="L154" class="blob-num js-line-number" data-line-number="154"></td>
+        <td id="LC154" class="blob-code blob-code-inner js-file-line"><span class="pl-e">.sass-cache</span>/</td>
+      </tr>
+      <tr>
+        <td id="L155" class="blob-num js-line-number" data-line-number="155"></td>
+        <td id="LC155" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L156" class="blob-num js-line-number" data-line-number="156"></td>
+        <td id="LC156" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Installshield output folder</span></td>
+      </tr>
+      <tr>
+        <td id="L157" class="blob-num js-line-number" data-line-number="157"></td>
+        <td id="LC157" class="blob-code blob-code-inner js-file-line">[<span class="pl-c1">Ee</span>]<span class="pl-e">xpress</span>/</td>
+      </tr>
+      <tr>
+        <td id="L158" class="blob-num js-line-number" data-line-number="158"></td>
+        <td id="LC158" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L159" class="blob-num js-line-number" data-line-number="159"></td>
+        <td id="LC159" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> DocProject is a documentation generator add-in</span></td>
+      </tr>
+      <tr>
+        <td id="L160" class="blob-num js-line-number" data-line-number="160"></td>
+        <td id="LC160" class="blob-code blob-code-inner js-file-line"><span class="pl-e">DocProject</span>/<span class="pl-e">buildhelp</span>/</td>
+      </tr>
+      <tr>
+        <td id="L161" class="blob-num js-line-number" data-line-number="161"></td>
+        <td id="LC161" class="blob-code blob-code-inner js-file-line"><span class="pl-e">DocProject</span>/<span class="pl-e">Help</span>/<span class="pl-k">*</span><span class="pl-e">.HxT</span></td>
+      </tr>
+      <tr>
+        <td id="L162" class="blob-num js-line-number" data-line-number="162"></td>
+        <td id="LC162" class="blob-code blob-code-inner js-file-line"><span class="pl-e">DocProject</span>/<span class="pl-e">Help</span>/<span class="pl-k">*</span><span class="pl-e">.HxC</span></td>
+      </tr>
+      <tr>
+        <td id="L163" class="blob-num js-line-number" data-line-number="163"></td>
+        <td id="LC163" class="blob-code blob-code-inner js-file-line"><span class="pl-e">DocProject</span>/<span class="pl-e">Help</span>/<span class="pl-k">*</span><span class="pl-e">.hhc</span></td>
+      </tr>
+      <tr>
+        <td id="L164" class="blob-num js-line-number" data-line-number="164"></td>
+        <td id="LC164" class="blob-code blob-code-inner js-file-line"><span class="pl-e">DocProject</span>/<span class="pl-e">Help</span>/<span class="pl-k">*</span><span class="pl-e">.hhk</span></td>
+      </tr>
+      <tr>
+        <td id="L165" class="blob-num js-line-number" data-line-number="165"></td>
+        <td id="LC165" class="blob-code blob-code-inner js-file-line"><span class="pl-e">DocProject</span>/<span class="pl-e">Help</span>/<span class="pl-k">*</span><span class="pl-e">.hhp</span></td>
+      </tr>
+      <tr>
+        <td id="L166" class="blob-num js-line-number" data-line-number="166"></td>
+        <td id="LC166" class="blob-code blob-code-inner js-file-line"><span class="pl-e">DocProject</span>/<span class="pl-e">Help</span>/<span class="pl-e">Html2</span></td>
+      </tr>
+      <tr>
+        <td id="L167" class="blob-num js-line-number" data-line-number="167"></td>
+        <td id="LC167" class="blob-code blob-code-inner js-file-line"><span class="pl-e">DocProject</span>/<span class="pl-e">Help</span>/<span class="pl-e">html</span></td>
+      </tr>
+      <tr>
+        <td id="L168" class="blob-num js-line-number" data-line-number="168"></td>
+        <td id="LC168" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L169" class="blob-num js-line-number" data-line-number="169"></td>
+        <td id="LC169" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Click-Once directory</span></td>
+      </tr>
+      <tr>
+        <td id="L170" class="blob-num js-line-number" data-line-number="170"></td>
+        <td id="LC170" class="blob-code blob-code-inner js-file-line"><span class="pl-e">publish</span>/</td>
+      </tr>
+      <tr>
+        <td id="L171" class="blob-num js-line-number" data-line-number="171"></td>
+        <td id="LC171" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L172" class="blob-num js-line-number" data-line-number="172"></td>
+        <td id="LC172" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Publish Web Output</span></td>
+      </tr>
+      <tr>
+        <td id="L173" class="blob-num js-line-number" data-line-number="173"></td>
+        <td id="LC173" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.</span>[<span class="pl-c1">Pp</span>]<span class="pl-e">ublish.xml</span></td>
+      </tr>
+      <tr>
+        <td id="L174" class="blob-num js-line-number" data-line-number="174"></td>
+        <td id="LC174" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.azurePubxml</span></td>
+      </tr>
+      <tr>
+        <td id="L175" class="blob-num js-line-number" data-line-number="175"></td>
+        <td id="LC175" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Note: Comment the next line if you want to checkin your web deploy settings,</span></td>
+      </tr>
+      <tr>
+        <td id="L176" class="blob-num js-line-number" data-line-number="176"></td>
+        <td id="LC176" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> but database connection strings (with potential passwords) will be unencrypted</span></td>
+      </tr>
+      <tr>
+        <td id="L177" class="blob-num js-line-number" data-line-number="177"></td>
+        <td id="LC177" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.pubxml</span></td>
+      </tr>
+      <tr>
+        <td id="L178" class="blob-num js-line-number" data-line-number="178"></td>
+        <td id="LC178" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.publishproj</span></td>
+      </tr>
+      <tr>
+        <td id="L179" class="blob-num js-line-number" data-line-number="179"></td>
+        <td id="LC179" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L180" class="blob-num js-line-number" data-line-number="180"></td>
+        <td id="LC180" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Microsoft Azure Web App publish settings. Comment the next line if you want to</span></td>
+      </tr>
+      <tr>
+        <td id="L181" class="blob-num js-line-number" data-line-number="181"></td>
+        <td id="LC181" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> checkin your Azure Web App publish settings, but sensitive information contained</span></td>
+      </tr>
+      <tr>
+        <td id="L182" class="blob-num js-line-number" data-line-number="182"></td>
+        <td id="LC182" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> in these scripts will be unencrypted</span></td>
+      </tr>
+      <tr>
+        <td id="L183" class="blob-num js-line-number" data-line-number="183"></td>
+        <td id="LC183" class="blob-code blob-code-inner js-file-line"><span class="pl-e">PublishScripts</span>/</td>
+      </tr>
+      <tr>
+        <td id="L184" class="blob-num js-line-number" data-line-number="184"></td>
+        <td id="LC184" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L185" class="blob-num js-line-number" data-line-number="185"></td>
+        <td id="LC185" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> NuGet Packages</span></td>
+      </tr>
+      <tr>
+        <td id="L186" class="blob-num js-line-number" data-line-number="186"></td>
+        <td id="LC186" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.nupkg</span></td>
+      </tr>
+      <tr>
+        <td id="L187" class="blob-num js-line-number" data-line-number="187"></td>
+        <td id="LC187" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> NuGet Symbol Packages</span></td>
+      </tr>
+      <tr>
+        <td id="L188" class="blob-num js-line-number" data-line-number="188"></td>
+        <td id="LC188" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.snupkg</span></td>
+      </tr>
+      <tr>
+        <td id="L189" class="blob-num js-line-number" data-line-number="189"></td>
+        <td id="LC189" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> The packages folder can be ignored because of Package Restore</span></td>
+      </tr>
+      <tr>
+        <td id="L190" class="blob-num js-line-number" data-line-number="190"></td>
+        <td id="LC190" class="blob-code blob-code-inner js-file-line"><span class="pl-k">**</span>/[<span class="pl-c1">Pp</span>]<span class="pl-e">ackages</span>/<span class="pl-k">*</span></td>
+      </tr>
+      <tr>
+        <td id="L191" class="blob-num js-line-number" data-line-number="191"></td>
+        <td id="LC191" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> except build/, which is used as an MSBuild target.</span></td>
+      </tr>
+      <tr>
+        <td id="L192" class="blob-num js-line-number" data-line-number="192"></td>
+        <td id="LC192" class="blob-code blob-code-inner js-file-line"><span class="pl-k">!</span><span class="pl-k">**</span>/[<span class="pl-c1">Pp</span>]<span class="pl-e">ackages</span>/<span class="pl-e">build</span>/</td>
+      </tr>
+      <tr>
+        <td id="L193" class="blob-num js-line-number" data-line-number="193"></td>
+        <td id="LC193" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Uncomment if necessary however generally it will be regenerated when needed</span></td>
+      </tr>
+      <tr>
+        <td id="L194" class="blob-num js-line-number" data-line-number="194"></td>
+        <td id="LC194" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span>!**/[Pp]ackages/repositories.config</span></td>
+      </tr>
+      <tr>
+        <td id="L195" class="blob-num js-line-number" data-line-number="195"></td>
+        <td id="LC195" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> NuGet v3&#39;s project.json files produces more ignorable files</span></td>
+      </tr>
+      <tr>
+        <td id="L196" class="blob-num js-line-number" data-line-number="196"></td>
+        <td id="LC196" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.nuget.props</span></td>
+      </tr>
+      <tr>
+        <td id="L197" class="blob-num js-line-number" data-line-number="197"></td>
+        <td id="LC197" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.nuget.targets</span></td>
+      </tr>
+      <tr>
+        <td id="L198" class="blob-num js-line-number" data-line-number="198"></td>
+        <td id="LC198" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L199" class="blob-num js-line-number" data-line-number="199"></td>
+        <td id="LC199" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Microsoft Azure Build Output</span></td>
+      </tr>
+      <tr>
+        <td id="L200" class="blob-num js-line-number" data-line-number="200"></td>
+        <td id="LC200" class="blob-code blob-code-inner js-file-line"><span class="pl-e">csx</span>/</td>
+      </tr>
+      <tr>
+        <td id="L201" class="blob-num js-line-number" data-line-number="201"></td>
+        <td id="LC201" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.build.csdef</span></td>
+      </tr>
+      <tr>
+        <td id="L202" class="blob-num js-line-number" data-line-number="202"></td>
+        <td id="LC202" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L203" class="blob-num js-line-number" data-line-number="203"></td>
+        <td id="LC203" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Microsoft Azure Emulator</span></td>
+      </tr>
+      <tr>
+        <td id="L204" class="blob-num js-line-number" data-line-number="204"></td>
+        <td id="LC204" class="blob-code blob-code-inner js-file-line"><span class="pl-e">ecf</span>/</td>
+      </tr>
+      <tr>
+        <td id="L205" class="blob-num js-line-number" data-line-number="205"></td>
+        <td id="LC205" class="blob-code blob-code-inner js-file-line"><span class="pl-e">rcf</span>/</td>
+      </tr>
+      <tr>
+        <td id="L206" class="blob-num js-line-number" data-line-number="206"></td>
+        <td id="LC206" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L207" class="blob-num js-line-number" data-line-number="207"></td>
+        <td id="LC207" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Windows Store app package directories and files</span></td>
+      </tr>
+      <tr>
+        <td id="L208" class="blob-num js-line-number" data-line-number="208"></td>
+        <td id="LC208" class="blob-code blob-code-inner js-file-line"><span class="pl-e">AppPackages</span>/</td>
+      </tr>
+      <tr>
+        <td id="L209" class="blob-num js-line-number" data-line-number="209"></td>
+        <td id="LC209" class="blob-code blob-code-inner js-file-line"><span class="pl-e">BundleArtifacts</span>/</td>
+      </tr>
+      <tr>
+        <td id="L210" class="blob-num js-line-number" data-line-number="210"></td>
+        <td id="LC210" class="blob-code blob-code-inner js-file-line"><span class="pl-e">Package.StoreAssociation.xml</span></td>
+      </tr>
+      <tr>
+        <td id="L211" class="blob-num js-line-number" data-line-number="211"></td>
+        <td id="LC211" class="blob-code blob-code-inner js-file-line"><span class="pl-e">_pkginfo.txt</span></td>
+      </tr>
+      <tr>
+        <td id="L212" class="blob-num js-line-number" data-line-number="212"></td>
+        <td id="LC212" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.appx</span></td>
+      </tr>
+      <tr>
+        <td id="L213" class="blob-num js-line-number" data-line-number="213"></td>
+        <td id="LC213" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.appxbundle</span></td>
+      </tr>
+      <tr>
+        <td id="L214" class="blob-num js-line-number" data-line-number="214"></td>
+        <td id="LC214" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.appxupload</span></td>
+      </tr>
+      <tr>
+        <td id="L215" class="blob-num js-line-number" data-line-number="215"></td>
+        <td id="LC215" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L216" class="blob-num js-line-number" data-line-number="216"></td>
+        <td id="LC216" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Visual Studio cache files</span></td>
+      </tr>
+      <tr>
+        <td id="L217" class="blob-num js-line-number" data-line-number="217"></td>
+        <td id="LC217" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> files ending in .cache can be ignored</span></td>
+      </tr>
+      <tr>
+        <td id="L218" class="blob-num js-line-number" data-line-number="218"></td>
+        <td id="LC218" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.</span>[<span class="pl-c1">Cc</span>]<span class="pl-e">ache</span></td>
+      </tr>
+      <tr>
+        <td id="L219" class="blob-num js-line-number" data-line-number="219"></td>
+        <td id="LC219" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> but keep track of directories ending in .cache</span></td>
+      </tr>
+      <tr>
+        <td id="L220" class="blob-num js-line-number" data-line-number="220"></td>
+        <td id="LC220" class="blob-code blob-code-inner js-file-line"><span class="pl-k">!</span><span class="pl-k">?*</span><span class="pl-e">.</span>[<span class="pl-c1">Cc</span>]<span class="pl-e">ache</span>/</td>
+      </tr>
+      <tr>
+        <td id="L221" class="blob-num js-line-number" data-line-number="221"></td>
+        <td id="LC221" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L222" class="blob-num js-line-number" data-line-number="222"></td>
+        <td id="LC222" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Others</span></td>
+      </tr>
+      <tr>
+        <td id="L223" class="blob-num js-line-number" data-line-number="223"></td>
+        <td id="LC223" class="blob-code blob-code-inner js-file-line"><span class="pl-e">ClientBin</span>/</td>
+      </tr>
+      <tr>
+        <td id="L224" class="blob-num js-line-number" data-line-number="224"></td>
+        <td id="LC224" class="blob-code blob-code-inner js-file-line"><span class="pl-e">~$</span><span class="pl-k">*</span></td>
+      </tr>
+      <tr>
+        <td id="L225" class="blob-num js-line-number" data-line-number="225"></td>
+        <td id="LC225" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">~</span></td>
+      </tr>
+      <tr>
+        <td id="L226" class="blob-num js-line-number" data-line-number="226"></td>
+        <td id="LC226" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.dbmdl</span></td>
+      </tr>
+      <tr>
+        <td id="L227" class="blob-num js-line-number" data-line-number="227"></td>
+        <td id="LC227" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.dbproj.schemaview</span></td>
+      </tr>
+      <tr>
+        <td id="L228" class="blob-num js-line-number" data-line-number="228"></td>
+        <td id="LC228" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.jfm</span></td>
+      </tr>
+      <tr>
+        <td id="L229" class="blob-num js-line-number" data-line-number="229"></td>
+        <td id="LC229" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.pfx</span></td>
+      </tr>
+      <tr>
+        <td id="L230" class="blob-num js-line-number" data-line-number="230"></td>
+        <td id="LC230" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.publishsettings</span></td>
+      </tr>
+      <tr>
+        <td id="L231" class="blob-num js-line-number" data-line-number="231"></td>
+        <td id="LC231" class="blob-code blob-code-inner js-file-line"><span class="pl-e">orleans.codegen.cs</span></td>
+      </tr>
+      <tr>
+        <td id="L232" class="blob-num js-line-number" data-line-number="232"></td>
+        <td id="LC232" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L233" class="blob-num js-line-number" data-line-number="233"></td>
+        <td id="LC233" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Including strong name files can present a security risk</span></td>
+      </tr>
+      <tr>
+        <td id="L234" class="blob-num js-line-number" data-line-number="234"></td>
+        <td id="LC234" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> (https://github.com/github/gitignore/pull/2483#issue-259490424)</span></td>
+      </tr>
+      <tr>
+        <td id="L235" class="blob-num js-line-number" data-line-number="235"></td>
+        <td id="LC235" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span>*.snk</span></td>
+      </tr>
+      <tr>
+        <td id="L236" class="blob-num js-line-number" data-line-number="236"></td>
+        <td id="LC236" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L237" class="blob-num js-line-number" data-line-number="237"></td>
+        <td id="LC237" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Since there are multiple workflows, uncomment next line to ignore bower_components</span></td>
+      </tr>
+      <tr>
+        <td id="L238" class="blob-num js-line-number" data-line-number="238"></td>
+        <td id="LC238" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> (https://github.com/github/gitignore/pull/1529#issuecomment-104372622)</span></td>
+      </tr>
+      <tr>
+        <td id="L239" class="blob-num js-line-number" data-line-number="239"></td>
+        <td id="LC239" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span>bower_components/</span></td>
+      </tr>
+      <tr>
+        <td id="L240" class="blob-num js-line-number" data-line-number="240"></td>
+        <td id="LC240" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L241" class="blob-num js-line-number" data-line-number="241"></td>
+        <td id="LC241" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> RIA/Silverlight projects</span></td>
+      </tr>
+      <tr>
+        <td id="L242" class="blob-num js-line-number" data-line-number="242"></td>
+        <td id="LC242" class="blob-code blob-code-inner js-file-line"><span class="pl-e">Generated_Code</span>/</td>
+      </tr>
+      <tr>
+        <td id="L243" class="blob-num js-line-number" data-line-number="243"></td>
+        <td id="LC243" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L244" class="blob-num js-line-number" data-line-number="244"></td>
+        <td id="LC244" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Backup &amp; report files from converting an old project file</span></td>
+      </tr>
+      <tr>
+        <td id="L245" class="blob-num js-line-number" data-line-number="245"></td>
+        <td id="LC245" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> to a newer Visual Studio version. Backup files are not needed,</span></td>
+      </tr>
+      <tr>
+        <td id="L246" class="blob-num js-line-number" data-line-number="246"></td>
+        <td id="LC246" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> because we have git ;-)</span></td>
+      </tr>
+      <tr>
+        <td id="L247" class="blob-num js-line-number" data-line-number="247"></td>
+        <td id="LC247" class="blob-code blob-code-inner js-file-line"><span class="pl-e">_UpgradeReport_Files</span>/</td>
+      </tr>
+      <tr>
+        <td id="L248" class="blob-num js-line-number" data-line-number="248"></td>
+        <td id="LC248" class="blob-code blob-code-inner js-file-line"><span class="pl-e">Backup</span><span class="pl-k">*</span>/</td>
+      </tr>
+      <tr>
+        <td id="L249" class="blob-num js-line-number" data-line-number="249"></td>
+        <td id="LC249" class="blob-code blob-code-inner js-file-line"><span class="pl-e">UpgradeLog</span><span class="pl-k">*</span><span class="pl-e">.XML</span></td>
+      </tr>
+      <tr>
+        <td id="L250" class="blob-num js-line-number" data-line-number="250"></td>
+        <td id="LC250" class="blob-code blob-code-inner js-file-line"><span class="pl-e">UpgradeLog</span><span class="pl-k">*</span><span class="pl-e">.htm</span></td>
+      </tr>
+      <tr>
+        <td id="L251" class="blob-num js-line-number" data-line-number="251"></td>
+        <td id="LC251" class="blob-code blob-code-inner js-file-line"><span class="pl-e">ServiceFabricBackup</span>/</td>
+      </tr>
+      <tr>
+        <td id="L252" class="blob-num js-line-number" data-line-number="252"></td>
+        <td id="LC252" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.rptproj.bak</span></td>
+      </tr>
+      <tr>
+        <td id="L253" class="blob-num js-line-number" data-line-number="253"></td>
+        <td id="LC253" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L254" class="blob-num js-line-number" data-line-number="254"></td>
+        <td id="LC254" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> SQL Server files</span></td>
+      </tr>
+      <tr>
+        <td id="L255" class="blob-num js-line-number" data-line-number="255"></td>
+        <td id="LC255" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.mdf</span></td>
+      </tr>
+      <tr>
+        <td id="L256" class="blob-num js-line-number" data-line-number="256"></td>
+        <td id="LC256" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.ldf</span></td>
+      </tr>
+      <tr>
+        <td id="L257" class="blob-num js-line-number" data-line-number="257"></td>
+        <td id="LC257" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.ndf</span></td>
+      </tr>
+      <tr>
+        <td id="L258" class="blob-num js-line-number" data-line-number="258"></td>
+        <td id="LC258" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L259" class="blob-num js-line-number" data-line-number="259"></td>
+        <td id="LC259" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Business Intelligence projects</span></td>
+      </tr>
+      <tr>
+        <td id="L260" class="blob-num js-line-number" data-line-number="260"></td>
+        <td id="LC260" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.rdl.data</span></td>
+      </tr>
+      <tr>
+        <td id="L261" class="blob-num js-line-number" data-line-number="261"></td>
+        <td id="LC261" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.bim.layout</span></td>
+      </tr>
+      <tr>
+        <td id="L262" class="blob-num js-line-number" data-line-number="262"></td>
+        <td id="LC262" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.bim_</span><span class="pl-k">*</span><span class="pl-e">.settings</span></td>
+      </tr>
+      <tr>
+        <td id="L263" class="blob-num js-line-number" data-line-number="263"></td>
+        <td id="LC263" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.rptproj.rsuser</span></td>
+      </tr>
+      <tr>
+        <td id="L264" class="blob-num js-line-number" data-line-number="264"></td>
+        <td id="LC264" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">-</span> [<span class="pl-c1">Bb</span>]<span class="pl-e">ackup.rdl</span></td>
+      </tr>
+      <tr>
+        <td id="L265" class="blob-num js-line-number" data-line-number="265"></td>
+        <td id="LC265" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">-</span> [<span class="pl-c1">Bb</span>]<span class="pl-e">ackup</span> <span class="pl-e">(</span>[<span class="pl-c1">0-9</span>]<span class="pl-e">).rdl</span></td>
+      </tr>
+      <tr>
+        <td id="L266" class="blob-num js-line-number" data-line-number="266"></td>
+        <td id="LC266" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">-</span> [<span class="pl-c1">Bb</span>]<span class="pl-e">ackup</span> <span class="pl-e">(</span>[<span class="pl-c1">0-9</span>][<span class="pl-c1">0-9</span>]<span class="pl-e">).rdl</span></td>
+      </tr>
+      <tr>
+        <td id="L267" class="blob-num js-line-number" data-line-number="267"></td>
+        <td id="LC267" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L268" class="blob-num js-line-number" data-line-number="268"></td>
+        <td id="LC268" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Microsoft Fakes</span></td>
+      </tr>
+      <tr>
+        <td id="L269" class="blob-num js-line-number" data-line-number="269"></td>
+        <td id="LC269" class="blob-code blob-code-inner js-file-line"><span class="pl-e">FakesAssemblies</span>/</td>
+      </tr>
+      <tr>
+        <td id="L270" class="blob-num js-line-number" data-line-number="270"></td>
+        <td id="LC270" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L271" class="blob-num js-line-number" data-line-number="271"></td>
+        <td id="LC271" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> GhostDoc plugin setting file</span></td>
+      </tr>
+      <tr>
+        <td id="L272" class="blob-num js-line-number" data-line-number="272"></td>
+        <td id="LC272" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.GhostDoc.xml</span></td>
+      </tr>
+      <tr>
+        <td id="L273" class="blob-num js-line-number" data-line-number="273"></td>
+        <td id="LC273" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L274" class="blob-num js-line-number" data-line-number="274"></td>
+        <td id="LC274" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Node.js Tools for Visual Studio</span></td>
+      </tr>
+      <tr>
+        <td id="L275" class="blob-num js-line-number" data-line-number="275"></td>
+        <td id="LC275" class="blob-code blob-code-inner js-file-line"><span class="pl-e">.ntvs_analysis.dat</span></td>
+      </tr>
+      <tr>
+        <td id="L276" class="blob-num js-line-number" data-line-number="276"></td>
+        <td id="LC276" class="blob-code blob-code-inner js-file-line"><span class="pl-e">node_modules</span>/</td>
+      </tr>
+      <tr>
+        <td id="L277" class="blob-num js-line-number" data-line-number="277"></td>
+        <td id="LC277" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L278" class="blob-num js-line-number" data-line-number="278"></td>
+        <td id="LC278" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Visual Studio 6 build log</span></td>
+      </tr>
+      <tr>
+        <td id="L279" class="blob-num js-line-number" data-line-number="279"></td>
+        <td id="LC279" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.plg</span></td>
+      </tr>
+      <tr>
+        <td id="L280" class="blob-num js-line-number" data-line-number="280"></td>
+        <td id="LC280" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L281" class="blob-num js-line-number" data-line-number="281"></td>
+        <td id="LC281" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Visual Studio 6 workspace options file</span></td>
+      </tr>
+      <tr>
+        <td id="L282" class="blob-num js-line-number" data-line-number="282"></td>
+        <td id="LC282" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.opt</span></td>
+      </tr>
+      <tr>
+        <td id="L283" class="blob-num js-line-number" data-line-number="283"></td>
+        <td id="LC283" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L284" class="blob-num js-line-number" data-line-number="284"></td>
+        <td id="LC284" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Visual Studio 6 auto-generated workspace file (contains which files were open etc.)</span></td>
+      </tr>
+      <tr>
+        <td id="L285" class="blob-num js-line-number" data-line-number="285"></td>
+        <td id="LC285" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.vbw</span></td>
+      </tr>
+      <tr>
+        <td id="L286" class="blob-num js-line-number" data-line-number="286"></td>
+        <td id="LC286" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L287" class="blob-num js-line-number" data-line-number="287"></td>
+        <td id="LC287" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Visual Studio LightSwitch build output</span></td>
+      </tr>
+      <tr>
+        <td id="L288" class="blob-num js-line-number" data-line-number="288"></td>
+        <td id="LC288" class="blob-code blob-code-inner js-file-line"><span class="pl-k">**</span>/<span class="pl-k">*</span><span class="pl-e">.HTMLClient</span>/<span class="pl-e">GeneratedArtifacts</span></td>
+      </tr>
+      <tr>
+        <td id="L289" class="blob-num js-line-number" data-line-number="289"></td>
+        <td id="LC289" class="blob-code blob-code-inner js-file-line"><span class="pl-k">**</span>/<span class="pl-k">*</span><span class="pl-e">.DesktopClient</span>/<span class="pl-e">GeneratedArtifacts</span></td>
+      </tr>
+      <tr>
+        <td id="L290" class="blob-num js-line-number" data-line-number="290"></td>
+        <td id="LC290" class="blob-code blob-code-inner js-file-line"><span class="pl-k">**</span>/<span class="pl-k">*</span><span class="pl-e">.DesktopClient</span>/<span class="pl-e">ModelManifest.xml</span></td>
+      </tr>
+      <tr>
+        <td id="L291" class="blob-num js-line-number" data-line-number="291"></td>
+        <td id="LC291" class="blob-code blob-code-inner js-file-line"><span class="pl-k">**</span>/<span class="pl-k">*</span><span class="pl-e">.Server</span>/<span class="pl-e">GeneratedArtifacts</span></td>
+      </tr>
+      <tr>
+        <td id="L292" class="blob-num js-line-number" data-line-number="292"></td>
+        <td id="LC292" class="blob-code blob-code-inner js-file-line"><span class="pl-k">**</span>/<span class="pl-k">*</span><span class="pl-e">.Server</span>/<span class="pl-e">ModelManifest.xml</span></td>
+      </tr>
+      <tr>
+        <td id="L293" class="blob-num js-line-number" data-line-number="293"></td>
+        <td id="LC293" class="blob-code blob-code-inner js-file-line"><span class="pl-e">_Pvt_Extensions</span></td>
+      </tr>
+      <tr>
+        <td id="L294" class="blob-num js-line-number" data-line-number="294"></td>
+        <td id="LC294" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L295" class="blob-num js-line-number" data-line-number="295"></td>
+        <td id="LC295" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Paket dependency manager</span></td>
+      </tr>
+      <tr>
+        <td id="L296" class="blob-num js-line-number" data-line-number="296"></td>
+        <td id="LC296" class="blob-code blob-code-inner js-file-line"><span class="pl-e">.paket</span>/<span class="pl-e">paket.exe</span></td>
+      </tr>
+      <tr>
+        <td id="L297" class="blob-num js-line-number" data-line-number="297"></td>
+        <td id="LC297" class="blob-code blob-code-inner js-file-line"><span class="pl-e">paket-files</span>/</td>
+      </tr>
+      <tr>
+        <td id="L298" class="blob-num js-line-number" data-line-number="298"></td>
+        <td id="LC298" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L299" class="blob-num js-line-number" data-line-number="299"></td>
+        <td id="LC299" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> FAKE - F# Make</span></td>
+      </tr>
+      <tr>
+        <td id="L300" class="blob-num js-line-number" data-line-number="300"></td>
+        <td id="LC300" class="blob-code blob-code-inner js-file-line"><span class="pl-e">.fake</span>/</td>
+      </tr>
+      <tr>
+        <td id="L301" class="blob-num js-line-number" data-line-number="301"></td>
+        <td id="LC301" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L302" class="blob-num js-line-number" data-line-number="302"></td>
+        <td id="LC302" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> CodeRush personal settings</span></td>
+      </tr>
+      <tr>
+        <td id="L303" class="blob-num js-line-number" data-line-number="303"></td>
+        <td id="LC303" class="blob-code blob-code-inner js-file-line"><span class="pl-e">.cr</span>/<span class="pl-e">personal</span></td>
+      </tr>
+      <tr>
+        <td id="L304" class="blob-num js-line-number" data-line-number="304"></td>
+        <td id="LC304" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L305" class="blob-num js-line-number" data-line-number="305"></td>
+        <td id="LC305" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Python Tools for Visual Studio (PTVS)</span></td>
+      </tr>
+      <tr>
+        <td id="L306" class="blob-num js-line-number" data-line-number="306"></td>
+        <td id="LC306" class="blob-code blob-code-inner js-file-line"><span class="pl-e">__pycache__</span>/</td>
+      </tr>
+      <tr>
+        <td id="L307" class="blob-num js-line-number" data-line-number="307"></td>
+        <td id="LC307" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.pyc</span></td>
+      </tr>
+      <tr>
+        <td id="L308" class="blob-num js-line-number" data-line-number="308"></td>
+        <td id="LC308" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L309" class="blob-num js-line-number" data-line-number="309"></td>
+        <td id="LC309" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Cake - Uncomment if you are using it</span></td>
+      </tr>
+      <tr>
+        <td id="L310" class="blob-num js-line-number" data-line-number="310"></td>
+        <td id="LC310" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> tools/**</span></td>
+      </tr>
+      <tr>
+        <td id="L311" class="blob-num js-line-number" data-line-number="311"></td>
+        <td id="LC311" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> !tools/packages.config</span></td>
+      </tr>
+      <tr>
+        <td id="L312" class="blob-num js-line-number" data-line-number="312"></td>
+        <td id="LC312" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L313" class="blob-num js-line-number" data-line-number="313"></td>
+        <td id="LC313" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Tabs Studio</span></td>
+      </tr>
+      <tr>
+        <td id="L314" class="blob-num js-line-number" data-line-number="314"></td>
+        <td id="LC314" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.tss</span></td>
+      </tr>
+      <tr>
+        <td id="L315" class="blob-num js-line-number" data-line-number="315"></td>
+        <td id="LC315" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L316" class="blob-num js-line-number" data-line-number="316"></td>
+        <td id="LC316" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Telerik&#39;s JustMock configuration file</span></td>
+      </tr>
+      <tr>
+        <td id="L317" class="blob-num js-line-number" data-line-number="317"></td>
+        <td id="LC317" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.jmconfig</span></td>
+      </tr>
+      <tr>
+        <td id="L318" class="blob-num js-line-number" data-line-number="318"></td>
+        <td id="LC318" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L319" class="blob-num js-line-number" data-line-number="319"></td>
+        <td id="LC319" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> BizTalk build output</span></td>
+      </tr>
+      <tr>
+        <td id="L320" class="blob-num js-line-number" data-line-number="320"></td>
+        <td id="LC320" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.btp.cs</span></td>
+      </tr>
+      <tr>
+        <td id="L321" class="blob-num js-line-number" data-line-number="321"></td>
+        <td id="LC321" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.btm.cs</span></td>
+      </tr>
+      <tr>
+        <td id="L322" class="blob-num js-line-number" data-line-number="322"></td>
+        <td id="LC322" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.odx.cs</span></td>
+      </tr>
+      <tr>
+        <td id="L323" class="blob-num js-line-number" data-line-number="323"></td>
+        <td id="LC323" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.xsd.cs</span></td>
+      </tr>
+      <tr>
+        <td id="L324" class="blob-num js-line-number" data-line-number="324"></td>
+        <td id="LC324" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L325" class="blob-num js-line-number" data-line-number="325"></td>
+        <td id="LC325" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> OpenCover UI analysis results</span></td>
+      </tr>
+      <tr>
+        <td id="L326" class="blob-num js-line-number" data-line-number="326"></td>
+        <td id="LC326" class="blob-code blob-code-inner js-file-line"><span class="pl-e">OpenCover</span>/</td>
+      </tr>
+      <tr>
+        <td id="L327" class="blob-num js-line-number" data-line-number="327"></td>
+        <td id="LC327" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L328" class="blob-num js-line-number" data-line-number="328"></td>
+        <td id="LC328" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Azure Stream Analytics local run output</span></td>
+      </tr>
+      <tr>
+        <td id="L329" class="blob-num js-line-number" data-line-number="329"></td>
+        <td id="LC329" class="blob-code blob-code-inner js-file-line"><span class="pl-e">ASALocalRun</span>/</td>
+      </tr>
+      <tr>
+        <td id="L330" class="blob-num js-line-number" data-line-number="330"></td>
+        <td id="LC330" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L331" class="blob-num js-line-number" data-line-number="331"></td>
+        <td id="LC331" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> MSBuild Binary and Structured Log</span></td>
+      </tr>
+      <tr>
+        <td id="L332" class="blob-num js-line-number" data-line-number="332"></td>
+        <td id="LC332" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.binlog</span></td>
+      </tr>
+      <tr>
+        <td id="L333" class="blob-num js-line-number" data-line-number="333"></td>
+        <td id="LC333" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L334" class="blob-num js-line-number" data-line-number="334"></td>
+        <td id="LC334" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> NVidia Nsight GPU debugger configuration file</span></td>
+      </tr>
+      <tr>
+        <td id="L335" class="blob-num js-line-number" data-line-number="335"></td>
+        <td id="LC335" class="blob-code blob-code-inner js-file-line"><span class="pl-k">*</span><span class="pl-e">.nvuser</span></td>
+      </tr>
+      <tr>
+        <td id="L336" class="blob-num js-line-number" data-line-number="336"></td>
+        <td id="LC336" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L337" class="blob-num js-line-number" data-line-number="337"></td>
+        <td id="LC337" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> MFractors (Xamarin productivity tool) working folder</span></td>
+      </tr>
+      <tr>
+        <td id="L338" class="blob-num js-line-number" data-line-number="338"></td>
+        <td id="LC338" class="blob-code blob-code-inner js-file-line"><span class="pl-e">.mfractor</span>/</td>
+      </tr>
+      <tr>
+        <td id="L339" class="blob-num js-line-number" data-line-number="339"></td>
+        <td id="LC339" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L340" class="blob-num js-line-number" data-line-number="340"></td>
+        <td id="LC340" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Local History for Visual Studio</span></td>
+      </tr>
+      <tr>
+        <td id="L341" class="blob-num js-line-number" data-line-number="341"></td>
+        <td id="LC341" class="blob-code blob-code-inner js-file-line"><span class="pl-e">.localhistory</span>/</td>
+      </tr>
+      <tr>
+        <td id="L342" class="blob-num js-line-number" data-line-number="342"></td>
+        <td id="LC342" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L343" class="blob-num js-line-number" data-line-number="343"></td>
+        <td id="LC343" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> BeatPulse healthcheck temp database</span></td>
+      </tr>
+      <tr>
+        <td id="L344" class="blob-num js-line-number" data-line-number="344"></td>
+        <td id="LC344" class="blob-code blob-code-inner js-file-line"><span class="pl-e">healthchecksdb</span></td>
+      </tr>
+      <tr>
+        <td id="L345" class="blob-num js-line-number" data-line-number="345"></td>
+        <td id="LC345" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L346" class="blob-num js-line-number" data-line-number="346"></td>
+        <td id="LC346" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Backup folder for Package Reference Convert tool in Visual Studio 2017</span></td>
+      </tr>
+      <tr>
+        <td id="L347" class="blob-num js-line-number" data-line-number="347"></td>
+        <td id="LC347" class="blob-code blob-code-inner js-file-line"><span class="pl-e">MigrationBackup</span>/</td>
+      </tr>
+      <tr>
+        <td id="L348" class="blob-num js-line-number" data-line-number="348"></td>
+        <td id="LC348" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="L349" class="blob-num js-line-number" data-line-number="349"></td>
+        <td id="LC349" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Ionide (cross platform F# VS Code tools) working folder</span></td>
+      </tr>
+      <tr>
+        <td id="L350" class="blob-num js-line-number" data-line-number="350"></td>
+        <td id="LC350" class="blob-code blob-code-inner js-file-line"><span class="pl-e">.ionide</span>/</td>
+      </tr>
+</table>
+
+  <details class="details-reset details-overlay BlobToolbar position-absolute js-file-line-actions dropdown d-none" aria-hidden="true">
+    <summary class="btn-octicon ml-0 px-2 p-0 bg-white border border-gray-dark rounded-1" aria-label="Inline file action toolbar">
+      <svg class="octicon octicon-kebab-horizontal" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 9a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM1.5 9a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm13 0a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path></svg>
+    </summary>
+    <details-menu>
+      <ul class="BlobToolbar-dropdown dropdown-menu dropdown-menu-se mt-2" style="width:185px">
+        <li>
+          <clipboard-copy role="menuitem" class="dropdown-item" id="js-copy-lines" style="cursor:pointer;">
+            Copy lines
+          </clipboard-copy>
+        </li>
+        <li>
+          <clipboard-copy role="menuitem" class="dropdown-item" id="js-copy-permalink" style="cursor:pointer;">
+            Copy permalink
+          </clipboard-copy>
+        </li>
+        <li><a class="dropdown-item js-update-url-with-hash" id="js-view-git-blame" role="menuitem" href="/Roc0/TheWorld_GD_ClientDll/blame/9683cd96c21560a81ebbdc30eef0d303195d9dfc/.gitignore">View git blame</a></li>
+          <li><a class="dropdown-item" id="js-new-issue" role="menuitem" href="/Roc0/TheWorld_GD_ClientDll/issues/new">Reference in new issue</a></li>
+      </ul>
+    </details-menu>
+  </details>
+
   </div>
 
     </div>
