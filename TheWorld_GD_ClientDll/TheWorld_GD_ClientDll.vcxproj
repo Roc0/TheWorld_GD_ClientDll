@@ -123,17 +123,17 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;THEWORLDGDNATIVE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;THEWORLDGDNATIVE_EXPORTS;_WINDOWS;_USRDLL;HAVE_SNPRINTF;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\godot-cpp\include\gen;..\godot-cpp\include\core;..\godot-cpp\include;..\godot-cpp\godot_headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\godot-cpp\include\gen;..\godot-cpp\include\core;..\godot-cpp\include;..\godot-cpp\godot_headers;..\..\TheWorld_ClientDll;..\..\..\KBEngine\kbengine\kbe\src\lib;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies/fmt/include;..\..\..\KBEngine\kbengine\kbe\src\lib\python\PC;..\..\..\KBEngine\kbengine\kbe\src\lib\python\Include;..\..\..\KBEngine\kbengine\kbe\src\lib\dependencies\g3dlite;..\..\..\KBEngine\kbengine\kbe\src\server;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies/log4cxx/src/main/include;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies/vsopenssl/include;..\..\boost_1_74_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalLibraryDirectories>..\godot-cpp\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\godot-cpp\bin;..\..\boost_1_74_0\lib64-msvc-14.2;..\..\..\KBEngine\kbengine\kbe\src\libs;..\..\..\KBEngine\kbengine\kbe\res\scripts\common\DLLs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libgodot-cpp.windows.debug.64.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -143,11 +143,11 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;THEWORLDGDNATIVE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;THEWORLDGDNATIVE_EXPORTS;_WINDOWS;_USRDLL;HAVE_SNPRINTF;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\godot-cpp\include\gen;..\godot-cpp\include\core;..\godot-cpp\include;..\godot-cpp\godot_headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\godot-cpp\include\gen;..\godot-cpp\include\core;..\godot-cpp\include;..\godot-cpp\godot_headers;..\..\TheWorld_ClientDll;..\..\..\KBEngine\kbengine\kbe\src\lib;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies/fmt/include;..\..\..\KBEngine\kbengine\kbe\src\lib\python\PC;..\..\..\KBEngine\kbengine\kbe\src\lib\python\Include;..\..\..\KBEngine\kbengine\kbe\src\lib\dependencies\g3dlite;..\..\..\KBEngine\kbengine\kbe\src\server;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies/log4cxx/src/main/include;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies/vsopenssl/include;..\..\boost_1_74_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -155,7 +155,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalLibraryDirectories>..\godot-cpp\bin</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\godot-cpp\bin;..\..\boost_1_74_0\lib64-msvc-14.2;..\..\..\KBEngine\kbengine\kbe\src\libs;..\..\..\KBEngine\kbengine\kbe\res\scripts\common\DLLs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libgodot-cpp.windows.release.64.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
