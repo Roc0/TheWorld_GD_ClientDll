@@ -31,3 +31,8 @@ void TheWorld_GD_ClientApp::_process(float _delta)
 {
 	//Godot::print("TheWorld_GD_ClientApp::_process");
 }
+
+void TheWorld_GD_ClientApp::setAppMode(int r, bool bForce)
+{
+	TheWorld_ClientApp::setAppMode((TheWorld_ClientApp::_AppMode)r, bForce);
+}

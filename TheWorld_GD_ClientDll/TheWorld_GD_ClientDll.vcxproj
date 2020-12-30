@@ -128,13 +128,14 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>..\godot-cpp\include\gen;..\godot-cpp\include\core;..\godot-cpp\include;..\godot-cpp\godot_headers;..\..\TheWorld_ClientDll;..\..\..\KBEngine\kbengine\kbe\src\lib;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies/fmt/include;..\..\..\KBEngine\kbengine\kbe\src\lib\python\PC;..\..\..\KBEngine\kbengine\kbe\src\lib\python\Include;..\..\..\KBEngine\kbengine\kbe\src\lib\dependencies\g3dlite;..\..\..\KBEngine\kbengine\kbe\src\server;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies/log4cxx/src/main/include;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies/vsopenssl/include;..\..\boost_1_74_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalLibraryDirectories>..\godot-cpp\bin;..\..\boost_1_74_0\lib64-msvc-14.2;..\..\..\KBEngine\kbengine\kbe\src\libs;..\..\..\KBEngine\kbengine\kbe\res\scripts\common\DLLs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libgodot-cpp.windows.debug.64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\godot-cpp\bin;..\..\boost_1_74_0\lib64-msvc-14.2;..\..\..\KBEngine\kbengine\kbe\src\libs;..\..\..\KBEngine\kbengine\kbe\res\scripts\common\DLLs;..\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libgodot-cpp.windows.debug.64.lib;msvcrtd.lib;TheWorld_ClientDll_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -155,8 +156,8 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalLibraryDirectories>..\godot-cpp\bin;..\..\boost_1_74_0\lib64-msvc-14.2;..\..\..\KBEngine\kbengine\kbe\src\libs;..\..\..\KBEngine\kbengine\kbe\res\scripts\common\DLLs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libgodot-cpp.windows.release.64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\godot-cpp\bin;..\..\boost_1_74_0\lib64-msvc-14.2;..\..\..\KBEngine\kbengine\kbe\src\libs;..\..\..\KBEngine\kbengine\kbe\res\scripts\common\DLLs;..\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libgodot-cpp.windows.release.64.lib;TheWorld_ClientDll.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

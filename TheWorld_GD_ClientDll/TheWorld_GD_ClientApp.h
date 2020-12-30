@@ -4,11 +4,47 @@
 #include <Godot.hpp>
 #include <Sprite.hpp>
 
-//#include <TheWorld_ClientApp.h>
+//****************************************
+//#include "math/math.h"
+
+//#include "G3D/g3dmath.h"
+//#include "G3D/Vector2.h"
+//#include "G3D/Vector3.h"
+//#include "G3D/Vector4.h"
+//#include "G3D/Matrix3.h"
+//#include "G3D/Quat.h"
+
+//#include "G3D/platform.h"
+//#include "G3D/g3dmath.h"
+//#include "G3D/Vector3.h"
+//#include "G3D/Matrix3.h"
+
+//#include "G3D/System.h"
+//#include "G3D/Vector3.h"
+//#include "G3D/Vector4.h"
+
+//#include "G3D/platform.h"
+/*#ifdef _DEBUG
+#pragma comment (linker, "/NODEFAULTLIB:libc.lib")
+#pragma comment (linker, "/NODEFAULTLIB:libcmt.lib")
+#pragma comment (linker, "/NODEFAULTLIB:msvcrt.lib")
+#pragma comment (linker, "/NODEFAULTLIB:libcd.lib")
+#pragma comment (linker, "/NODEFAULTLIB:msvcrtd.lib")
+#else
+#pragma comment(linker, "/NODEFAULTLIB:LIBC.LIB")
+#pragma comment(linker, "/NODEFAULTLIB:msvcrt.lib")
+#pragma comment(linker, "/NODEFAULTLIB:libcd.lib")
+#pragma comment(linker, "/NODEFAULTLIB:libcmtd.lib")
+#pragma comment(linker, "/NODEFAULTLIB:msvcrtd.lib")
+#endif
+*/
+//****************************************
+
+#include <TheWorld_ClientApp.h>
 
 namespace godot {
 
-class TheWorld_GD_ClientApp : public Node	//, public TheWorld_ClientApp
+class TheWorld_GD_ClientApp : public Node, public TheWorld_ClientApp
 {
 	
 	GODOT_CLASS(TheWorld_GD_ClientApp, Node)
@@ -32,6 +68,8 @@ public:
 	{
 		return String("Hello, {0} {1} {2}!").format(Array::make(target1, target2, target3));
 	}
+
+	void setAppMode(int r, bool bForce = false);
 
 private:
 };
