@@ -5,26 +5,27 @@
 #include <Sprite.hpp>
 
 //****************************************
-//#include "math/math.h"
+/*
+#include "math/math.h"
 
-//#include "G3D/g3dmath.h"
-//#include "G3D/Vector2.h"
-//#include "G3D/Vector3.h"
-//#include "G3D/Vector4.h"
-//#include "G3D/Matrix3.h"
-//#include "G3D/Quat.h"
+#include "G3D/g3dmath.h"
+#include "G3D/Vector2.h"
+#include "G3D/Vector3.h"
+#include "G3D/Vector4.h"
+#include "G3D/Matrix3.h"
+#include "G3D/Quat.h"
 
-//#include "G3D/platform.h"
-//#include "G3D/g3dmath.h"
-//#include "G3D/Vector3.h"
-//#include "G3D/Matrix3.h"
+#include "G3D/platform.h"
+#include "G3D/g3dmath.h"
+#include "G3D/Vector3.h"
+#include "G3D/Matrix3.h"
 
-//#include "G3D/System.h"
-//#include "G3D/Vector3.h"
-//#include "G3D/Vector4.h"
+#include "G3D/System.h"
+#include "G3D/Vector3.h"
+#include "G3D/Vector4.h"
 
-//#include "G3D/platform.h"
-/*#ifdef _DEBUG
+#include "G3D/platform.h"
+#ifdef _DEBUG
 #pragma comment (linker, "/NODEFAULTLIB:libc.lib")
 #pragma comment (linker, "/NODEFAULTLIB:libcmt.lib")
 #pragma comment (linker, "/NODEFAULTLIB:msvcrt.lib")
@@ -37,6 +38,22 @@
 #pragma comment(linker, "/NODEFAULTLIB:libcmtd.lib")
 #pragma comment(linker, "/NODEFAULTLIB:msvcrtd.lib")
 #endif
+
+#include "TheWorld_ClientDll.h"
+#include "client_lib/event.h"
+#include <boost/algorithm/string.hpp>
+#include <boost/thread/thread.hpp>
+
+#include "SpaceWorld.h"
+#include "Entity.h"
+#include "PlayerEntity.h"
+#include "OtherEntity.h"
+#include "Avatar.h"
+
+#include <string>
+#include <queue>
+//typedef std::map<int, std::shared_ptr<KBEntity> > ENTITIES;
+//typedef std::map<__int64, std::shared_ptr<KBAvatar> > AVATARS;
 */
 //****************************************
 
@@ -72,6 +89,7 @@ public:
 	void setAppMode(int r, bool bForce = false);
 
 private:
+
 };
 
 }

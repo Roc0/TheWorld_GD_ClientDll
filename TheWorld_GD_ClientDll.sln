@@ -6,8 +6,15 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lib_json", "..\jsoncpp\makefiles\vs71\lib_json.vcxproj", "{B84F7231-16CE-41D8-8C08-7B523FF4225B}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TheWorld_ClientDll", "..\TheWorld_ClientDll\TheWorld_ClientDll.vcxproj", "{58429F05-FB0E-4418-8C75-BEE6ED0C5B6C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B84F7231-16CE-41D8-8C08-7B523FF4225B} = {B84F7231-16CE-41D8-8C08-7B523FF4225B}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TheWorld_GD_ClientDll", "TheWorld_GD_ClientDll\TheWorld_GD_ClientDll.vcxproj", "{6AB345AC-C984-477A-A7FB-F61226469C6C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{58429F05-FB0E-4418-8C75-BEE6ED0C5B6C} = {58429F05-FB0E-4418-8C75-BEE6ED0C5B6C}
+		{B84F7231-16CE-41D8-8C08-7B523FF4225B} = {B84F7231-16CE-41D8-8C08-7B523FF4225B}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
