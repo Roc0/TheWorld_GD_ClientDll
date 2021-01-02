@@ -8,14 +8,17 @@ void TheWorld_GD_ClientApp::_register_methods() {
 	register_method("say", &TheWorld_GD_ClientApp::say);
 	register_method("hello", &TheWorld_GD_ClientApp::hello);
 
-	register_method("setAppMode", &TheWorld_GD_ClientApp::setAppMode);
-	register_method("getAppMode", &TheWorld_GD_ClientApp::getAppMode1);
-	register_method("setLoginStatus", &TheWorld_GD_ClientApp::setLoginStatus);
-	register_method("getLoginStatus", &TheWorld_GD_ClientApp::getLoginStatus);
-	register_method("Init", &TheWorld_GD_ClientApp::kbengine_Init);
-	register_method("Destroy", &TheWorld_GD_ClientApp::kbengine_Destroy);
-	register_method("Login", &TheWorld_GD_ClientApp::kbengine_Login);
-	register_method("Logout", &TheWorld_GD_ClientApp::kbengine_Logout);
+	register_method("set_app_mode", &TheWorld_GD_ClientApp::setAppMode);
+	register_method("get_app_mode", &TheWorld_GD_ClientApp::getAppMode1);
+	register_method("set_login_status", &TheWorld_GD_ClientApp::setLoginStatus);
+	register_method("get_login_status", &TheWorld_GD_ClientApp::getLoginStatus);
+	register_method("init", &TheWorld_GD_ClientApp::kbengine_Init);
+	register_method("destroy", &TheWorld_GD_ClientApp::kbengine_Destroy);
+	register_method("login", &TheWorld_GD_ClientApp::kbengine_Login);
+	register_method("logout", &TheWorld_GD_ClientApp::kbengine_Logout);
+	register_method("message_pump", &TheWorld_GD_ClientApp::kbengine_MessagePump);
+	register_method("get_do_sleep_in_main_loop", &TheWorld_GD_ClientApp::getDoSleepInMainLoop);
+	register_method("get_shutdown_required", &TheWorld_GD_ClientApp::getShutdownRequired);
 }
 
 TheWorld_GD_ClientApp::TheWorld_GD_ClientApp()
@@ -92,3 +95,17 @@ bool TheWorld_GD_ClientApp::kbengine_Logout(void)
 	return TheWorld_ClientApp::kbengine_Logout();
 }
 
+void TheWorld_GD_ClientApp::kbengine_MessagePump(void)
+{
+	TheWorld_ClientApp::kbengine_MessagePump(this);
+}
+
+bool TheWorld_GD_ClientApp::getShutdownRequired(void)
+{
+	return TheWorld_ClientApp::getShutdownRequired();
+}
+
+bool TheWorld_GD_ClientApp::getDoSleepInMainLoop(void)
+{
+	return TheWorld_ClientApp::getDoSleepInMainLoop();
+}

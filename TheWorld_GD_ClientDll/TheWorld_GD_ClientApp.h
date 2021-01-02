@@ -94,6 +94,9 @@ public:
 	void kbengine_Destroy(void);
 	bool kbengine_Login(String accountname, String passwd, String datas, String ip, int port);
 	bool kbengine_Logout(void);
+	void kbengine_MessagePump(void);
+	bool getShutdownRequired(void);
+	bool getDoSleepInMainLoop(void);
 
 private:
 
