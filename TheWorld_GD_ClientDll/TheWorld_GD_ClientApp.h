@@ -97,6 +97,16 @@ public:
 	void kbengine_MessagePump(void);
 	bool getShutdownRequired(void);
 	bool getDoSleepInMainLoop(void);
+	
+	// AVATAR
+	int getAvatarsCount(void);
+	__int64 getAvatarID(int idx);
+	String getAvatarName(int idx);
+
+	void onLoginSuccess(void);
+	void onLoginFailed(int failCode);
+	void onServerClosed(void);
+	void onKicked(int failCode);
 
 private:
 

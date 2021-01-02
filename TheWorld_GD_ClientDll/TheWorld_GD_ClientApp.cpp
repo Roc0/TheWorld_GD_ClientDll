@@ -19,6 +19,15 @@ void TheWorld_GD_ClientApp::_register_methods() {
 	register_method("message_pump", &TheWorld_GD_ClientApp::kbengine_MessagePump);
 	register_method("get_do_sleep_in_main_loop", &TheWorld_GD_ClientApp::getDoSleepInMainLoop);
 	register_method("get_shutdown_required", &TheWorld_GD_ClientApp::getShutdownRequired);
+	register_method("get_avatar_count", &TheWorld_GD_ClientApp::getAvatarsCount);
+	register_method("get_avatar_id", &TheWorld_GD_ClientApp::getAvatarID);
+	register_method("get_avatar_name", &TheWorld_GD_ClientApp::getAvatarName);
+
+	//register_signal<TheWorld_GD_ClientApp>((char*)"login_success", "node", GODOT_VARIANT_TYPE_OBJECT, "value", GODOT_VARIANT_TYPE_INT);
+	register_signal<TheWorld_GD_ClientApp>((char*)"login_success", "", GODOT_VARIANT_TYPE_NIL);
+	register_signal<TheWorld_GD_ClientApp>((char*)"login_failed", "fail_code", GODOT_VARIANT_TYPE_INT);
+	register_signal<TheWorld_GD_ClientApp>((char*)"server_closed", "", GODOT_VARIANT_TYPE_NIL);
+	register_signal<TheWorld_GD_ClientApp>((char*)"kicked_from_server", "", GODOT_VARIANT_TYPE_NIL);
 }
 
 TheWorld_GD_ClientApp::TheWorld_GD_ClientApp()
@@ -37,6 +46,7 @@ void TheWorld_GD_ClientApp::_init()
 void TheWorld_GD_ClientApp::_ready()
 {
 	Godot::print("TheWorld_GD_ClientApp::_ready");
+	//get_node(NodePath("/root/Main/Reset"))->connect("pressed", this, "on_Reset_pressed");
 }
 	
 void TheWorld_GD_ClientApp::_process(float _delta)
@@ -108,4 +118,81 @@ bool TheWorld_GD_ClientApp::getShutdownRequired(void)
 bool TheWorld_GD_ClientApp::getDoSleepInMainLoop(void)
 {
 	return TheWorld_ClientApp::getDoSleepInMainLoop();
+}
+
+void TheWorld_GD_ClientApp::onLoginSuccess(void)
+{
+	emit_signal("login_success");
+}
+
+void TheWorld_GD_ClientApp::onLoginFailed(int failCode)
+{
+	emit_signal("login_failed", failCode);
+}
+
+void TheWorld_GD_ClientApp::onServerClosed(void)
+{
+	emit_signal("server_closed");
+}
+
+void TheWorld_GD_ClientApp::onKicked(int failCode)
+{
+	emit_signal("kicked_from_server");
+}
+
+int TheWorld_GD_ClientApp::getAvatarsCount(void)
+{
+	return getAvatars().size();
+}
+
+__int64 TheWorld_GD_ClientApp::getAvatarID(int idx)
+{
+	int size = getAvatarsCount();
+
+	if (idx >= size)
+		return 0;
+
+	KBAvatar* pAvatar = NULL;
+	AVATARS& avatars = getAvatars();
+	AVATARS::iterator iter = avatars.begin();
+	int i = 0;
+	for (; iter != avatars.end(); iter++)
+	{
+		if (i == idx)
+		{
+			pAvatar = iter->second.get();
+			break;
+		}
+		i++;
+	}
+	if (pAvatar)
+		return pAvatar->getAvatarID();
+	else
+		return 0;
+}
+
+String TheWorld_GD_ClientApp::getAvatarName(int idx)
+{
+	int size = getAvatarsCount();
+
+	if (idx >= size)
+		return "";
+
+	KBAvatar* pAvatar = NULL;
+	AVATARS& avatars = getAvatars();
+	AVATARS::iterator iter = avatars.begin();
+	int i = 0;
+	for (; iter != avatars.end(); iter++)
+	{
+		if (i == idx)
+		{
+			pAvatar = iter->second.get();
+			break;
+		}
+		i++;
+	}
+	if (pAvatar)
+		return pAvatar->getAvatarName();
+	else
+		return "";
 }
