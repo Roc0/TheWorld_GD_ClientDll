@@ -92,21 +92,32 @@ public:
 	int  getLoginStatus(void);
 	bool kbengine_Init(void);
 	void kbengine_Destroy(void);
-	bool kbengine_Login(String accountname, String passwd, String datas, String ip, int port);
+	bool kbengine_Login(String accountName, String passwd, String datas, String ip, int port);
 	bool kbengine_Logout(void);
 	void kbengine_MessagePump(void);
 	bool getShutdownRequired(void);
 	bool getDoSleepInMainLoop(void);
-	
+	int getPlayerID(void);
+	bool enterGame(__int64 avatarId);
+	bool createAvatar(String avatarName);
+	bool removeAvatar(String avatarName);
+
 	// AVATAR
 	int getAvatarsCount(void);
-	__int64 getAvatarID(int idx);
-	String getAvatarName(int idx);
+	__int64 getAvatarIdByIdx(int idx);
+	String getAvatarNameByIdx(int idx);
+	String getAvatarNameById(int id);
+
+	// ENTITY
+	int getEntitiesCount(void);
+	__int64 getEntityIdByIdx(int idx);
+	String getEntityNameById(int id);
 
 	void onLoginSuccess(void);
 	void onLoginFailed(int failCode);
 	void onServerClosed(void);
 	void onKicked(int failCode);
+	void onUpdateAvatars(void);
 
 private:
 

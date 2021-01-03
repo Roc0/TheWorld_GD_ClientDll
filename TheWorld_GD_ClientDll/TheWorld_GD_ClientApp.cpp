@@ -19,15 +19,29 @@ void TheWorld_GD_ClientApp::_register_methods() {
 	register_method("message_pump", &TheWorld_GD_ClientApp::kbengine_MessagePump);
 	register_method("get_do_sleep_in_main_loop", &TheWorld_GD_ClientApp::getDoSleepInMainLoop);
 	register_method("get_shutdown_required", &TheWorld_GD_ClientApp::getShutdownRequired);
+	register_method("get_player_id", &TheWorld_GD_ClientApp::getPlayerID);
+	register_method("create_avatar", &TheWorld_GD_ClientApp::createAvatar);
+	register_method("remove_avatar", &TheWorld_GD_ClientApp::removeAvatar);
+	register_method("enter_game", &TheWorld_GD_ClientApp::enterGame);
+
+	// AVATAR
 	register_method("get_avatar_count", &TheWorld_GD_ClientApp::getAvatarsCount);
-	register_method("get_avatar_id", &TheWorld_GD_ClientApp::getAvatarID);
-	register_method("get_avatar_name", &TheWorld_GD_ClientApp::getAvatarName);
+	register_method("get_avatar_id_by_idx", &TheWorld_GD_ClientApp::getAvatarIdByIdx);
+	register_method("get_avatar_name_by_idx", &TheWorld_GD_ClientApp::getAvatarNameByIdx);
+	register_method("get_avatar_name_by_id", &TheWorld_GD_ClientApp::getAvatarNameById);
+
+	// ENTITY
+	register_method("get_entity_count", &TheWorld_GD_ClientApp::getEntitiesCount);
+	register_method("get_entity_id_by_idx", &TheWorld_GD_ClientApp::getEntityIdByIdx);
+	register_method("get_entity_name_by_id", &TheWorld_GD_ClientApp::getEntityNameById);
+
 
 	//register_signal<TheWorld_GD_ClientApp>((char*)"login_success", "node", GODOT_VARIANT_TYPE_OBJECT, "value", GODOT_VARIANT_TYPE_INT);
 	register_signal<TheWorld_GD_ClientApp>((char*)"login_success", "", GODOT_VARIANT_TYPE_NIL);
 	register_signal<TheWorld_GD_ClientApp>((char*)"login_failed", "fail_code", GODOT_VARIANT_TYPE_INT);
 	register_signal<TheWorld_GD_ClientApp>((char*)"server_closed", "", GODOT_VARIANT_TYPE_NIL);
 	register_signal<TheWorld_GD_ClientApp>((char*)"kicked_from_server", "", GODOT_VARIANT_TYPE_NIL);
+	register_signal<TheWorld_GD_ClientApp>((char*)"update_avatars", "", GODOT_VARIANT_TYPE_NIL);
 }
 
 TheWorld_GD_ClientApp::TheWorld_GD_ClientApp()
@@ -89,10 +103,10 @@ void TheWorld_GD_ClientApp::kbengine_Destroy(void)
 	TheWorld_ClientApp::kbengine_Destroy();
 }
 
-//bool TheWorld_GD_ClientApp::kbengine_Login(const char* accountname, const char* passwd, const char* datas, KBEngine::uint32 datasize, const char* ip, KBEngine::uint32 port)
-bool TheWorld_GD_ClientApp::kbengine_Login(String accountname, String passwd, String data, String ip, int port)
+//bool TheWorld_GD_ClientApp::kbengine_Login(const char* accountName, const char* passwd, const char* datas, KBEngine::uint32 datasize, const char* ip, KBEngine::uint32 port)
+bool TheWorld_GD_ClientApp::kbengine_Login(String accountName, String passwd, String data, String ip, int port)
 {
-	char* _name = accountname.length() == 0 ? NULL : accountname.alloc_c_string();
+	char* _name = accountName.length() == 0 ? NULL : accountName.alloc_c_string();
 	char* _pwd = passwd.length() == 0 ? NULL : passwd.alloc_c_string();
 	char* _d = data.length() == 0 ? NULL : data.alloc_c_string();
 	KBEngine::uint32 _dl = data.length();
@@ -120,37 +134,17 @@ bool TheWorld_GD_ClientApp::getDoSleepInMainLoop(void)
 	return TheWorld_ClientApp::getDoSleepInMainLoop();
 }
 
-void TheWorld_GD_ClientApp::onLoginSuccess(void)
-{
-	emit_signal("login_success");
-}
-
-void TheWorld_GD_ClientApp::onLoginFailed(int failCode)
-{
-	emit_signal("login_failed", failCode);
-}
-
-void TheWorld_GD_ClientApp::onServerClosed(void)
-{
-	emit_signal("server_closed");
-}
-
-void TheWorld_GD_ClientApp::onKicked(int failCode)
-{
-	emit_signal("kicked_from_server");
-}
-
 int TheWorld_GD_ClientApp::getAvatarsCount(void)
 {
 	return getAvatars().size();
 }
 
-__int64 TheWorld_GD_ClientApp::getAvatarID(int idx)
+__int64 TheWorld_GD_ClientApp::getAvatarIdByIdx(int idx)
 {
 	int size = getAvatarsCount();
 
 	if (idx >= size)
-		return 0;
+		return -1;
 
 	KBAvatar* pAvatar = NULL;
 	AVATARS& avatars = getAvatars();
@@ -168,10 +162,10 @@ __int64 TheWorld_GD_ClientApp::getAvatarID(int idx)
 	if (pAvatar)
 		return pAvatar->getAvatarID();
 	else
-		return 0;
+		return -1;
 }
 
-String TheWorld_GD_ClientApp::getAvatarName(int idx)
+String TheWorld_GD_ClientApp::getAvatarNameByIdx(int idx)
 {
 	int size = getAvatarsCount();
 
@@ -196,3 +190,109 @@ String TheWorld_GD_ClientApp::getAvatarName(int idx)
 	else
 		return "";
 }
+
+String TheWorld_GD_ClientApp::getAvatarNameById(int id)
+{
+	KBAvatar* pAvatar = getAvatar((KBEngine::DBID)id);
+	if (pAvatar)
+		return pAvatar->getAvatarName();
+	else
+		return "";
+}
+
+int TheWorld_GD_ClientApp::getEntitiesCount(void)
+{
+	return getEntities().size();
+}
+
+__int64 TheWorld_GD_ClientApp::getEntityIdByIdx(int idx)
+{
+	int size = getEntitiesCount();
+
+	if (idx >= size)
+		return -1;
+
+	KBEntity* pEntity = NULL;
+	ENTITIES& entitis = getEntities();
+	ENTITIES::iterator iter = entitis.begin();
+	int i = 0;
+	for (; iter != entitis.end(); iter++)
+	{
+		if (i == idx)
+		{
+			pEntity = iter->second.get();
+			break;
+		}
+		i++;
+	}
+	if (pEntity)
+		return pEntity->id();
+	else
+		return -1;
+}
+
+String TheWorld_GD_ClientApp::getEntityNameById(int id)
+{
+	bool bPlayer;
+	KBEntity* pEntity = getEntity((KBEngine::ENTITY_ID)id, bPlayer);
+	if (pEntity)
+		return pEntity->getName();
+	else
+		return "";
+}
+
+int TheWorld_GD_ClientApp::getPlayerID(void)
+{
+	return kbengine_PlayerID();
+}
+
+bool TheWorld_GD_ClientApp::enterGame(__int64 avatarId)
+{
+	return kbengine_SelectAvatarGame((KBEngine::DBID)avatarId);
+}
+
+bool TheWorld_GD_ClientApp::createAvatar(String avatarName)
+{
+	if (avatarName.length() == 0)
+		return false;
+
+	std::string s = avatarName.alloc_c_string();
+
+	return kbengine_CreateAvatar(s);
+}
+
+bool TheWorld_GD_ClientApp::removeAvatar(String avatarName)
+{
+	if (avatarName.length() == 0)
+		return false;
+
+	std::string s = avatarName.alloc_c_string();
+
+	return kbengine_RemoveAvatar(s);
+}
+
+void TheWorld_GD_ClientApp::onLoginSuccess(void)
+{
+	emit_signal("login_success");
+}
+
+void TheWorld_GD_ClientApp::onLoginFailed(int failCode)
+{
+	emit_signal("login_failed", failCode);
+}
+
+void TheWorld_GD_ClientApp::onServerClosed(void)
+{
+	emit_signal("server_closed");
+}
+
+void TheWorld_GD_ClientApp::onKicked(int failCode)
+{
+	emit_signal("kicked_from_server");
+}
+
+void TheWorld_GD_ClientApp::onUpdateAvatars(void)
+{
+	emit_signal("update_avatars");
+}
+
