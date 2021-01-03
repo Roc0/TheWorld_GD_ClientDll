@@ -118,6 +118,9 @@ public:
 	void onServerClosed(void);
 	void onKicked(int failCode);
 	void onUpdateAvatars(void);
+	void onPlayerEnterSpace(KBEngine::SPACE_ID spaceId);
+	void onPlayerLeaveSpace(KBEngine::SPACE_ID spaceId);
+	void onAddSpaceGeoMapping(KBEngine::SPACE_ID spaceId, const char* resPath);
 
 private:
 

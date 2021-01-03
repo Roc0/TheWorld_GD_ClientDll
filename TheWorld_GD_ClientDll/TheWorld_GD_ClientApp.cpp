@@ -42,6 +42,9 @@ void TheWorld_GD_ClientApp::_register_methods() {
 	register_signal<TheWorld_GD_ClientApp>((char*)"server_closed", "", GODOT_VARIANT_TYPE_NIL);
 	register_signal<TheWorld_GD_ClientApp>((char*)"kicked_from_server", "", GODOT_VARIANT_TYPE_NIL);
 	register_signal<TheWorld_GD_ClientApp>((char*)"update_avatars", "", GODOT_VARIANT_TYPE_NIL);
+	register_signal<TheWorld_GD_ClientApp>((char*)"player_enter_space", "space_id", GODOT_VARIANT_TYPE_INT);
+	register_signal<TheWorld_GD_ClientApp>((char*)"player_leave_space", "space_id", GODOT_VARIANT_TYPE_INT);
+	register_signal<TheWorld_GD_ClientApp>((char*)"add_space_geomapping", "space_id", GODOT_VARIANT_TYPE_INT, "res_path", GODOT_VARIANT_TYPE_STRING);
 }
 
 TheWorld_GD_ClientApp::TheWorld_GD_ClientApp()
@@ -296,3 +299,17 @@ void TheWorld_GD_ClientApp::onUpdateAvatars(void)
 	emit_signal("update_avatars");
 }
 
+void TheWorld_GD_ClientApp::onPlayerEnterSpace(KBEngine::SPACE_ID spaceId)
+{
+	emit_signal("player_enter_space", (int)spaceId);
+}
+
+void TheWorld_GD_ClientApp::onPlayerLeaveSpace(KBEngine::SPACE_ID spaceId)
+{
+	emit_signal("player_leave_space", (int)spaceId);
+}
+
+void TheWorld_GD_ClientApp::onAddSpaceGeoMapping(KBEngine::SPACE_ID spaceId, const char* resPath)
+{
+	emit_signal("add_space_geomapping", (int)spaceId, resPath);
+}
