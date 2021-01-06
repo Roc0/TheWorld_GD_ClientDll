@@ -13,6 +13,9 @@
     <ClCompile Include="TheWorld_GD_ClientApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TheWorld_GD_SpaceWorld.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -22,6 +25,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TheWorld_GD_ClientApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TheWorld_GD_SpaceWorld.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

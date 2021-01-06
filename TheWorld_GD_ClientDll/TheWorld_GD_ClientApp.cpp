@@ -1,8 +1,10 @@
 #include "TheWorld_GD_ClientApp.h"
+#include "TheWorld_GD_SpaceWorld.h"
 
 using namespace godot;
 
-void TheWorld_GD_ClientApp::_register_methods() {
+void TheWorld_GD_ClientApp::_register_methods()
+{
 	register_method("_ready", &TheWorld_GD_ClientApp::_ready);
 	register_method("_process", &TheWorld_GD_ClientApp::_process);
 	register_method("say", &TheWorld_GD_ClientApp::say);
@@ -35,6 +37,7 @@ void TheWorld_GD_ClientApp::_register_methods() {
 	register_method("get_entity_id_by_idx", &TheWorld_GD_ClientApp::getEntityIdByIdx);
 	register_method("get_entity_name_by_id", &TheWorld_GD_ClientApp::getEntityNameById);
 
+	register_method("get_space_world", &TheWorld_GD_ClientApp::getGDSpaceWorld);
 
 	//register_signal<TheWorld_GD_ClientApp>((char*)"login_success", "node", GODOT_VARIANT_TYPE_OBJECT, "value", GODOT_VARIANT_TYPE_INT);
 	register_signal<TheWorld_GD_ClientApp>((char*)"login_success", "", GODOT_VARIANT_TYPE_NIL);
@@ -94,6 +97,12 @@ int  TheWorld_GD_ClientApp::getLoginStatus(void)
 
 bool TheWorld_GD_ClientApp::kbengine_Init(void)
 {
+	m_pSpaceWorld = TheWorld_GD_SpaceWorld::_new();
+	if (!m_pSpaceWorld)
+		return false;
+
+	((TheWorld_GD_SpaceWorld*)m_pSpaceWorld)->setClientApp(this);
+	
 	std::string s1 = getenv("KBE_ROOT");
 	std::string s2 = getenv("KBE_RES_PATH");
 	std::string s3 = getenv("KBE_BIN_PATH");
@@ -312,4 +321,9 @@ void TheWorld_GD_ClientApp::onPlayerLeaveSpace(KBEngine::SPACE_ID spaceId)
 void TheWorld_GD_ClientApp::onAddSpaceGeoMapping(KBEngine::SPACE_ID spaceId, const char* resPath)
 {
 	emit_signal("add_space_geomapping", (int)spaceId, resPath);
+}
+
+Node* TheWorld_GD_ClientApp::getGDSpaceWorld(void)
+{
+	return m_pSpaceWorld;
 }
