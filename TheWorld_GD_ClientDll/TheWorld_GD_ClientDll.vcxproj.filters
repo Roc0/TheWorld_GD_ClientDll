@@ -10,10 +10,13 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TheWorld_GD_ClientApp.cpp">
+    <ClCompile Include="GD_WorldCamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TheWorld_GD_SpaceWorld.cpp">
+    <ClCompile Include="GD_ClientApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GD_SpaceWorld.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -24,10 +27,13 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TheWorld_GD_ClientApp.h">
+    <ClInclude Include="GD_WorldCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TheWorld_GD_SpaceWorld.h">
+    <ClInclude Include="GD_ClientApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GD_SpaceWorld.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
