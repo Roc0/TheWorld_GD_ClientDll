@@ -1,6 +1,8 @@
 #include "GD_ClientApp.h"
 #include "GD_SpaceWorld.h"
 
+#include <Reference.hpp>
+
 using namespace godot;
 
 void GD_ClientApp::_register_methods()
@@ -52,10 +54,17 @@ void GD_ClientApp::_register_methods()
 
 GD_ClientApp::GD_ClientApp()
 {
+	m_pSpaceWorld = NULL;
 }
 
 GD_ClientApp::~GD_ClientApp()
 {
+	if (m_pSpaceWorld)
+	{
+		//m_pSpaceWorld->queue_free();
+		m_pSpaceWorld->call_deferred("free");
+		m_pSpaceWorld = NULL;
+	}
 }
 
 void GD_ClientApp::_init()
@@ -113,6 +122,14 @@ bool GD_ClientApp::kbengine_Init(void)
 void GD_ClientApp::kbengine_Destroy(void)
 {
 	TheWorld_ClientApp::kbengine_Destroy();
+
+	if (m_pSpaceWorld)
+	{
+		//m_pSpaceWorld->queue_free();
+		m_pSpaceWorld->call_deferred("free");
+		m_pSpaceWorld = NULL;
+	}
+
 }
 
 //bool GD_ClientApp::kbengine_Login(const char* accountName, const char* passwd, const char* datas, KBEngine::uint32 datasize, const char* ip, KBEngine::uint32 port)
@@ -325,5 +342,7 @@ void GD_ClientApp::onAddSpaceGeoMapping(KBEngine::SPACE_ID spaceId, const char* 
 
 Node* GD_ClientApp::getGDSpaceWorld(void)
 {
+	//Ref<Node> refSpaceWorld = Ref<Node>(m_pSpaceWorld);
+
 	return m_pSpaceWorld;
 }

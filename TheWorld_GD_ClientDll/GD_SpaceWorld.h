@@ -27,12 +27,14 @@ namespace godot {
 		void say(String message) { Godot::print(message); }
 
 		void setClientApp(Node* pClientApp);
-		bool setupWorld(Node* pWorldNode);
+		bool enterWorld(Node* pWorldNode);
+		bool exitWorld(Node* pWorldNode);
+		
+		MeshInstance* getMeshInstance(void);
 
 	private:
 		Node* m_pClientApp;
-		MeshInstance* m_pMesh;
-		AABB m_aabb;
+		MeshInstance* m_pMeshInst;
 		GD_WorldCamera* m_pWorldCamera;
 	};
 
