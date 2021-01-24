@@ -94,7 +94,7 @@ bool GD_SpaceWorld::enterWorld(Node *pWorldNode)
 		return false;
 
 	m_pWorldCamera->set_name("WorldCamera");
-	//m_pWorldCamera->make_current();
+	m_pWorldCamera->make_current();
 
 	AABB aabb = m_pMeshInst->get_aabb();
 	Vector3 aabb_start = aabb.position;
@@ -106,8 +106,8 @@ bool GD_SpaceWorld::enterWorld(Node *pWorldNode)
 	m_pWorldCamera->set_perspective(fov, zNear, zFar);
 	//m_pWorldCamera->set_zfar(zFar);
 
-	float offset = sqrtf(pow(aabb.size.x, 2) + pow(aabb.size.y, 2) + pow(aabb.size.z, 2)) / 2;
-	Vector3 cameraPos((aabb_end.x + aabb_start.x) / 2 + offset, (aabb_end.y + aabb_start.y) / 2 + offset, (aabb_end.z + aabb_start.z) / 2 + offset);
+	float offsetFromCenterOfAABB = sqrtf(pow(aabb.size.x, 2) + pow(aabb.size.y, 2) + pow(aabb.size.z, 2)) / 2;
+	Vector3 cameraPos((aabb_end.x + aabb_start.x) / 2 + offsetFromCenterOfAABB, (aabb_end.y + aabb_start.y) / 2 + offsetFromCenterOfAABB, (aabb_end.z + aabb_start.z) / 2 + offsetFromCenterOfAABB);
 
 	Transform t;	t.origin = cameraPos;
 	m_pWorldCamera->set_transform(t);

@@ -166,6 +166,7 @@
     <ClInclude Include="GD_ClientApp.h" />
     <ClInclude Include="GD_SpaceWorld.h" />
     <ClInclude Include="GD_WorldCamera.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
