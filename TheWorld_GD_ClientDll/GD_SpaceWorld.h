@@ -30,7 +30,8 @@ namespace godot {
 		bool enterWorld(Node* pWorldNode);
 		bool exitWorld(Node* pWorldNode);
 		
-		MeshInstance* getMeshInstance(void);
+		//MeshInstance* getMeshInstance(void);
+		AABB get_aabbForWorldCameraInitPos(void);
 
 	private:
 		Node* m_pClientApp;

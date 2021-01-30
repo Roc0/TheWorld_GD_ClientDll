@@ -14,7 +14,7 @@ void GD_SpaceWorld::_register_methods()
 	register_method("say", &GD_SpaceWorld::say);
 	register_method("enter_world", &GD_SpaceWorld::enterWorld);
 	register_method("exit_world", &GD_SpaceWorld::exitWorld);
-	register_method("get_mesh_instance", &GD_SpaceWorld::getMeshInstance);
+	//register_method("get_mesh_instance", &GD_SpaceWorld::getMeshInstance);
 }
 
 GD_SpaceWorld::GD_SpaceWorld()
@@ -58,9 +58,14 @@ void GD_SpaceWorld::setClientApp(Node* pClientApp)
 	m_pClientApp = pClientApp;
 }
 
-MeshInstance* GD_SpaceWorld::getMeshInstance(void)
+/*MeshInstance* GD_SpaceWorld::getMeshInstance(void)
 {
 	return m_pMeshInst;
+}*/
+
+AABB GD_SpaceWorld::get_aabbForWorldCameraInitPos()
+{
+	return m_pMeshInst->get_aabb();
 }
 
 bool GD_SpaceWorld::enterWorld(Node *pWorldNode)
@@ -93,24 +98,10 @@ bool GD_SpaceWorld::enterWorld(Node *pWorldNode)
 	else
 		return false;
 
-	m_pWorldCamera->set_name("WorldCamera");
-	m_pWorldCamera->make_current();
-
-	AABB aabb = m_pMeshInst->get_aabb();
-	Vector3 aabb_start = aabb.position;
-	Vector3 aabb_end = aabb.position + aabb.size;
-
-	real_t zNear = 1.0;
-	real_t zFar = (aabb_end.z > 900 ? aabb_end.z + 100 : 1000);
-	real_t fov = 45.0;
-	m_pWorldCamera->set_perspective(fov, zNear, zFar);
-	//m_pWorldCamera->set_zfar(zFar);
-
-	float offsetFromCenterOfAABB = sqrtf(pow(aabb.size.x, 2) + pow(aabb.size.y, 2) + pow(aabb.size.z, 2)) / 2;
-	Vector3 cameraPos((aabb_end.x + aabb_start.x) / 2 + offsetFromCenterOfAABB, (aabb_end.y + aabb_start.y) / 2 + offsetFromCenterOfAABB, (aabb_end.z + aabb_start.z) / 2 + offsetFromCenterOfAABB);
-
-	Transform t;	t.origin = cameraPos;
-	m_pWorldCamera->set_transform(t);
+	m_pWorldCamera->set_visible(false);
+	bool b = m_pWorldCamera->initCamera(this);
+	if (!b)
+		return b;
 
 	return true;
 }
