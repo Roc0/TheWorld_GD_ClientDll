@@ -26,9 +26,10 @@ namespace godot {
 	
 		void say(String message) { Godot::print(message); }
 
-		void setClientApp(Node* pClientApp);
-		bool enterWorld(Node* pWorldNode);
-		bool exitWorld(Node* pWorldNode);
+		void init(Node* pClientApp, Node* pWorldNode);
+		Node* getWorldNode(void) { return m_pWorldNode; }
+		bool enterWorld(void);
+		bool exitWorld(void);
 		
 		//MeshInstance* getMeshInstance(void);
 		AABB get_aabbForWorldCameraInitPos(void);
@@ -37,6 +38,7 @@ namespace godot {
 		Node* m_pClientApp;
 		MeshInstance* m_pMeshInst;
 		GD_WorldCamera* m_pWorldCamera;
+		Node* m_pWorldNode;
 	};
 
 }

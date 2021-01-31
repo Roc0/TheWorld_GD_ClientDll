@@ -21,6 +21,7 @@ GD_SpaceWorld::GD_SpaceWorld()
 {
 	m_pMeshInst = NULL;
 	m_pWorldCamera = NULL;
+	m_pWorldNode = NULL;
 }
 
 GD_SpaceWorld::~GD_SpaceWorld()
@@ -53,9 +54,10 @@ void GD_SpaceWorld::_process(float _delta)
 	//Godot::print("GD_SpaceWorld::_process");
 }
 
-void GD_SpaceWorld::setClientApp(Node* pClientApp)
+void GD_SpaceWorld::init(Node* pClientApp, Node* pWorldNode)
 {
 	m_pClientApp = pClientApp;
+	m_pWorldNode = pWorldNode;
 }
 
 /*MeshInstance* GD_SpaceWorld::getMeshInstance(void)
@@ -68,7 +70,7 @@ AABB GD_SpaceWorld::get_aabbForWorldCameraInitPos()
 	return m_pMeshInst->get_aabb();
 }
 
-bool GD_SpaceWorld::enterWorld(Node *pWorldNode)
+bool GD_SpaceWorld::enterWorld(void)
 {
 	SpaceWorld* pSpaceWorld = ((GD_ClientApp*)m_pClientApp)->getSpaceWorld();
 	if (!pSpaceWorld)
@@ -82,7 +84,7 @@ bool GD_SpaceWorld::enterWorld(Node *pWorldNode)
 
 	m_pMeshInst = MeshInstance::_new();
 	if (m_pMeshInst)
-		pWorldNode->add_child(m_pMeshInst);
+		m_pWorldNode->add_child(m_pMeshInst);
 	else
 		return false;
 
@@ -94,7 +96,7 @@ bool GD_SpaceWorld::enterWorld(Node *pWorldNode)
 	
 	m_pWorldCamera = GD_WorldCamera::_new();
 	if (m_pWorldCamera)
-		pWorldNode->add_child(m_pWorldCamera);
+		m_pWorldNode->add_child(m_pWorldCamera);
 	else
 		return false;
 
@@ -106,7 +108,7 @@ bool GD_SpaceWorld::enterWorld(Node *pWorldNode)
 	return true;
 }
 
-bool GD_SpaceWorld::exitWorld(Node* pWorldNode)
+bool GD_SpaceWorld::exitWorld(void)
 {
 	if (m_pMeshInst)
 	{

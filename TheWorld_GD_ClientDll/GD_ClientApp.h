@@ -29,7 +29,7 @@ namespace godot {
 		int  getAppMode1(void);
 		void setLoginStatus(int i);
 		int  getLoginStatus(void);
-		bool kbengine_Init(void);
+		bool kbengine_Init(Node* pWorldNode);
 		void kbengine_Destroy(void);
 		bool kbengine_Login(String accountName, String passwd, String datas, String ip, int port);
 		bool kbengine_Logout(void);
@@ -37,35 +37,68 @@ namespace godot {
 		bool getShutdownRequired(void);
 		bool getDoSleepInMainLoop(void);
 		int getPlayerID(void);
-		bool enterGame(__int64 avatarId);
+		bool enterGame(int avatarId);
 		bool createAvatar(String avatarName);
 		bool removeAvatar(String avatarName);
 
 		// AVATAR
 		int getAvatarsCount(void);
-		__int64 getAvatarIdByIdx(int idx);
+		int getAvatarIdByIdx(int idx);
 		String getAvatarNameByIdx(int idx);
 		String getAvatarNameById(int id);
+		// AVATAR
 
 		// ENTITY
 		int getEntitiesCount(void);
-		__int64 getEntityIdByIdx(int idx);
+		int getEntityIdByIdx(int idx);
+		KBEntity* getEntityById(int id, bool& bPlayer);
 		String getEntityNameById(int id);
+		// ENTITY
 
-		Node* getGDSpaceWorld(void);
+		Node* getSpaceWorldNode(void);
 
+		// Events
 		void onLoginSuccess(void);
 		void onLoginFailed(int failCode);
 		void onServerClosed(void);
 		void onKicked(int failCode);
+		void onClearEntities(void);
+		void onCreatedEntity(KBEngine::ENTITY_ID eid, bool bPlayer);
+		void onEraseEntity(KBEngine::ENTITY_ID eid);
+		void onClearAvatars(void);
+		void onEraseAvatar(KBEngine::DBID dbid);
 		void onUpdateAvatars(void);
 		void onPlayerEnterSpace(KBEngine::SPACE_ID spaceId);
 		void onPlayerLeaveSpace(KBEngine::SPACE_ID spaceId);
 		void onAddSpaceGeoMapping(KBEngine::SPACE_ID spaceId, const char* resPath);
 
+		void setAppInError(int errorCode) {
+			m_erroCodeApp = errorCode;
+			m_bAppInError = true;
+		}
+		bool getAppInError(void) { return m_bAppInError; }
+		bool getAppInError(int& erroCodeApp) {
+			erroCodeApp = m_erroCodeApp;
+			return m_bAppInError;
+		}
+
+		Node* getEntityNode(int id);
+		Node* getPlayerNode(void);
+
 	private:
 		Node *m_pSpaceWorld;
+		bool m_bAppInError;
+		int m_erroCodeApp;
 	};
 
 }
 
+#define GD_CLIENTAPP_ERROR_CREATE_PLAYER_ENTITY				1
+#define GD_CLIENTAPP_ERROR_CREATE_OTHER_ENTITY				2
+#define GD_CLIENTAPP_ERROR_CREATE_OTHER_ENTITY_CONTAINER	3
+#define GD_CLIENTAPP_ERROR_INIT_NODE_ENTITY					4
+
+// World Node
+#define	GD_CLIENTAPP_PLAYER_ENTITY_NODE			"PlayerEntity"
+#define	GD_CLIENTAPP_ENTITIES_CONTAINER_NODE	"OtherEntities"
+#define	GD_CLIENTAPP_OTHER_ENTITY_NODE				"Entity"
