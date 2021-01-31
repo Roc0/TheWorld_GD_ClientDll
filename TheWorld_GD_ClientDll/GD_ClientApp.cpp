@@ -386,6 +386,7 @@ void GD_ClientApp::onCreatedEntity(KBEngine::ENTITY_ID eid, bool bPlayer)
 			char buffer[16];
 			nodeName = nodeName + "_" + _itoa(((GD_Entity*)pNode)->get_id(), buffer, 10);
 			pNode->set_name(nodeName);
+			Godot::print("onCreatedEntity (renamed): " + pNode->get_name() + " - " + ((GD_Entity*)pNode)->getEntityName());
 		}
 
 		GD_PlayerEntity* pPlayer = GD_PlayerEntity::_new();
@@ -398,6 +399,10 @@ void GD_ClientApp::onCreatedEntity(KBEngine::ENTITY_ID eid, bool bPlayer)
 				setAppInError(GD_CLIENTAPP_ERROR_INIT_NODE_ENTITY);
 				return;
 			}
+			String entityName = pPlayer->getEntityName();
+			char buffer[16]; _itoa((int)eid, buffer, 10);
+			String s = "onCreatedEntity (";	s = s + buffer +"): " + pPlayer->get_name() + " - " + pPlayer->getEntityName();
+			Godot::print(s);
 		}
 		else
 		{
@@ -417,6 +422,10 @@ void GD_ClientApp::onCreatedEntity(KBEngine::ENTITY_ID eid, bool bPlayer)
 				setAppInError(GD_CLIENTAPP_ERROR_INIT_NODE_ENTITY);
 				return;
 			}
+			String entityName = pOther->getEntityName();
+			char buffer[16]; _itoa((int)eid, buffer, 10);
+			String s = "onCreatedEntity (";	s = s + buffer + "): " + pOther->get_name() + " - " + pOther->getEntityName();
+			Godot::print(s);
 		}
 		else
 		{
@@ -433,6 +442,9 @@ void GD_ClientApp::onEraseEntity(KBEngine::ENTITY_ID eid)
 	GD_Entity* entity = (GD_Entity*)getEntityNode(eid);
 	if (entity)
 	{
+		char buffer[16]; _itoa(entity->get_id(), buffer, 10);
+		String s = "destroyEntity(";	s = s + buffer + "): " + entity->get_name() + " - " + entity->getEntityName();
+		Godot::print(s);
 		entity->destroyEntity();
 		entity->call_deferred("free");
 	}
@@ -512,8 +524,8 @@ Node* GD_ClientApp::getEntityNode(int id)
 	for (int i = 0; i < entityNodes.size(); i++)
 	{
 		GD_Entity* pEntityNode = entityNodes[i];
-		GD_PlayerEntity* pPlayerEntityNode = cast_to<GD_PlayerEntity>(pNode);
-		GD_OtherEntity* pOtherEntityNode = cast_to<GD_OtherEntity>(pNode);
+		GD_PlayerEntity* pPlayerEntityNode = cast_to<GD_PlayerEntity>(pEntityNode);
+		GD_OtherEntity* pOtherEntityNode = cast_to<GD_OtherEntity>(pEntityNode);
 		if (pOtherEntityNode != nullptr || pPlayerEntityNode != nullptr)
 		{
 			if (pEntityNode->get_id() == id)

@@ -34,7 +34,7 @@ namespace godot {
 
 
 		// Entity Attributes
-		String getName();
+		String getEntityName();
 		int get_id(bool bIgnoreValid = false);
 
 	private:

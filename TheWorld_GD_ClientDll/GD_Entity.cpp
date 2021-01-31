@@ -60,7 +60,8 @@ bool GD_Entity::initEntity(int id, Node* pClientApp)
 	setValid(true);
 
 	char buffer[16];
-	String nodeName = getName();
+	String entityName = getEntityName();
+	String nodeName;
 	
 	if (isPlayer())
 		nodeName = GD_CLIENTAPP_PLAYER_ENTITY_NODE;
@@ -71,15 +72,12 @@ bool GD_Entity::initEntity(int id, Node* pClientApp)
 	}
 	
 	set_name(nodeName);
-	Godot::print("InitEntity: " + get_name() + " - " + nodeName);
 
 	return true;
 }
 
 bool GD_Entity::destroyEntity(void)
 {
-	String nodeName = getName();
-	Godot::print("destroyEntity: " + get_name() + " - " + nodeName);
 	setValid(false);
 	return true;
 }
@@ -92,7 +90,7 @@ int GD_Entity::get_id(bool bIgnoreValid)
 		return isValid() ? m_id : -1;
 }
 
-String GD_Entity::getName()
+String GD_Entity::getEntityName()
 {
 	if (!isValid())
 		return "";
@@ -105,6 +103,10 @@ String GD_Entity::getName()
 	KBEntity* kbentity = pApp->getEntityById(m_id, bPlayer);
 	if (kbentity)
 		m_entityName =  kbentity->getName();
+	
+	//char buffer[16]; _itoa((int)m_id, buffer, 10);
+	//String s = "getEntityName (";	s = s + buffer + "): " + kbentity->getName();
+	//Godot::print(s);
 
 	return m_entityName;
 }
