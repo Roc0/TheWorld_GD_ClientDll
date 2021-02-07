@@ -1,15 +1,20 @@
 #pragma once
 
 #include <Godot.hpp>
-#include <StaticBody.hpp>
+#include <Spatial.hpp>
 
 #include <TheWorld_ClientApp.h>
 
+#define RIGID_BODY_MODE_RIGID		0		
+#define RIGID_BODY_MODE_STATIC		1		
+#define RIGID_BODY_MODE_CHARACTER	2		
+#define RIGID_BODY_MODE_KINEMATIC	3
+
 namespace godot {
 
-	class GD_Entity : public StaticBody
+	class GD_Entity : public Spatial
 	{
-		GODOT_CLASS(GD_Entity, StaticBody)
+		GODOT_CLASS(GD_Entity, Spatial)
 
 	public:
 		static void _register_methods();
@@ -34,7 +39,7 @@ namespace godot {
 
 
 		// Entity Attributes
-		String getEntityName();
+		String getEntityName(bool bIgnoreValid = false);
 		int get_id(bool bIgnoreValid = false);
 
 	private:

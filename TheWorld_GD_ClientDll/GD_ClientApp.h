@@ -82,8 +82,8 @@ namespace godot {
 			return m_bAppInError;
 		}
 
-		Node* getEntityNode(int id);
-		Node* getPlayerNode(void);
+		Node* getEntityNode(int id, bool bIgnoreValid = false);
+		Node* getPlayerNode(bool bIgnoreValid = false);
 
 	private:
 		Node *m_pSpaceWorld;
@@ -97,8 +97,9 @@ namespace godot {
 #define GD_CLIENTAPP_ERROR_CREATE_OTHER_ENTITY				2
 #define GD_CLIENTAPP_ERROR_CREATE_OTHER_ENTITY_CONTAINER	3
 #define GD_CLIENTAPP_ERROR_INIT_NODE_ENTITY					4
+#define GD_CLIENTAPP_ERROR_ENTITY_PROCESS					5
 
 // World Node
-#define	GD_CLIENTAPP_PLAYER_ENTITY_NODE			"PlayerEntity"
-#define	GD_CLIENTAPP_ENTITIES_CONTAINER_NODE	"OtherEntities"
+#define	GD_CLIENTAPP_ENTITIES_CONTAINER_NODE	"Entities"
+#define	GD_CLIENTAPP_PLAYER_ENTITY_NODE				"PlayerEntity"
 #define	GD_CLIENTAPP_OTHER_ENTITY_NODE				"Entity"

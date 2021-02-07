@@ -490,7 +490,7 @@ Node* GD_ClientApp::getSpaceWorldNode(void)
 	return m_pSpaceWorld;
 }
 
-Node* GD_ClientApp::getPlayerNode(void)
+Node* GD_ClientApp::getPlayerNode(bool bIgnoreValid)
 {
 
 	Node* pWorldNode = ((GD_SpaceWorld*)m_pSpaceWorld)->getWorldNode();
@@ -503,16 +503,20 @@ Node* GD_ClientApp::getPlayerNode(void)
 	if (pNode)
 	{
 		GD_PlayerEntity* pPlayerEntityNode = cast_to<GD_PlayerEntity>(pNode);
-		if (pPlayerEntityNode != nullptr && pPlayerEntityNode->isValid())
+		if (pPlayerEntityNode != nullptr)
 		{
-			return pPlayerEntityNode;
+			if (bIgnoreValid)
+				return pPlayerEntityNode;
+			else
+				if (pPlayerEntityNode->isValid())
+					return pPlayerEntityNode;
 		}
 	}
 
 	return NULL;
 }
 
-Node* GD_ClientApp::getEntityNode(int id)
+Node* GD_ClientApp::getEntityNode(int id, bool bIgnoreValid)
 {
 	Node* pWorldNode = ((GD_SpaceWorld*)m_pSpaceWorld)->getWorldNode();
 	if (!pWorldNode)
@@ -528,7 +532,7 @@ Node* GD_ClientApp::getEntityNode(int id)
 		GD_OtherEntity* pOtherEntityNode = cast_to<GD_OtherEntity>(pEntityNode);
 		if (pOtherEntityNode != nullptr || pPlayerEntityNode != nullptr)
 		{
-			if (pEntityNode->get_id() == id)
+			if (pEntityNode->get_id(bIgnoreValid) == id)
 				return pEntityNode;
 		}
 	}
