@@ -1,4 +1,5 @@
 #include "GD_ClientApp.h"
+#include "GD_SpaceWorld.h"
 #include "GD_Entity.h"
 #include "Utils.h"
 
@@ -23,6 +24,7 @@ GD_Entity::GD_Entity()
 	m_pClientApp = NULL;
 	setValid(false);
 	setPlayer(false);
+	m_lastPos = Vector3(0, 0, 0);
 }
 
 GD_Entity::~GD_Entity()
@@ -47,6 +49,8 @@ void GD_Entity::_process(float _delta)
 	if (!isValid())
 		return;
 
+	char buffer[16];
+	
 	GD_ClientApp* pApp = (GD_ClientApp*)m_pClientApp;
 	bool bPlayer;
 	KBEntity* kbentity = pApp->getEntityById(m_id, bPlayer);
@@ -61,8 +65,13 @@ void GD_Entity::_process(float _delta)
 			kbentity->getPosition(x, y, z);
 			if (x != 0 || y != 0 || z != 0)
 			{
+				AABB aabb = ((GD_SpaceWorld*)((GD_ClientApp*)m_pClientApp)->getSpaceWorldNode())->get_aabbForWorldCameraInitPos();
+				Vector3 aabb_start = aabb.position;
+				Vector3 aabb_end = aabb.position + aabb.size;
+
+				
 				Transform t;
-				t.origin = Vector3(x, y, -z);
+				t.origin = Vector3(x, aabb_end.y, z);
 				RigidBody* entity = (RigidBody*)get_node("Entity");
 				if (!entity)
 				{
@@ -70,6 +79,12 @@ void GD_Entity::_process(float _delta)
 					return;
 				}
 				entity->set_transform(t);
+				if (t.origin != m_lastPos)
+				{
+					m_lastPos = (t.origin);
+					String message;	message = message + "Entity " + _itoa(m_id, buffer, 10) + " x = " + _itoa(m_lastPos.x, buffer, 10) + " y = " + _itoa(m_lastPos.y, buffer, 10) + " z = " + _itoa(m_lastPos.z, buffer, 10);
+					Godot::print(message);
+				}
 			}
 		}
 	}

@@ -48,6 +48,7 @@ namespace godot {
 		bool m_isValid;
 		bool m_isPlayer;
 		String m_entityName;
+		Vector3 m_lastPos;
 	};
 
 }

@@ -93,6 +93,8 @@ bool GD_SpaceWorld::enterWorld(void)
 	String path; path = path + "res://Meshes/" + pSpace->getResPath() + "/undulating1.obj";
 	const Ref<Mesh> mesh = resLoader->load(path);
 	m_pMeshInst->set_mesh(mesh);
+
+	m_pMeshInst->create_trimesh_collision();
 	
 	m_pWorldCamera = GD_WorldCamera::_new();
 	if (m_pWorldCamera)
