@@ -12,6 +12,7 @@ void GD_ClientApp::_register_methods()
 {
 	register_method("_ready", &GD_ClientApp::_ready);
 	register_method("_process", &GD_ClientApp::_process);
+	register_method("_input", &GD_ClientApp::_input);
 	register_method("say", &GD_ClientApp::say);
 	register_method("hello", &GD_ClientApp::hello);
 
@@ -65,6 +66,7 @@ GD_ClientApp::GD_ClientApp()
 	m_pSpaceWorld = NULL;
 	m_bAppInError = false;
 	m_erroCodeApp = 0;
+	m_iProgEntityCamera = -1;
 }
 
 GD_ClientApp::~GD_ClientApp()
@@ -88,6 +90,35 @@ void GD_ClientApp::_ready()
 	//get_node(NodePath("/root/Main/Reset"))->connect("pressed", this, "on_Reset_pressed");
 }
 	
+void GD_ClientApp::_input(const Ref<InputEvent> event)
+{
+	if (event->is_action_pressed("ui_focus_next"))
+	{
+		m_iProgEntityCamera++;
+		int iNumEntities = getEntityCount();
+		if (m_iProgEntityCamera >= iNumEntities)
+		{
+			m_iProgEntityCamera = -1;
+
+			Node* pWorldCamera = ((GD_SpaceWorld*)m_pSpaceWorld)->getWorldCamera();
+			if (!pWorldCamera)
+				return;
+			
+			((Camera*)pWorldCamera)->make_current();
+		}
+		else
+		{
+			GD_Entity* entity = (GD_Entity*)getEntityNodeByIdx(m_iProgEntityCamera);
+			if (entity)
+			{
+				Camera* entityCam = (Camera*)entity->getCamera();
+				if (entityCam)
+					entityCam->make_current();
+			}
+		}
+	}
+}
+
 void GD_ClientApp::_process(float _delta)
 {
 	// To activate _process method add this Node to a Godot Scene
@@ -114,8 +145,10 @@ int  GD_ClientApp::getLoginStatus(void)
 	return TheWorld_ClientApp::getLoginStatus();
 }
 
-bool GD_ClientApp::kbengine_Init(Node* pWorldNode)
+bool GD_ClientApp::kbengine_Init(Node* pWorldNode, Node* pMainNode)
 {
+	pMainNode->add_child(this);
+	
 	m_pSpaceWorld = GD_SpaceWorld::_new();
 	if (m_pSpaceWorld)
 		pWorldNode->add_child(m_pSpaceWorld);
@@ -387,6 +420,9 @@ void GD_ClientApp::onCreatedEntity(KBEngine::ENTITY_ID eid, bool bPlayer)
 			nodeName = nodeName + "_" + _itoa(((GD_Entity*)pNode)->get_id(), buffer, 10);
 			pNode->set_name(nodeName);
 			Godot::print("onCreatedEntity (renamed): " + pNode->get_name() + " - " + ((GD_Entity*)pNode)->getEntityName());
+			((GD_Entity*)pNode)->destroyEntity();
+			pNode->call_deferred("free");
+
 		}
 
 		GD_PlayerEntity* pPlayer = GD_PlayerEntity::_new();
@@ -439,7 +475,7 @@ void GD_ClientApp::onCreatedEntity(KBEngine::ENTITY_ID eid, bool bPlayer)
 
 void GD_ClientApp::onEraseEntity(KBEngine::ENTITY_ID eid)
 {
-	GD_Entity* entity = (GD_Entity*)getEntityNode(eid);
+	GD_Entity* entity = (GD_Entity*)getEntityNodeById(eid);
 	if (entity)
 	{
 		char buffer[16]; _itoa(entity->get_id(), buffer, 10);
@@ -447,9 +483,10 @@ void GD_ClientApp::onEraseEntity(KBEngine::ENTITY_ID eid)
 		Godot::print(s);
 		entity->destroyEntity();
 		entity->call_deferred("free");
+
+		emit_signal("erase_entity", (int)eid);
 	}
 	
-	emit_signal("erase_entity", (int)eid);
 }
 
 void GD_ClientApp::onClearAvatars(void)
@@ -516,7 +553,68 @@ Node* GD_ClientApp::getPlayerNode(bool bIgnoreValid)
 	return NULL;
 }
 
-Node* GD_ClientApp::getEntityNode(int id, bool bIgnoreValid)
+int GD_ClientApp::getEntityCount(void)
+{
+	Node* pWorldNode = ((GD_SpaceWorld*)m_pSpaceWorld)->getWorldNode();
+	if (!pWorldNode)
+		return 0;
+
+	Node* pNode = pWorldNode->get_node(GD_CLIENTAPP_ENTITIES_CONTAINER_NODE);
+	if (!pNode)
+		return 0;
+
+	return pNode->get_child_count();
+}
+
+Node* GD_ClientApp::getEntityNodeByIdx(int idx, bool bIgnoreValid)
+{
+	int entitiesSize = getEntityCount();
+
+	if (idx >= entitiesSize)
+		return NULL;
+
+	Node* pWorldNode = ((GD_SpaceWorld*)m_pSpaceWorld)->getWorldNode();
+	if (!pWorldNode)
+		return NULL;
+
+	//SceneTree* pSceneTree = pWorldNode->get_tree();
+	Node* pNode = pWorldNode->get_node(GD_CLIENTAPP_ENTITIES_CONTAINER_NODE);
+	if (!pNode)
+		return NULL;
+
+	int idxEntity = 0;
+	Array entityNodes = pNode->get_children();
+	for (int i = 0; i < entityNodes.size(); i++)
+	{
+		GD_Entity* pEntityNode = entityNodes[i];
+		GD_PlayerEntity* pPlayerEntityNode = cast_to<GD_PlayerEntity>(pEntityNode);
+		GD_OtherEntity* pOtherEntityNode = cast_to<GD_OtherEntity>(pEntityNode);
+		if (pOtherEntityNode != nullptr || pPlayerEntityNode != nullptr)
+		{
+			if (bIgnoreValid)
+			{
+				if (idxEntity == idx)
+					return pEntityNode;
+				else
+					idxEntity++;
+			}
+			else
+			{
+				if (pEntityNode->isValid())
+				{
+					if (idxEntity == idx)
+						return pEntityNode;
+					else
+						idxEntity++;
+				}
+			}
+		}
+	}
+
+	return NULL;
+}
+
+Node* GD_ClientApp::getEntityNodeById(int id, bool bIgnoreValid)
 {
 	Node* pWorldNode = ((GD_SpaceWorld*)m_pSpaceWorld)->getWorldNode();
 	if (!pWorldNode)
@@ -524,6 +622,9 @@ Node* GD_ClientApp::getEntityNode(int id, bool bIgnoreValid)
 
 	//SceneTree* pSceneTree = pWorldNode->get_tree();
 	Node* pNode = pWorldNode->get_node(GD_CLIENTAPP_ENTITIES_CONTAINER_NODE);
+	if (!pNode)
+		return NULL;
+
 	Array entityNodes = pNode->get_children();
 	for (int i = 0; i < entityNodes.size(); i++)
 	{

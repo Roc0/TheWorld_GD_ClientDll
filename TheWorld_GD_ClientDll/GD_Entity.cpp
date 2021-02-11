@@ -58,6 +58,31 @@ void GD_Entity::_process(float _delta)
 	{
 		if (isPlayer())
 		{
+			float x, y, z;
+			kbentity->getPosition(x, y, z);
+			if (x != 0 || y != 0 || z != 0)
+			{
+				AABB aabb = ((GD_SpaceWorld*)((GD_ClientApp*)m_pClientApp)->getSpaceWorldNode())->get_aabbForWorldCameraInitPos();
+				Vector3 aabb_start = aabb.position;
+				Vector3 aabb_end = aabb.position + aabb.size;
+
+
+				Transform t;
+				t.origin = Vector3(x, aabb_end.y, z);
+				RigidBody* entity = (RigidBody*)get_node("Entity");
+				if (!entity)
+				{
+					pApp->setAppInError(GD_CLIENTAPP_ERROR_ENTITY_PROCESS);
+					return;
+				}
+				entity->set_transform(t);
+				if (t.origin != m_lastPos)
+				{
+					m_lastPos = (t.origin);
+					//String message;	message = message + "Player " + _itoa(m_id, buffer, 10) + " x = " + _itoa(m_lastPos.x, buffer, 10) + " y = " + _itoa(m_lastPos.y, buffer, 10) + " z = " + _itoa(m_lastPos.z, buffer, 10);
+					//Godot::print(message);
+				}
+			}
 		}
 		else
 		{
@@ -82,8 +107,8 @@ void GD_Entity::_process(float _delta)
 				if (t.origin != m_lastPos)
 				{
 					m_lastPos = (t.origin);
-					String message;	message = message + "Entity " + _itoa(m_id, buffer, 10) + " x = " + _itoa(m_lastPos.x, buffer, 10) + " y = " + _itoa(m_lastPos.y, buffer, 10) + " z = " + _itoa(m_lastPos.z, buffer, 10);
-					Godot::print(message);
+					//String message;	message = message + "Entity " + _itoa(m_id, buffer, 10) + " x = " + _itoa(m_lastPos.x, buffer, 10) + " y = " + _itoa(m_lastPos.y, buffer, 10) + " z = " + _itoa(m_lastPos.z, buffer, 10);
+					//Godot::print(message);
 				}
 			}
 		}
@@ -106,6 +131,17 @@ void GD_Entity::_input(const Ref<InputEvent> event)
 	//Godot::print("GD_Entity::_input: " + event->as_text());
 }
 
+Node* GD_Entity::getCamera(void)
+{
+	Camera* entityCam = (Camera*)get_node("Entity/Camera");
+	if (!entityCam)
+	{
+		return NULL;
+	}
+
+	return entityCam;
+}
+
 bool GD_Entity::initEntity(int id, Node* pClientApp)
 {
 	m_id = id;
@@ -120,14 +156,17 @@ bool GD_Entity::initEntity(int id, Node* pClientApp)
 	
 	if (isPlayer())
 	{
-		Node *pPlayerNode = ((GD_ClientApp*)m_pClientApp)->getPlayerNode(true);
+		/*Node *pPlayerNode = ((GD_ClientApp*)m_pClientApp)->getPlayerNode(true);
 		if (pPlayerNode)
 		{
 			nodeName = pPlayerNode->get_name();
 			int id = ((GD_Entity*)pPlayerNode)->get_id(true);
 			nodeName = nodeName + "_" + _itoa(id, buffer, 10);
 			pPlayerNode->set_name(nodeName);
-		}
+			((GD_Entity*)pPlayerNode)->destroyEntity();
+			pPlayerNode->call_deferred("free");
+
+		}*/
 		
 		nodeName = GD_CLIENTAPP_PLAYER_ENTITY_NODE;
 

@@ -28,6 +28,7 @@ namespace godot {
 
 		void init(Node* pClientApp, Node* pWorldNode);
 		Node* getWorldNode(void) { return m_pWorldNode; }
+		Node* getWorldCamera(void) { return m_pWorldCamera; };
 		bool enterWorld(void);
 		bool exitWorld(void);
 		

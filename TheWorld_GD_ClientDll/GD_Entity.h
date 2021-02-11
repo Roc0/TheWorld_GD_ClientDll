@@ -37,6 +37,7 @@ namespace godot {
 		bool isPlayer() { return m_isPlayer; }
 		void setPlayer(bool isPlayer) { m_isPlayer = isPlayer; }
 
+		Node* getCamera(void);
 
 		// Entity Attributes
 		String getEntityName(bool bIgnoreValid = false);

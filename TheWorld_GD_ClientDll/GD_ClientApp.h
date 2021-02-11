@@ -21,6 +21,7 @@ namespace godot {
 		void _init(); // our initializer called by Godot
 		void _ready();
 		void _process(float _delta);
+		void _input(const Ref<InputEvent> event);
 
 		void say(String message) {	Godot::print(message);	}
 		String hello(String target1, String target2, int target3) { return String("Hello, {0} {1} {2}!").format(Array::make(target1, target2, target3)); };
@@ -29,7 +30,7 @@ namespace godot {
 		int  getAppMode1(void);
 		void setLoginStatus(int i);
 		int  getLoginStatus(void);
-		bool kbengine_Init(Node* pWorldNode);
+		bool kbengine_Init(Node* pWorldNode, Node* pMainNode);
 		void kbengine_Destroy(void);
 		bool kbengine_Login(String accountName, String passwd, String datas, String ip, int port);
 		bool kbengine_Logout(void);
@@ -82,13 +83,16 @@ namespace godot {
 			return m_bAppInError;
 		}
 
-		Node* getEntityNode(int id, bool bIgnoreValid = false);
+		int getEntityCount(void);
+		Node* getEntityNodeById(int id, bool bIgnoreValid = false);
+		Node* getEntityNodeByIdx(int idx, bool bIgnoreValid = false);
 		Node* getPlayerNode(bool bIgnoreValid = false);
 
 	private:
 		Node *m_pSpaceWorld;
 		bool m_bAppInError;
 		int m_erroCodeApp;
+		int m_iProgEntityCamera;
 	};
 
 }
