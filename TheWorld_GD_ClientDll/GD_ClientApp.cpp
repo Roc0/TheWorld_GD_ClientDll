@@ -63,19 +63,40 @@ void GD_ClientApp::_register_methods()
 
 GD_ClientApp::GD_ClientApp()
 {
-	m_pSpaceWorld = NULL;
+	m_pSpaceWorldNode = NULL;
 	m_bAppInError = false;
 	m_erroCodeApp = 0;
 	m_iProgEntityCamera = -1;
+	m_pPlayer_EntityVisuals = NULL;
+	m_pNPC_EntityVisuals = NULL;
+	m_pMonster_EntityVisuals = NULL;
 }
 
 GD_ClientApp::~GD_ClientApp()
 {
-	if (m_pSpaceWorld)
+	if (m_pPlayer_EntityVisuals)
+	{
+		delete m_pPlayer_EntityVisuals;
+		m_pPlayer_EntityVisuals = NULL;
+	}
+
+	if (m_pNPC_EntityVisuals)
+	{
+		delete m_pNPC_EntityVisuals;
+		m_pNPC_EntityVisuals = NULL;
+	}
+
+	if (m_pMonster_EntityVisuals)
+	{
+		delete m_pMonster_EntityVisuals;
+		m_pMonster_EntityVisuals = NULL;
+	}
+
+	if (m_pSpaceWorldNode)
 	{
 		//m_pSpaceWorld->queue_free();
-		m_pSpaceWorld->call_deferred("free");
-		m_pSpaceWorld = NULL;
+		m_pSpaceWorldNode->call_deferred("free");
+		m_pSpaceWorldNode = NULL;
 	}
 }
 
@@ -95,12 +116,12 @@ void GD_ClientApp::_input(const Ref<InputEvent> event)
 	if (event->is_action_pressed("ui_focus_next"))
 	{
 		m_iProgEntityCamera++;
-		int iNumEntities = getEntityCount();
+		int iNumEntities = getEntityNodeCount();
 		if (m_iProgEntityCamera >= iNumEntities)
 		{
 			m_iProgEntityCamera = -1;
 
-			Node* pWorldCamera = ((GD_SpaceWorld*)m_pSpaceWorld)->getWorldCamera();
+			Node* pWorldCamera = ((GD_SpaceWorld*)m_pSpaceWorldNode)->getWorldCameraNode();
 			if (!pWorldCamera)
 				return;
 			
@@ -111,7 +132,7 @@ void GD_ClientApp::_input(const Ref<InputEvent> event)
 			GD_Entity* entity = (GD_Entity*)getEntityNodeByIdx(m_iProgEntityCamera);
 			if (entity)
 			{
-				Camera* entityCam = (Camera*)entity->getCamera();
+				Camera* entityCam = (Camera*)entity->getCameraNode();
 				if (entityCam)
 					entityCam->make_current();
 			}
@@ -149,13 +170,13 @@ bool GD_ClientApp::kbengine_Init(Node* pWorldNode, Node* pMainNode)
 {
 	pMainNode->add_child(this);
 	
-	m_pSpaceWorld = GD_SpaceWorld::_new();
-	if (m_pSpaceWorld)
-		pWorldNode->add_child(m_pSpaceWorld);
+	m_pSpaceWorldNode = GD_SpaceWorld::_new();
+	if (m_pSpaceWorldNode)
+		pWorldNode->add_child(m_pSpaceWorldNode);
 	else
 		return false;
 
-	((GD_SpaceWorld*)m_pSpaceWorld)->init(this, pWorldNode);
+	((GD_SpaceWorld*)m_pSpaceWorldNode)->init(this, pWorldNode);
 	
 	std::string s1 = getenv("KBE_ROOT");
 	std::string s2 = getenv("KBE_RES_PATH");
@@ -169,11 +190,11 @@ void GD_ClientApp::kbengine_Destroy(void)
 {
 	TheWorld_ClientApp::kbengine_Destroy();
 
-	if (m_pSpaceWorld)
+	if (m_pSpaceWorldNode)
 	{
 		//m_pSpaceWorld->queue_free();
-		m_pSpaceWorld->call_deferred("free");
-		m_pSpaceWorld = NULL;
+		m_pSpaceWorldNode->call_deferred("free");
+		m_pSpaceWorldNode = NULL;
 	}
 
 }
@@ -389,10 +410,10 @@ void GD_ClientApp::onClearEntities(void)
 
 void GD_ClientApp::onCreatedEntity(KBEngine::ENTITY_ID eid, bool bPlayer)
 {
-	if (!m_pSpaceWorld)
+	if (!m_pSpaceWorldNode)
 		return;
 
-	Node* pWorldNode = ((GD_SpaceWorld*)m_pSpaceWorld)->getWorldNode();
+	Node* pWorldNode = ((GD_SpaceWorld*)m_pSpaceWorldNode)->getWorldNode();
 	
 	String sEntitiesPath = GD_CLIENTAPP_ENTITIES_CONTAINER_NODE;
 	NodePath entitiesPath(sEntitiesPath);
@@ -524,13 +545,13 @@ Node* GD_ClientApp::getSpaceWorldNode(void)
 {
 	//Ref<Node> refSpaceWorld = Ref<Node>(m_pSpaceWorld);
 
-	return m_pSpaceWorld;
+	return m_pSpaceWorldNode;
 }
 
 Node* GD_ClientApp::getPlayerNode(bool bIgnoreValid)
 {
 
-	Node* pWorldNode = ((GD_SpaceWorld*)m_pSpaceWorld)->getWorldNode();
+	Node* pWorldNode = ((GD_SpaceWorld*)m_pSpaceWorldNode)->getWorldNode();
 	if (!pWorldNode)
 		return NULL;
 
@@ -553,9 +574,9 @@ Node* GD_ClientApp::getPlayerNode(bool bIgnoreValid)
 	return NULL;
 }
 
-int GD_ClientApp::getEntityCount(void)
+int GD_ClientApp::getEntityNodeCount(void)
 {
-	Node* pWorldNode = ((GD_SpaceWorld*)m_pSpaceWorld)->getWorldNode();
+	Node* pWorldNode = ((GD_SpaceWorld*)m_pSpaceWorldNode)->getWorldNode();
 	if (!pWorldNode)
 		return 0;
 
@@ -568,12 +589,12 @@ int GD_ClientApp::getEntityCount(void)
 
 Node* GD_ClientApp::getEntityNodeByIdx(int idx, bool bIgnoreValid)
 {
-	int entitiesSize = getEntityCount();
+	int entitiesSize = getEntityNodeCount();
 
 	if (idx >= entitiesSize)
 		return NULL;
 
-	Node* pWorldNode = ((GD_SpaceWorld*)m_pSpaceWorld)->getWorldNode();
+	Node* pWorldNode = ((GD_SpaceWorld*)m_pSpaceWorldNode)->getWorldNode();
 	if (!pWorldNode)
 		return NULL;
 
@@ -616,7 +637,7 @@ Node* GD_ClientApp::getEntityNodeByIdx(int idx, bool bIgnoreValid)
 
 Node* GD_ClientApp::getEntityNodeById(int id, bool bIgnoreValid)
 {
-	Node* pWorldNode = ((GD_SpaceWorld*)m_pSpaceWorld)->getWorldNode();
+	Node* pWorldNode = ((GD_SpaceWorld*)m_pSpaceWorldNode)->getWorldNode();
 	if (!pWorldNode)
 		return NULL;
 
@@ -639,4 +660,33 @@ Node* GD_ClientApp::getEntityNodeById(int id, bool bIgnoreValid)
 	}
 
 	return NULL;
+}
+
+Entity_Visuals* GD_ClientApp::getEntityVisuals(int iType)
+{
+	Entity_Visuals* pVisuals = NULL;
+	
+	switch (iType)
+	{
+	case GD_CLIENTAPP_ENTITYVISUALS_PLAYER:
+		if (!m_pPlayer_EntityVisuals)
+			m_pPlayer_EntityVisuals = new Entity_Visuals(GD_CLIENTAPP_ENTITYVISUALS_PLAYER);
+		pVisuals = m_pPlayer_EntityVisuals;
+		break;
+	case GD_CLIENTAPP_ENTITYVISUALS_NPC:
+		if (!m_pNPC_EntityVisuals)
+			m_pNPC_EntityVisuals = new Entity_Visuals(GD_CLIENTAPP_ENTITYVISUALS_NPC);
+		pVisuals = m_pNPC_EntityVisuals;
+		break;
+	case GD_CLIENTAPP_ENTITYVISUALS_MONSTER:
+		if (!m_pMonster_EntityVisuals)
+			m_pMonster_EntityVisuals = new Entity_Visuals(GD_CLIENTAPP_ENTITYVISUALS_MONSTER);
+		pVisuals = m_pMonster_EntityVisuals;
+		break;
+	default:
+		return NULL;
+		break;
+	}
+
+	return pVisuals;
 }

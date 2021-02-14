@@ -2,6 +2,7 @@
 
 #include <Godot.hpp>
 #include <Spatial.hpp>
+#include <SpatialMaterial.hpp>
 
 #include <TheWorld_ClientApp.h>
 
@@ -11,6 +12,19 @@
 #define RIGID_BODY_MODE_KINEMATIC	3
 
 namespace godot {
+
+	class Entity_Visuals
+	{
+	public:
+		Entity_Visuals(int iType);
+		~Entity_Visuals();
+	
+		SpatialMaterial* getEntityShapeMaterial(SpatialMaterial* templateMaterial);
+
+	private:
+		int m_iType;
+		Ref<SpatialMaterial> m_entityShapeMaterial;
+	};
 
 	class GD_Entity : public Spatial
 	{
@@ -28,7 +42,7 @@ namespace godot {
 		void _physics_process(float _delta);
 		void _input(const Ref<InputEvent> event);
 
-		bool initEntity(int id, Node* pClientApp);
+		bool initEntity(int id, Node* pClientApp, Node** ppEntityNode);
 		bool destroyEntity(void);
 
 		bool isValid(void) { return m_isValid; }
@@ -37,19 +51,31 @@ namespace godot {
 		bool isPlayer() { return m_isPlayer; }
 		void setPlayer(bool isPlayer) { m_isPlayer = isPlayer; }
 
-		Node* getCamera(void);
+		Node* getCameraNode(void);
+		Node* getClientAppNode(void) { return m_pClientAppNode; }
+
+		bool isEntityShapeUpdated(void) { return m_isEntityShapeUpdated; }
+		void setEntityShapeUpdated(bool isEntityShapeUpdated) { m_isEntityShapeUpdated = isEntityShapeUpdated; }
+
+		void setLastPos(Vector3 lastPos) { m_lastPos = lastPos; }
+		Vector3 getLastPos(void) { return m_lastPos; };
 
 		// Entity Attributes
-		String getEntityName(bool bIgnoreValid = false);
 		int get_id(bool bIgnoreValid = false);
+		String getEntityName(bool bIgnoreValid = false);
+		String getClassName(bool bIgnoreValid = false);
 
 	private:
+		// Entity Attributes
 		int m_id;
-		Node* m_pClientApp;
+		String m_entityName;
+		String m_className;
+
+		Node* m_pClientAppNode;
 		bool m_isValid;
 		bool m_isPlayer;
-		String m_entityName;
 		Vector3 m_lastPos;
+		bool m_isEntityShapeUpdated;
 	};
 
 }

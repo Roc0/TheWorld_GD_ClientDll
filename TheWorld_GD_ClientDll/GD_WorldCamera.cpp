@@ -20,7 +20,7 @@ void GD_WorldCamera::_register_methods()
 
 GD_WorldCamera::GD_WorldCamera()
 {
-	m_pSpaceWorld = NULL;
+	m_pSpaceWorldNode = NULL;
 	
 	// Camera Movement
 	m_numMoveStep = 0;
@@ -120,12 +120,12 @@ void GD_WorldCamera::_input(const Ref<InputEvent> event)
 
 bool GD_WorldCamera::initCamera(Node* pSpaceWorld)
 {
-	m_pSpaceWorld = pSpaceWorld;
+	m_pSpaceWorldNode = pSpaceWorld;
 	
 	set_name("WorldCamera");
 	make_current();
 
-	AABB aabb = ((GD_SpaceWorld*)m_pSpaceWorld)->get_aabbForWorldCameraInitPos();
+	AABB aabb = ((GD_SpaceWorld*)m_pSpaceWorldNode)->get_aabbForWorldCameraInitPos();
 	Vector3 aabb_start = aabb.position;
 	Vector3 aabb_end = aabb.position + aabb.size;
 

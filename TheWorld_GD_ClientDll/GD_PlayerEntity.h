@@ -20,6 +20,9 @@ namespace godot {
 		void _physics_process(float _delta);
 		void _input(const Ref<InputEvent> event);
 
+		bool initEntity(int id, Node* pClientApp);
+		bool destroyEntity(void);
+
 	private:
 	};
 

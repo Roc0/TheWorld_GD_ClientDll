@@ -100,3 +100,19 @@ static uint32_t nextPowerOfTwo(uint32_t x) {
 	x |= x >> 16;
 	return x + 1;
 }
+
+/*
+ * Case Insensitive String Comparision
+ */
+static bool caseInSensStringEqual(std::string& str1, std::string& str2)
+{
+	return boost::iequals(str1, str2);
+}
+
+/*
+ * Case Insensitive String Comparision
+ */
+static bool caseInSensWStringEqual(std::wstring& str1, std::wstring& str2)
+{
+	return boost::iequals(str1, str2);
+}

@@ -7,8 +7,46 @@
 #include <ResourceLoader.hpp>
 #include <PackedScene.hpp>
 #include <RigidBody.hpp>
+#include <SpatialMaterial.hpp>
+//#include <SpatialMaterial.hpp>
 
 using namespace godot;
+
+Entity_Visuals::Entity_Visuals(int iType)
+{
+	m_iType = iType;
+}
+
+Entity_Visuals::~Entity_Visuals()
+{
+}
+
+SpatialMaterial* Entity_Visuals::getEntityShapeMaterial(SpatialMaterial* templateMaterial)
+{
+	Color greenEntity(51.0 / 255, 102.0 / 255, 0, 255.0 / 255);
+	Color redEntity(128.0 / 255, 25.0 / 255, 0, 255.0 / 255);
+	Color lightblueEntity(0 / 255, 192.0 / 255, 255.0 / 255, 255.0 / 255);
+
+	if (m_entityShapeMaterial.ptr())
+		return m_entityShapeMaterial.ptr();
+	else
+	{
+		m_entityShapeMaterial = templateMaterial->duplicate();
+		if (m_iType == GD_CLIENTAPP_ENTITYVISUALS_PLAYER)
+		{
+			m_entityShapeMaterial->set_albedo(greenEntity);
+		}
+		else if (m_iType == GD_CLIENTAPP_ENTITYVISUALS_MONSTER)
+		{
+			m_entityShapeMaterial->set_albedo(redEntity);
+		}
+		else if (m_iType == GD_CLIENTAPP_ENTITYVISUALS_NPC)
+		{
+			m_entityShapeMaterial->set_albedo(lightblueEntity);
+		}
+		return m_entityShapeMaterial.ptr();
+	}
+}
 
 void GD_Entity::_register_methods()
 {
@@ -21,10 +59,11 @@ void GD_Entity::_register_methods()
 GD_Entity::GD_Entity()
 {
 	m_id = -1;
-	m_pClientApp = NULL;
+	m_pClientAppNode = NULL;
 	setValid(false);
 	setPlayer(false);
 	m_lastPos = Vector3(0, 0, 0);
+	m_isEntityShapeUpdated = false;
 }
 
 GD_Entity::~GD_Entity()
@@ -48,76 +87,6 @@ void GD_Entity::_process(float _delta)
 
 	if (!isValid())
 		return;
-
-	char buffer[16];
-	
-	GD_ClientApp* pApp = (GD_ClientApp*)m_pClientApp;
-	bool bPlayer;
-	KBEntity* kbentity = pApp->getEntityById(m_id, bPlayer);
-	if (kbentity)
-	{
-		if (isPlayer())
-		{
-			float x, y, z;
-			kbentity->getPosition(x, y, z);
-			if (x != 0 || y != 0 || z != 0)
-			{
-				AABB aabb = ((GD_SpaceWorld*)((GD_ClientApp*)m_pClientApp)->getSpaceWorldNode())->get_aabbForWorldCameraInitPos();
-				Vector3 aabb_start = aabb.position;
-				Vector3 aabb_end = aabb.position + aabb.size;
-
-
-				Transform t;
-				t.origin = Vector3(x, aabb_end.y, z);
-				RigidBody* entity = (RigidBody*)get_node("Entity");
-				if (!entity)
-				{
-					pApp->setAppInError(GD_CLIENTAPP_ERROR_ENTITY_PROCESS);
-					return;
-				}
-				entity->set_transform(t);
-				if (t.origin != m_lastPos)
-				{
-					m_lastPos = (t.origin);
-					//String message;	message = message + "Player " + _itoa(m_id, buffer, 10) + " x = " + _itoa(m_lastPos.x, buffer, 10) + " y = " + _itoa(m_lastPos.y, buffer, 10) + " z = " + _itoa(m_lastPos.z, buffer, 10);
-					//Godot::print(message);
-				}
-			}
-		}
-		else
-		{
-			float x, y, z;
-			kbentity->getPosition(x, y, z);
-			if (x != 0 || y != 0 || z != 0)
-			{
-				AABB aabb = ((GD_SpaceWorld*)((GD_ClientApp*)m_pClientApp)->getSpaceWorldNode())->get_aabbForWorldCameraInitPos();
-				Vector3 aabb_start = aabb.position;
-				Vector3 aabb_end = aabb.position + aabb.size;
-
-				
-				Transform t;
-				t.origin = Vector3(x, aabb_end.y, z);
-				RigidBody* entity = (RigidBody*)get_node("Entity");
-				if (!entity)
-				{
-					pApp->setAppInError(GD_CLIENTAPP_ERROR_ENTITY_PROCESS);
-					return;
-				}
-				entity->set_transform(t);
-				if (t.origin != m_lastPos)
-				{
-					m_lastPos = (t.origin);
-					//String message;	message = message + "Entity " + _itoa(m_id, buffer, 10) + " x = " + _itoa(m_lastPos.x, buffer, 10) + " y = " + _itoa(m_lastPos.y, buffer, 10) + " z = " + _itoa(m_lastPos.z, buffer, 10);
-					//Godot::print(message);
-				}
-			}
-		}
-	}
-	else
-	{
-		pApp->setAppInError(GD_CLIENTAPP_ERROR_ENTITY_PROCESS);
-		return;
-	}
 }
 
 void GD_Entity::_physics_process(float _delta)
@@ -131,7 +100,7 @@ void GD_Entity::_input(const Ref<InputEvent> event)
 	//Godot::print("GD_Entity::_input: " + event->as_text());
 }
 
-Node* GD_Entity::getCamera(void)
+Node* GD_Entity::getCameraNode(void)
 {
 	Camera* entityCam = (Camera*)get_node("Entity/Camera");
 	if (!entityCam)
@@ -142,10 +111,10 @@ Node* GD_Entity::getCamera(void)
 	return entityCam;
 }
 
-bool GD_Entity::initEntity(int id, Node* pClientApp)
+bool GD_Entity::initEntity(int id, Node* pClientApp, Node** ppEntityNode)
 {
 	m_id = id;
-	m_pClientApp = pClientApp;
+	m_pClientAppNode = pClientApp;
 
 	setValid(true);
 
@@ -153,27 +122,22 @@ bool GD_Entity::initEntity(int id, Node* pClientApp)
 	//String entityName = getEntityName();
 	String nodeName, path;
 	int64_t rigidBodyMode;
-	
+
+	//Color shapeColor;
+	//Color greenEntity(51.0 / 255, 102.0 / 255, 0, 255.0 / 255);
+	//Color redEntity(128.0 / 255, 25.0 / 255, 0, 255.0 / 255);
+	//Color lightblueEntity(0 / 255, 192.0 / 255, 255.0 / 255, 255.0 / 255);
+
 	if (isPlayer())
 	{
-		/*Node *pPlayerNode = ((GD_ClientApp*)m_pClientApp)->getPlayerNode(true);
-		if (pPlayerNode)
-		{
-			nodeName = pPlayerNode->get_name();
-			int id = ((GD_Entity*)pPlayerNode)->get_id(true);
-			nodeName = nodeName + "_" + _itoa(id, buffer, 10);
-			pPlayerNode->set_name(nodeName);
-			((GD_Entity*)pPlayerNode)->destroyEntity();
-			pPlayerNode->call_deferred("free");
-
-		}*/
-		
 		nodeName = GD_CLIENTAPP_PLAYER_ENTITY_NODE;
 
 		// Kinematic body mode. The body behaves like a KinematicBody, and can only move by user code
 		rigidBodyMode = RIGID_BODY_MODE_KINEMATIC;
 
 		path = "res://Player.tscn";
+
+		//shapeColor = greenEntity;
 	}
 	else
 	{
@@ -181,9 +145,17 @@ bool GD_Entity::initEntity(int id, Node* pClientApp)
 		nodeName = nodeName + "_" + _itoa(id, buffer, 10);
 
 		// Static mode. The body behaves like a StaticBody, and can only move by user code.
-		rigidBodyMode = RIGID_BODY_MODE_STATIC;
+		//rigidBodyMode = RIGID_BODY_MODE_STATIC;
+		rigidBodyMode = RIGID_BODY_MODE_RIGID;
 
 		path = "res://OtherEntity.tscn";
+
+		/*std::wstring s = getClassName().unicode_str();
+		std::wstring m(L"monster");
+		if (caseInSensWStringEqual(s, m))
+			shapeColor = redEntity;
+		else
+			shapeColor = lightblueEntity;*/
 	}
 
 	set_name(nodeName);
@@ -192,12 +164,25 @@ bool GD_Entity::initEntity(int id, Node* pClientApp)
 	Ref<PackedScene> s = resLoader->load(path);
 	if (!s.ptr())
 		return false;
-	Node* pEntity = s->instance();
-	if (!pEntity)
+	Node* pEntityNode = s->instance();
+	if (!pEntityNode)
 		return false;
 
-	((RigidBody*)pEntity)->set_mode(rigidBodyMode);
-	add_child(pEntity);
+	((RigidBody*)pEntityNode)->set_mode(rigidBodyMode);
+	add_child(pEntityNode);
+
+	*ppEntityNode = pEntityNode;
+	
+	/*MeshInstance* shape = (MeshInstance*)pEntityNode->get_node("Shape");
+	if (!shape)
+		return false;
+
+	Ref<SpatialMaterial> shapeMaterial = shape->get_surface_material(0);
+	if (!shapeMaterial.ptr())
+		return false;
+
+	shapeMaterial->set_albedo(shapeColor);*/
+
 	//const String str = pEntity->get_name();
 	//Godot::print(str);
 
@@ -226,7 +211,7 @@ String GD_Entity::getEntityName(bool bIgnoreValid)
 	if (m_entityName != "")
 		return m_entityName;
 	
-	GD_ClientApp* pApp = (GD_ClientApp*)m_pClientApp;
+	GD_ClientApp* pApp = (GD_ClientApp*)m_pClientAppNode;
 	bool bPlayer;
 	KBEntity* kbentity = pApp->getEntityById(m_id, bPlayer);
 	if (kbentity)
@@ -237,4 +222,21 @@ String GD_Entity::getEntityName(bool bIgnoreValid)
 	//Godot::print(s);
 
 	return m_entityName;
+}
+
+String GD_Entity::getClassName(bool bIgnoreValid)
+{
+	if (!isValid() && !bIgnoreValid)
+		return "";
+
+	if (m_className != "")
+		return m_className;
+
+	GD_ClientApp* pApp = (GD_ClientApp*)m_pClientAppNode;
+	bool bPlayer;
+	KBEntity* kbentity = pApp->getEntityById(m_id, bPlayer);
+	if (kbentity)
+		m_className = kbentity->getClassName();
+
+	return m_className;
 }

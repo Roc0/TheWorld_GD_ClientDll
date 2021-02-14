@@ -7,6 +7,8 @@
 
 namespace godot {
 
+	class Entity_Visuals;
+
 	class GD_ClientApp : public Node, public TheWorld_ClientApp
 	{
 	
@@ -18,14 +20,36 @@ namespace godot {
 		GD_ClientApp();
 		~GD_ClientApp();
 
+		//
+		// Test
+		//
+		void say(String message) { Godot::print(message); }
+		String hello(String target1, String target2, int target3) { return String("Hello, {0} {1} {2}!").format(Array::make(target1, target2, target3)); };
+		
+		//
+		// General App Functions
+		//
+		void setAppInError(int errorCode) {
+			m_erroCodeApp = errorCode;
+			m_bAppInError = true;
+		}
+		bool getAppInError(void) { return m_bAppInError; }
+		bool getAppInError(int& erroCodeApp) {
+			erroCodeApp = m_erroCodeApp;
+			return m_bAppInError;
+		}
+
+		//
+		// Godot Standard Functions
+		//
 		void _init(); // our initializer called by Godot
 		void _ready();
 		void _process(float _delta);
 		void _input(const Ref<InputEvent> event);
 
-		void say(String message) {	Godot::print(message);	}
-		String hello(String target1, String target2, int target3) { return String("Hello, {0} {1} {2}!").format(Array::make(target1, target2, target3)); };
-
+		//
+		// Server Interaction
+		//
 		void setAppMode(int r, bool bForce = false);
 		int  getAppMode1(void);
 		void setLoginStatus(int i);
@@ -73,26 +97,31 @@ namespace godot {
 		void onPlayerLeaveSpace(KBEngine::SPACE_ID spaceId);
 		void onAddSpaceGeoMapping(KBEngine::SPACE_ID spaceId, const char* resPath);
 
-		void setAppInError(int errorCode) {
-			m_erroCodeApp = errorCode;
-			m_bAppInError = true;
-		}
-		bool getAppInError(void) { return m_bAppInError; }
-		bool getAppInError(int& erroCodeApp) {
-			erroCodeApp = m_erroCodeApp;
-			return m_bAppInError;
-		}
-
-		int getEntityCount(void);
+		//
+		// Godot Node
+		//
+		int getEntityNodeCount(void);
 		Node* getEntityNodeById(int id, bool bIgnoreValid = false);
 		Node* getEntityNodeByIdx(int idx, bool bIgnoreValid = false);
 		Node* getPlayerNode(bool bIgnoreValid = false);
 
+		//
+		// Godot Entity Vidusls
+		//
+#define GD_CLIENTAPP_ENTITYVISUALS_PLAYER	0
+#define GD_CLIENTAPP_ENTITYVISUALS_NPC		1
+#define GD_CLIENTAPP_ENTITYVISUALS_MONSTER	2
+		Entity_Visuals* getEntityVisuals(int iType);
+
 	private:
-		Node *m_pSpaceWorld;
+		Node *m_pSpaceWorldNode;
 		bool m_bAppInError;
 		int m_erroCodeApp;
 		int m_iProgEntityCamera;
+
+		Entity_Visuals* m_pPlayer_EntityVisuals;
+		Entity_Visuals* m_pNPC_EntityVisuals;
+		Entity_Visuals* m_pMonster_EntityVisuals;
 	};
 
 }

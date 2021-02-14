@@ -27,7 +27,7 @@ namespace godot {
 		bool updateCamera(void);
 
 	private:
-		Node* m_pSpaceWorld;
+		Node* m_pSpaceWorldNode;
 
 		// Camera Movement
 		int m_numMoveStep;
