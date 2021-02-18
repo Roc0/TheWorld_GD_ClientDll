@@ -3,6 +3,7 @@
 #include "GD_PlayerEntity.h"
 #include "GD_OtherEntity.h"
 
+#include <Godot.hpp>
 #include <Reference.hpp>
 #include <SceneTree.hpp>
 
@@ -70,6 +71,7 @@ GD_ClientApp::GD_ClientApp()
 	m_pPlayer_EntityVisuals = NULL;
 	m_pNPC_EntityVisuals = NULL;
 	m_pMonster_EntityVisuals = NULL;
+	m_isDebugEnabled = true;
 }
 
 GD_ClientApp::~GD_ClientApp()
@@ -438,7 +440,7 @@ void GD_ClientApp::onCreatedEntity(KBEngine::ENTITY_ID eid, bool bPlayer)
 			
 			String nodeName = GD_CLIENTAPP_PLAYER_ENTITY_NODE;
 			char buffer[16];
-			nodeName = nodeName + "_" + _itoa(((GD_Entity*)pNode)->get_id(), buffer, 10);
+			nodeName = nodeName + "_" + _itoa(((GD_Entity*)pNode)->getId(), buffer, 10);
 			pNode->set_name(nodeName);
 			Godot::print("onCreatedEntity (renamed): " + pNode->get_name() + " - " + ((GD_Entity*)pNode)->getEntityName());
 			((GD_Entity*)pNode)->destroyEntity();
@@ -499,7 +501,7 @@ void GD_ClientApp::onEraseEntity(KBEngine::ENTITY_ID eid)
 	GD_Entity* entity = (GD_Entity*)getEntityNodeById(eid);
 	if (entity)
 	{
-		char buffer[16]; _itoa(entity->get_id(), buffer, 10);
+		char buffer[16]; _itoa(entity->getId(), buffer, 10);
 		String s = "destroyEntity(";	s = s + buffer + "): " + entity->get_name() + " - " + entity->getEntityName();
 		Godot::print(s);
 		entity->destroyEntity();
@@ -654,7 +656,7 @@ Node* GD_ClientApp::getEntityNodeById(int id, bool bIgnoreValid)
 		GD_OtherEntity* pOtherEntityNode = cast_to<GD_OtherEntity>(pEntityNode);
 		if (pOtherEntityNode != nullptr || pPlayerEntityNode != nullptr)
 		{
-			if (pEntityNode->get_id(bIgnoreValid) == id)
+			if (pEntityNode->getId(bIgnoreValid) == id)
 				return pEntityNode;
 		}
 	}

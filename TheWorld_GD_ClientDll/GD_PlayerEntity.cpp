@@ -3,6 +3,8 @@
 #include "GD_PlayerEntity.h"
 #include "Utils.h"
 
+#include <Godot.hpp>
+#include <Reference.hpp>
 #include <InputEvent.hpp>
 #include <RigidBody.hpp>
 #include <SpatialMaterial.hpp>
@@ -51,11 +53,12 @@ void GD_PlayerEntity::_process(float _delta)
 	//if (entityName == "")
 	//	return;
 
-	char buffer[16];
+	char buffer[256];
 
 	GD_ClientApp* pAppNode = (GD_ClientApp*)getClientAppNode();
+	GD_SpaceWorld* pSpaceWorldNode = (GD_SpaceWorld*)pAppNode->getSpaceWorldNode();
 
-	if (!((GD_SpaceWorld*)pAppNode->getSpaceWorldNode())->isWorldInitialized())
+	if (!pSpaceWorldNode->isWorldInitialized())
 		return;
 
 	String entityNodeName = get_name();
@@ -83,32 +86,35 @@ void GD_PlayerEntity::_process(float _delta)
 			Entity_Visuals* ev = pAppNode->getEntityVisuals(GD_CLIENTAPP_ENTITYVISUALS_PLAYER);
 			SpatialMaterial* mat = ev->getEntityShapeMaterial(entityShapeMaterial.ptr());
 			entityShape->set_material_override(mat);
+			entityNode->set_mode(RIGID_BODY_MODE_KINEMATIC);
 			setEntityShapeUpdated(true);
 		}
 	}
 
 	bool bPlayer;
-	KBEntity* kbentity = pAppNode->getEntityById(get_id(true), bPlayer);
+	KBEntity* kbentity = pAppNode->getEntityById(getId(true), bPlayer);
 	if (kbentity)
 	{
 		float x, y, z;
-		kbentity->getPosition(x, y, z);
+		kbentity->getServerPosition(x, y, z);
 		if (x != 0 || y != 0 || z != 0)
 		{
-			AABB aabb = ((GD_SpaceWorld*)pAppNode->getSpaceWorldNode())->get_aabbForWorldCameraInitPos();
+			AABB aabb = pSpaceWorldNode->get_aabbForWorldCameraInitPos();
 			Vector3 aabb_start = aabb.position;
 			Vector3 aabb_end = aabb.position + aabb.size;
 
-			RayCast* pCaster = (RayCast*)entityNode->get_node("RayCast");
-
 			Transform t;
 			t.origin = Vector3(x, aabb_end.y, z);
-			entityNode->set_transform(t);
+			set_transform(t);
 			if (t.origin != getLastPos())
 			{
 				setLastPos(t.origin);
-				//String message;	message = message + "Player " + _itoa(m_id, buffer, 10) + " x = " + _itoa(m_lastPos.x, buffer, 10) + " y = " + _itoa(m_lastPos.y, buffer, 10) + " z = " + _itoa(m_lastPos.z, buffer, 10);
-				//Godot::print(message);
+				if (isDebugEnabled())
+				{
+					sprintf(buffer, "Player %d - x = %f y = %f z = %f", getId(), getLastPos().x, getLastPos().y, getLastPos().z);
+					//String message;	message = message + "Player " + _itoa(getId(), buffer, 10) + " x = " + _itoa(getLastPos().x, buffer, 10) + " y = " + _itoa(getLastPos().y, buffer, 10) + " z = " + _itoa(getLastPos().z, buffer, 10);
+					Godot::print(buffer);
+				}
 			}
 		}
 	}

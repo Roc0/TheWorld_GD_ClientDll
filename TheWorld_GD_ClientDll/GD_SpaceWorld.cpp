@@ -1,7 +1,11 @@
 #include "GD_ClientApp.h"
 #include "GD_SpaceWorld.h"
 
+#include <Godot.hpp>
+#include <Reference.hpp>
 #include <ResourceLoader.hpp>
+#include <Viewport.hpp>
+#include <SceneTree.hpp>
 #include <MeshInstance.hpp>
 #include <Mesh.hpp>
 #include <Script.hpp>
@@ -23,6 +27,9 @@ GD_SpaceWorld::GD_SpaceWorld()
 	m_pWorldCameraNode = NULL;
 	m_pWorldNode = NULL;
 	m_isWorldInitialized = false;
+	//m_pWorldCaster = NULL;
+	m_isDebugEnabled = false;
+	m_pClientAppNode = NULL;
 }
 
 GD_SpaceWorld::~GD_SpaceWorld()
@@ -58,7 +65,9 @@ void GD_SpaceWorld::_process(float _delta)
 void GD_SpaceWorld::init(Node* pClientApp, Node* pWorldNode)
 {
 	m_pClientAppNode = pClientApp;
+	m_isDebugEnabled = ((GD_ClientApp*)m_pClientAppNode)->isDebugEnabled();
 	m_pWorldNode = pWorldNode;
+	//m_pWorldCaster = (RayCast*)m_pWorldNode->get_node("WorldCaster");
 }
 
 /*MeshInstance* GD_SpaceWorld::getMeshInstance(void)
@@ -95,6 +104,7 @@ bool GD_SpaceWorld::enterWorld(void)
 	const Ref<Mesh> mesh = resLoader->load(path);
 	m_pMeshInst->set_mesh(mesh);
 
+	
 	m_pMeshInst->create_trimesh_collision();
 	
 	m_pWorldCameraNode = GD_WorldCamera::_new();
@@ -108,6 +118,13 @@ bool GD_SpaceWorld::enterWorld(void)
 	if (!b)
 		return b;
 
+	if (isDebugEnabled())
+	{
+		Godot::print("EnterWorld Tree");
+		//m_pWorldNode->get_tree()->get_root()->print_tree_pretty();
+		m_pWorldNode->print_tree_pretty();
+	}
+	
 	m_isWorldInitialized = true;
 	
 	return true;

@@ -3,10 +3,14 @@
 #include "GD_OtherEntity.h"
 #include "Utils.h"
 
+#include <Godot.hpp>
+#include <Reference.hpp>
 #include <InputEvent.hpp>
 #include <RigidBody.hpp>
 #include <SpatialMaterial.hpp>
 #include <RayCast.hpp>
+#include <World.hpp>
+#include <PhysicsDirectSpaceState.hpp>
 
 using namespace godot;
 
@@ -55,8 +59,9 @@ void GD_OtherEntity::_process(float _delta)
 	char buffer[16];
 
 	GD_ClientApp* pAppNode = (GD_ClientApp*)getClientAppNode();
+	GD_SpaceWorld* pSpaceWorldNode = (GD_SpaceWorld*)pAppNode->getSpaceWorldNode();
 
-	if (!((GD_SpaceWorld*)pAppNode->getSpaceWorldNode())->isWorldInitialized())
+	if (!pSpaceWorldNode->isWorldInitialized())
 		return;
 
 	String entityNodeName = get_name();
@@ -90,60 +95,18 @@ void GD_OtherEntity::_process(float _delta)
 					Entity_Visuals* ev = pAppNode->getEntityVisuals(GD_CLIENTAPP_ENTITYVISUALS_MONSTER);
 					SpatialMaterial* mat = ev->getEntityShapeMaterial(entityShapeMaterial.ptr());
 					entityShape->set_material_override(mat);
+					entityNode->set_mode(RIGID_BODY_MODE_STATIC);
 				}
 				else
 				{
 					Entity_Visuals* ev = pAppNode->getEntityVisuals(GD_CLIENTAPP_ENTITYVISUALS_NPC);
 					SpatialMaterial* mat = ev->getEntityShapeMaterial(entityShapeMaterial.ptr());
 					entityShape->set_material_override(mat);
+					entityNode->set_mode(RIGID_BODY_MODE_STATIC);
 				}
 				setEntityShapeUpdated(true);
 			}
 		}
-	}
-
-	bool bPlayer;
-	KBEntity* kbentity = pAppNode->getEntityById(get_id(true), bPlayer);
-	if (kbentity)
-	{
-		float x, y, z;
-		kbentity->getPosition(x, y, z);
-		if (x != 0 || y != 0 || z != 0)
-		{
-			AABB aabb = ((GD_SpaceWorld*)pAppNode->getSpaceWorldNode())->get_aabbForWorldCameraInitPos();
-			Vector3 aabb_start = aabb.position;
-			Vector3 aabb_end = aabb.position + aabb.size;
-
-			RayCast* pCaster = (RayCast*)entityNode->get_node("RayCast");
-			if (!pCaster)
-			{
-				pAppNode->setAppInError(GD_CLIENTAPP_ERROR_ENTITY_PROCESS);
-				return;
-			}
-
-			Transform t;
-			t.origin = Vector3(x, aabb_end.y, z);
-
-			pCaster->set_transform(t);
-			pCaster->set_cast_to(Vector3(x, aabb_end.y - 1, z));
-			pCaster->force_raycast_update();
-			Vector3 posOnGround = pCaster->get_collision_point();
-
-			t.origin = posOnGround;
-			entityNode->set_transform(t);
-			if (t.origin != getLastPos())
-			{
-				setLastPos(t.origin);
-				//String message;	message = message + "Entity " + _itoa(m_id, buffer, 10) + " x = " + _itoa(m_lastPos.x, buffer, 10) + " y = " + _itoa(m_lastPos.y, buffer, 10) + " z = " + _itoa(m_lastPos.z, buffer, 10);
-				//Godot::print(message);
-			}
-		}
-
-	}
-	else
-	{
-		pAppNode->setAppInError(GD_CLIENTAPP_ERROR_ENTITY_PROCESS);
-		return;
 	}
 }
 
@@ -151,6 +114,107 @@ void GD_OtherEntity::_physics_process(float _delta)
 {
 	// To activate _process method add this Node to a Godot Scene
 	//Godot::print("GD_OtherEntity::_physics_process");
+
+	if (!isValid())
+		return;
+
+	//String entityName = getEntityName();
+	//if (entityName == "")
+	//	return;
+
+	char buffer[256];
+
+	GD_ClientApp* pAppNode = (GD_ClientApp*)getClientAppNode();
+	GD_SpaceWorld* pSpaceWorldNode = (GD_SpaceWorld*)pAppNode->getSpaceWorldNode();
+
+	if (!pSpaceWorldNode->isWorldInitialized())
+		return;
+
+	bool bPlayer;
+	KBEntity* kbentity = pAppNode->getEntityById(getId(true), bPlayer);
+	if (kbentity)
+	{
+		Vector3 serverPos;
+		kbentity->getServerPosition(serverPos.x, serverPos.y, serverPos.z);
+		// specificare meglio cosa si fa se uno fra x y e z è nullo (per y come ora per gli altri posizione precedente)
+		if (serverPos.x != 0 || serverPos.y != 0 || serverPos.z != 0)
+		{
+			Vector3 lastPos = getLastPos();
+
+			if (!(lastPos.x == serverPos.x && lastPos.z == serverPos.z))
+			{
+				if (serverPos.y == 0)
+				{
+					AABB aabb = pSpaceWorldNode->get_aabbForWorldCameraInitPos();
+					Vector3 aabb_start = aabb.position;
+					Vector3 aabb_end = aabb.position + aabb.size;
+
+					Vector3 posOnGround(serverPos.x, aabb_end.y, serverPos.z);
+
+					PhysicsDirectSpaceState* pSpaceState = get_world()->get_direct_space_state();
+					Dictionary dict = pSpaceState->intersect_ray(Vector3(serverPos.x, aabb_end.y, serverPos.z), Vector3(serverPos.x, aabb_start.y, serverPos.z));
+					if (dict.empty())
+					{
+						// Something was wrong
+						//serverPos.y = aabb_end.y;
+					}
+					else
+					{
+						posOnGround = dict["position"];
+						serverPos.y = posOnGround.y;
+					}
+
+					/*RayCast* pCaster = pSpaceWorldNode->getWorldCaster();
+					if (!pCaster)
+					{
+						pAppNode->setAppInError(GD_CLIENTAPP_ERROR_ENTITY_PROCESS);
+						return;
+					}
+
+					Transform t;
+					t = pCaster->get_transform();
+					t.origin = Vector3(serverPos.x, aabb_end.y, serverPos.z);
+					pCaster->set_enabled(true);
+					pCaster->set_transform(t);
+					pCaster->set_cast_to(Vector3(serverPos.x, aabb_start.y, serverPos.z));
+					pCaster->force_raycast_update();
+					if (pCaster->is_colliding())
+					{
+						posOnGround = pCaster->get_collision_point();
+						serverPos.y = posOnGround.y;
+					}
+					else
+					{
+						// Something was wrong
+						serverPos.y = aabb_end.y;
+					}
+					pCaster->set_enabled(false);*/
+				}
+
+				Transform t;
+				//t = get_transform();
+				t.origin = serverPos;
+				if (t.origin != lastPos)
+				{
+					set_transform(t);
+					setLastPos(t.origin);
+					if (isDebugEnabled())
+					{
+						sprintf(buffer, "********************************************************************** Entity %d - %f/%f/%f", getId(), getLastPos().x, getLastPos().y, getLastPos().z);
+						//String message;	message = message + "Entity " + _itoa(getId(), buffer, 10) + " x = " + _itoa(getLastPos().x, buffer, 10) + " y = " + _itoa(getLastPos().y, buffer, 10) + " z = " + _itoa(getLastPos().z, buffer, 10);
+						Godot::print(buffer);
+					}
+				}
+			}
+			//Vector3 v1 = entityNode->get_transform().origin;
+			//Vector3 v2 = entityNode->get_global_transform().origin;
+		}
+	}
+	else
+	{
+		pAppNode->setAppInError(GD_CLIENTAPP_ERROR_ENTITY_PROCESS);
+		return;
+	}
 }
 
 void GD_OtherEntity::_input(const Ref<InputEvent> event)

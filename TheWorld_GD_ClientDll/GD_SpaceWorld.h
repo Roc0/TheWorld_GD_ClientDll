@@ -3,6 +3,8 @@
 #include <Godot.hpp>
 #include <Node.hpp>
 #include <MeshInstance.hpp>
+#include <RayCast.hpp>
+#include <Ref.hpp>
 
 #include "GD_WorldCamera.h"
 
@@ -35,6 +37,8 @@ namespace godot {
 		
 		//MeshInstance* getMeshInstance(void);
 		AABB get_aabbForWorldCameraInitPos(void);
+		//RayCast* getWorldCaster(void) { return m_pWorldCaster; }
+		bool isDebugEnabled(void) { return m_isDebugEnabled; }
 
 	private:
 		Node* m_pClientAppNode;
@@ -42,6 +46,8 @@ namespace godot {
 		GD_WorldCamera* m_pWorldCameraNode;
 		Node* m_pWorldNode;
 		bool m_isWorldInitialized;
+		//RayCast* m_pWorldCaster;
+		bool m_isDebugEnabled;
 	};
 
 }

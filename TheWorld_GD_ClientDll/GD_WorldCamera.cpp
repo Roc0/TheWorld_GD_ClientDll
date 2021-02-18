@@ -4,6 +4,8 @@
 #include "Utils.h"
 #include <string> 
 
+#include <Godot.hpp>
+#include <Reference.hpp>
 #include <Math.hpp>
 #include <Input.hpp>
 #include <InputEventMouseMotion.hpp>
@@ -133,15 +135,11 @@ bool GD_WorldCamera::initCamera(Node* pSpaceWorld)
 	real_t zFar = (aabb_end.z > 900 ? aabb_end.z + 100 : 1000);
 	real_t fov = 45.0;
 	set_perspective(fov, zNear, zFar);
-	//m_pWorldCamera->set_zfar(zFar);
 
 	float offsetFromCenterOfAABB = sqrtf(pow(aabb.size.x, 2) + pow(aabb.size.y, 2) + pow(aabb.size.z, 2)) / 2;
 	Vector3 cameraPos((aabb_end.x + aabb_start.x) / 2 + offsetFromCenterOfAABB, (aabb_end.y + aabb_start.y) / 2 + offsetFromCenterOfAABB, (aabb_end.z + aabb_start.z) / 2 + offsetFromCenterOfAABB);
 	Vector3 lookAt = aabb.position + aabb.size / 2;
 
-	//Transform t;	t.origin = cameraPos;
-	//set_transform(t);
-	//look_at(lookAt, Vector3(0, 1, 0));
 	look_at_from_position(cameraPos, lookAt, Vector3(0, 1, 0));
 
 	return true;

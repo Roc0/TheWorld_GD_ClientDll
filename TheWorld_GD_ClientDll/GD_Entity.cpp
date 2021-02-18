@@ -3,6 +3,8 @@
 #include "GD_Entity.h"
 #include "Utils.h"
 
+#include <Godot.hpp>
+#include <Reference.hpp>
 #include <InputEvent.hpp>
 #include <ResourceLoader.hpp>
 #include <PackedScene.hpp>
@@ -64,6 +66,7 @@ GD_Entity::GD_Entity()
 	setPlayer(false);
 	m_lastPos = Vector3(0, 0, 0);
 	m_isEntityShapeUpdated = false;
+	m_isDebugEnabled = false;
 }
 
 GD_Entity::~GD_Entity()
@@ -116,17 +119,14 @@ bool GD_Entity::initEntity(int id, Node* pClientApp, Node** ppEntityNode)
 	m_id = id;
 	m_pClientAppNode = pClientApp;
 
+	m_isDebugEnabled = ((GD_ClientApp*)m_pClientAppNode)->isDebugEnabled();
+
 	setValid(true);
 
 	char buffer[16];
 	//String entityName = getEntityName();
 	String nodeName, path;
 	int64_t rigidBodyMode;
-
-	//Color shapeColor;
-	//Color greenEntity(51.0 / 255, 102.0 / 255, 0, 255.0 / 255);
-	//Color redEntity(128.0 / 255, 25.0 / 255, 0, 255.0 / 255);
-	//Color lightblueEntity(0 / 255, 192.0 / 255, 255.0 / 255, 255.0 / 255);
 
 	if (isPlayer())
 	{
@@ -136,8 +136,6 @@ bool GD_Entity::initEntity(int id, Node* pClientApp, Node** ppEntityNode)
 		rigidBodyMode = RIGID_BODY_MODE_KINEMATIC;
 
 		path = "res://Player.tscn";
-
-		//shapeColor = greenEntity;
 	}
 	else
 	{
@@ -149,13 +147,6 @@ bool GD_Entity::initEntity(int id, Node* pClientApp, Node** ppEntityNode)
 		rigidBodyMode = RIGID_BODY_MODE_RIGID;
 
 		path = "res://OtherEntity.tscn";
-
-		/*std::wstring s = getClassName().unicode_str();
-		std::wstring m(L"monster");
-		if (caseInSensWStringEqual(s, m))
-			shapeColor = redEntity;
-		else
-			shapeColor = lightblueEntity;*/
 	}
 
 	set_name(nodeName);
@@ -173,18 +164,8 @@ bool GD_Entity::initEntity(int id, Node* pClientApp, Node** ppEntityNode)
 
 	*ppEntityNode = pEntityNode;
 	
-	/*MeshInstance* shape = (MeshInstance*)pEntityNode->get_node("Shape");
-	if (!shape)
-		return false;
-
-	Ref<SpatialMaterial> shapeMaterial = shape->get_surface_material(0);
-	if (!shapeMaterial.ptr())
-		return false;
-
-	shapeMaterial->set_albedo(shapeColor);*/
-
-	//const String str = pEntity->get_name();
-	//Godot::print(str);
+	if (((GD_ClientApp*)m_pClientAppNode)->isDebugEnabled())
+		Godot::print("GD_Entity::initEntity " + nodeName);
 
 	return true;
 }
@@ -195,7 +176,7 @@ bool GD_Entity::destroyEntity(void)
 	return true;
 }
 
-int GD_Entity::get_id(bool bIgnoreValid)
+int GD_Entity::getId(bool bIgnoreValid)
 {
 	if (bIgnoreValid)
 		return m_id;

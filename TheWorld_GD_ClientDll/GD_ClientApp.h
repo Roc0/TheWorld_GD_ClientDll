@@ -2,6 +2,7 @@
 
 #include <Godot.hpp>
 #include <Node.hpp>
+#include <Reference.hpp>
 
 #include <TheWorld_ClientApp.h>
 
@@ -38,6 +39,7 @@ namespace godot {
 			erroCodeApp = m_erroCodeApp;
 			return m_bAppInError;
 		}
+		bool isDebugEnabled(void) { return m_isDebugEnabled; }
 
 		//
 		// Godot Standard Functions
@@ -106,7 +108,7 @@ namespace godot {
 		Node* getPlayerNode(bool bIgnoreValid = false);
 
 		//
-		// Godot Entity Vidusls
+		// Godot Entity Visuals
 		//
 #define GD_CLIENTAPP_ENTITYVISUALS_PLAYER	0
 #define GD_CLIENTAPP_ENTITYVISUALS_NPC		1
@@ -118,6 +120,7 @@ namespace godot {
 		bool m_bAppInError;
 		int m_erroCodeApp;
 		int m_iProgEntityCamera;
+		bool m_isDebugEnabled;
 
 		Entity_Visuals* m_pPlayer_EntityVisuals;
 		Entity_Visuals* m_pNPC_EntityVisuals;

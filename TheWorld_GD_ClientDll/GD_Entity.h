@@ -60,8 +60,10 @@ namespace godot {
 		void setLastPos(Vector3 lastPos) { m_lastPos = lastPos; }
 		Vector3 getLastPos(void) { return m_lastPos; };
 
+		bool isDebugEnabled(void) { return m_isDebugEnabled; }
+
 		// Entity Attributes
-		int get_id(bool bIgnoreValid = false);
+		int getId(bool bIgnoreValid = false);
 		String getEntityName(bool bIgnoreValid = false);
 		String getClassName(bool bIgnoreValid = false);
 
@@ -76,6 +78,7 @@ namespace godot {
 		bool m_isPlayer;
 		Vector3 m_lastPos;
 		bool m_isEntityShapeUpdated;
+		bool m_isDebugEnabled;
 	};
 
 }
