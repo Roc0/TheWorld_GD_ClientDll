@@ -52,6 +52,7 @@ namespace godot {
 		void setPlayer(bool isPlayer) { m_isPlayer = isPlayer; }
 
 		Node* getCameraNode(void);
+		Node* getCameraPosNode(void);
 		Node* getClientAppNode(void) { return m_pClientAppNode; }
 
 		bool isEntityShapeUpdated(void) { return m_isEntityShapeUpdated; }

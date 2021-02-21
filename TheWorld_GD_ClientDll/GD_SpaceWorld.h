@@ -25,7 +25,9 @@ namespace godot {
 		void _init(); // our initializer called by Godot
 		void _ready();
 		void _process(float _delta);
-	
+		void _physics_process(float _delta);
+		void _input(const Ref<InputEvent> event);
+
 		void say(String message) { Godot::print(message); }
 
 		void init(Node* pClientApp, Node* pWorldNode);
@@ -48,6 +50,8 @@ namespace godot {
 		bool m_isWorldInitialized;
 		//RayCast* m_pWorldCaster;
 		bool m_isDebugEnabled;
+		int m_iProgEntityCamera;
+		bool m_isCameraSwitchRequired;
 	};
 
 }

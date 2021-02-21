@@ -6,6 +6,8 @@
 #include <Godot.hpp>
 #include <Reference.hpp>
 #include <SceneTree.hpp>
+#include <Position3d.hpp>
+#include <Viewport.hpp>
 
 using namespace godot;
 
@@ -32,6 +34,8 @@ void GD_ClientApp::_register_methods()
 	register_method("create_avatar", &GD_ClientApp::createAvatar);
 	register_method("remove_avatar", &GD_ClientApp::removeAvatar);
 	register_method("enter_game", &GD_ClientApp::enterGame);
+	register_method("set_debug_enabled", &GD_ClientApp::setDebugEnabled);
+	register_method("is_debug_enabled", &GD_ClientApp::isDebugEnabled);
 
 	// AVATAR
 	register_method("get_avatar_count", &GD_ClientApp::getAvatarsCount);
@@ -67,11 +71,11 @@ GD_ClientApp::GD_ClientApp()
 	m_pSpaceWorldNode = NULL;
 	m_bAppInError = false;
 	m_erroCodeApp = 0;
-	m_iProgEntityCamera = -1;
+	//m_iProgEntityCamera = -1;
 	m_pPlayer_EntityVisuals = NULL;
 	m_pNPC_EntityVisuals = NULL;
 	m_pMonster_EntityVisuals = NULL;
-	m_isDebugEnabled = true;
+	m_isDebugEnabled = false;
 }
 
 GD_ClientApp::~GD_ClientApp()
@@ -115,30 +119,12 @@ void GD_ClientApp::_ready()
 	
 void GD_ClientApp::_input(const Ref<InputEvent> event)
 {
-	if (event->is_action_pressed("ui_focus_next"))
+	if (event->is_action_pressed("ui_debug_print"))
 	{
-		m_iProgEntityCamera++;
-		int iNumEntities = getEntityNodeCount();
-		if (m_iProgEntityCamera >= iNumEntities)
-		{
-			m_iProgEntityCamera = -1;
+		Godot::print("Scene Tree");
+		//m_pWorldNode->get_tree()->get_root()->print_tree_pretty();
+		get_tree()->get_root()->print_tree_pretty();
 
-			Node* pWorldCamera = ((GD_SpaceWorld*)m_pSpaceWorldNode)->getWorldCameraNode();
-			if (!pWorldCamera)
-				return;
-			
-			((Camera*)pWorldCamera)->make_current();
-		}
-		else
-		{
-			GD_Entity* entity = (GD_Entity*)getEntityNodeByIdx(m_iProgEntityCamera);
-			if (entity)
-			{
-				Camera* entityCam = (Camera*)entity->getCameraNode();
-				if (entityCam)
-					entityCam->make_current();
-			}
-		}
 	}
 }
 
@@ -177,6 +163,8 @@ bool GD_ClientApp::kbengine_Init(Node* pWorldNode, Node* pMainNode)
 		pWorldNode->add_child(m_pSpaceWorldNode);
 	else
 		return false;
+
+	m_pSpaceWorldNode->set_name("SpaceWorld");
 
 	((GD_SpaceWorld*)m_pSpaceWorldNode)->init(this, pWorldNode);
 	

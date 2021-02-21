@@ -10,6 +10,7 @@
 #include <PackedScene.hpp>
 #include <RigidBody.hpp>
 #include <SpatialMaterial.hpp>
+#include <Position3d.hpp>
 //#include <SpatialMaterial.hpp>
 
 using namespace godot;
@@ -108,10 +109,39 @@ Node* GD_Entity::getCameraNode(void)
 	Camera* entityCam = (Camera*)get_node("Entity/Camera");
 	if (!entityCam)
 	{
-		return NULL;
+		Node* entity = get_node("Entity");
+		if (!entity)
+			return NULL;
+
+		entityCam = GD_WorldCamera::_new();
+		if (entityCam)
+			entity->add_child(entityCam);
+		else
+			return NULL;
+
+		if (isPlayer())
+			((GD_WorldCamera*)entityCam)->initPlayerCamera(entity);
+		else
+			((GD_WorldCamera*)entityCam)->initOtherEntityCamera(entity);
+
+		Position3D* cameraPosNode = (Position3D*)getCameraPosNode();
+		if (!cameraPosNode)
+			return NULL;
+		((GD_WorldCamera*)entityCam)->set_transform(cameraPosNode->get_transform());
 	}
 
 	return entityCam;
+}
+
+Node* GD_Entity::getCameraPosNode(void)
+{
+	Node* entityCamPos = get_node("Entity/CameraPos");
+	if (!entityCamPos)
+	{
+		return NULL;
+	}
+
+	return entityCamPos;
 }
 
 bool GD_Entity::initEntity(int id, Node* pClientApp, Node** ppEntityNode)

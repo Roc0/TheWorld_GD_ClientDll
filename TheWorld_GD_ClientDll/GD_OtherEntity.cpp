@@ -163,36 +163,11 @@ void GD_OtherEntity::_physics_process(float _delta)
 						posOnGround = dict["position"];
 						serverPos.y = posOnGround.y;
 					}
-
-					/*RayCast* pCaster = pSpaceWorldNode->getWorldCaster();
-					if (!pCaster)
-					{
-						pAppNode->setAppInError(GD_CLIENTAPP_ERROR_ENTITY_PROCESS);
-						return;
-					}
-
-					Transform t;
-					t = pCaster->get_transform();
-					t.origin = Vector3(serverPos.x, aabb_end.y, serverPos.z);
-					pCaster->set_enabled(true);
-					pCaster->set_transform(t);
-					pCaster->set_cast_to(Vector3(serverPos.x, aabb_start.y, serverPos.z));
-					pCaster->force_raycast_update();
-					if (pCaster->is_colliding())
-					{
-						posOnGround = pCaster->get_collision_point();
-						serverPos.y = posOnGround.y;
-					}
-					else
-					{
-						// Something was wrong
-						serverPos.y = aabb_end.y;
-					}
-					pCaster->set_enabled(false);*/
 				}
 
 				Transform t;
-				//t = get_transform();
+
+				t = get_transform();
 				t.origin = serverPos;
 				if (t.origin != lastPos)
 				{
@@ -206,8 +181,6 @@ void GD_OtherEntity::_physics_process(float _delta)
 					}
 				}
 			}
-			//Vector3 v1 = entityNode->get_transform().origin;
-			//Vector3 v2 = entityNode->get_global_transform().origin;
 		}
 	}
 	else

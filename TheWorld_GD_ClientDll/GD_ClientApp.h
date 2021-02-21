@@ -40,6 +40,7 @@ namespace godot {
 			return m_bAppInError;
 		}
 		bool isDebugEnabled(void) { return m_isDebugEnabled; }
+		void setDebugEnabled(bool debugEnabled = true) { m_isDebugEnabled = debugEnabled; }
 
 		//
 		// Godot Standard Functions
@@ -119,7 +120,7 @@ namespace godot {
 		Node *m_pSpaceWorldNode;
 		bool m_bAppInError;
 		int m_erroCodeApp;
-		int m_iProgEntityCamera;
+		//int m_iProgEntityCamera;
 		bool m_isDebugEnabled;
 
 		Entity_Visuals* m_pPlayer_EntityVisuals;

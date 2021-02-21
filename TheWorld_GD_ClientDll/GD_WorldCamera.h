@@ -23,11 +23,33 @@ namespace godot {
 		void _process(float _delta);
 		void _physics_process(float _delta);
 		void _input(const Ref<InputEvent> event);
-		bool initCamera(Node *pSpaceWorld);
+		bool initCameraInWorld(Node *pSpaceWorld);
+		bool initPlayerCamera(Node *pEntityNode);
+		bool initOtherEntityCamera(Node* pEntityNode);
 		bool updateCamera(void);
+		//bool isCameraInWorldMode(void) { return m_isCamerInWorldMode; }
+		//void setCameraInWorldMode(bool b, Transform* pNewPos = NULL);
+		void activateCamera(bool bActivate = true);
+		bool isPlayerCamera() { return m_PlayerCamera; }
+		bool isOtherEntityCamera() { return m_OtherEntityCamera; }
+		bool isWorldCamera() { return m_WorldCamera; }
+
+		static Node* getActiveCamera(void);
+
+		bool m_isActive;
+		int64_t m_instanceId;
+
+		static int64_t s_ActiveCameraInstanceId;
+		static Node* s_pActiveCameraNode;
 
 	private:
 		Node* m_pSpaceWorldNode;
+		//bool m_isCamerInWorldMode;
+		Transform m_lastCameraPosInWorld;
+		bool m_PlayerCamera;
+		bool m_OtherEntityCamera;
+		bool m_WorldCamera;
+	
 
 		// Camera Movement
 		int m_numMoveStep;

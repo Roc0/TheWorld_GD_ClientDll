@@ -1,5 +1,6 @@
 #include "GD_ClientApp.h"
 #include "GD_SpaceWorld.h"
+#include "GD_Entity.h"
 
 #include <Godot.hpp>
 #include <Reference.hpp>
@@ -15,6 +16,10 @@ using namespace godot;
 
 void GD_SpaceWorld::_register_methods()
 {
+	register_method("_ready", &GD_SpaceWorld::_ready);
+	register_method("_process", &GD_SpaceWorld::_process);
+	register_method("_physics_process", &GD_SpaceWorld::_physics_process);
+	register_method("_input", &GD_SpaceWorld::_input);
 	register_method("say", &GD_SpaceWorld::say);
 	register_method("enter_world", &GD_SpaceWorld::enterWorld);
 	register_method("exit_world", &GD_SpaceWorld::exitWorld);
@@ -30,6 +35,8 @@ GD_SpaceWorld::GD_SpaceWorld()
 	//m_pWorldCaster = NULL;
 	m_isDebugEnabled = false;
 	m_pClientAppNode = NULL;
+	m_iProgEntityCamera = -1;
+	m_isCameraSwitchRequired = false;
 }
 
 GD_SpaceWorld::~GD_SpaceWorld()
@@ -60,6 +67,73 @@ void GD_SpaceWorld::_process(float _delta)
 {	
 	// To activate _process method add this Node to a Godot Scene
 	//Godot::print("GD_SpaceWorld::_process");
+}
+
+void GD_SpaceWorld::_physics_process(float _delta)
+{
+	// To activate _physics_process method add this Node to a Godot Scene
+	//Godot::print("GD_SpaceWorld::_physics_process");
+
+	if (m_isCameraSwitchRequired)
+	{
+		m_isCameraSwitchRequired = false;
+
+		GD_WorldCamera* pWorldCamera = (GD_WorldCamera*)getWorldCameraNode();
+		if (!pWorldCamera)
+			return;
+
+		GD_ClientApp* pClientApp = (GD_ClientApp*)m_pClientAppNode;
+
+		GD_WorldCamera* activeCamera = (GD_WorldCamera*)GD_WorldCamera::getActiveCamera();
+		if (activeCamera)
+		{
+			activeCamera->activateCamera(false);
+			Godot::print("Disattivata Camera");
+		}
+
+		m_iProgEntityCamera++;
+		int iNumEntities = pClientApp->getEntityNodeCount();
+		if (m_iProgEntityCamera >= iNumEntities)
+		{
+			m_iProgEntityCamera = -1;
+
+			pWorldCamera->make_current();
+			pWorldCamera->m_isActive = true;
+			pWorldCamera->set_process_input(true);
+			GD_WorldCamera::s_ActiveCameraInstanceId = pWorldCamera->m_instanceId;
+			GD_WorldCamera::s_pActiveCameraNode = pWorldCamera;
+			Godot::print("Riattivata Camera");
+			//pWorldCamera->activateCamera(true);
+		}
+		else
+		{
+			GD_Entity* entity = (GD_Entity*)pClientApp->getEntityNodeByIdx(m_iProgEntityCamera);
+			if (entity)
+			{
+				GD_WorldCamera* entityCam = (GD_WorldCamera*)entity->getCameraNode();
+				if (entityCam)
+				{
+					entityCam->make_current();
+					entityCam->m_isActive = true;
+					entityCam->set_process_input(true);
+					GD_WorldCamera::s_ActiveCameraInstanceId = entityCam->m_instanceId;
+					GD_WorldCamera::s_pActiveCameraNode = entityCam;
+					Godot::print("Riattivata Camera");
+					//entityCam->activateCamera(true);
+				}
+				else
+					Godot::print("Entity Camera not found!");
+			}
+			else
+				Godot::print("Entity not found!");
+		}
+	}
+}
+
+void GD_SpaceWorld::_input(const Ref<InputEvent> event)
+{
+	if (event->is_action_pressed("ui_focus_next"))
+		m_isCameraSwitchRequired = true;
 }
 
 void GD_SpaceWorld::init(Node* pClientApp, Node* pWorldNode)
@@ -114,7 +188,7 @@ bool GD_SpaceWorld::enterWorld(void)
 		return false;
 
 	m_pWorldCameraNode->set_visible(false);
-	bool b = m_pWorldCameraNode->initCamera(this);
+	bool b = m_pWorldCameraNode->initCameraInWorld(this);
 	if (!b)
 		return b;
 
