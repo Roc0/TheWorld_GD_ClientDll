@@ -6,6 +6,8 @@
 
 #include <TheWorld_ClientApp.h>
 
+#define GD_ACTIVE_CAMERA_GROUP	"ActiveCamera"
+
 namespace godot {
 
 	class GD_WorldCamera : public Camera
@@ -27,29 +29,25 @@ namespace godot {
 		bool initPlayerCamera(Node *pEntityNode);
 		bool initOtherEntityCamera(Node* pEntityNode);
 		bool updateCamera(void);
-		//bool isCameraInWorldMode(void) { return m_isCamerInWorldMode; }
-		//void setCameraInWorldMode(bool b, Transform* pNewPos = NULL);
-		void activateCamera(bool bActivate = true);
+		void activateCamera(void);
+		Node* getActiveCamera(void);
+		bool isActiveCamera(void);
+		bool isActivateCamera(void) { return m_isActive; };
 		bool isPlayerCamera() { return m_PlayerCamera; }
 		bool isOtherEntityCamera() { return m_OtherEntityCamera; }
 		bool isWorldCamera() { return m_WorldCamera; }
-
-		static Node* getActiveCamera(void);
-
-		bool m_isActive;
-		int64_t m_instanceId;
-
-		static int64_t s_ActiveCameraInstanceId;
-		static Node* s_pActiveCameraNode;
+		bool isDebugEnabled(void) { return m_isDebugEnabled; }
 
 	private:
 		Node* m_pSpaceWorldNode;
-		//bool m_isCamerInWorldMode;
 		Transform m_lastCameraPosInWorld;
 		bool m_PlayerCamera;
 		bool m_OtherEntityCamera;
 		bool m_WorldCamera;
-	
+		bool m_updateCameraRequired;
+		bool m_isActive;
+		int64_t m_instanceId;
+		bool m_isDebugEnabled;
 
 		// Camera Movement
 		int m_numMoveStep;

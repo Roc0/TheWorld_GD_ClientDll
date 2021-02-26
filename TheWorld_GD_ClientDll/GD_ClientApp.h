@@ -24,7 +24,7 @@ namespace godot {
 		//
 		// Test
 		//
-		void say(String message) { Godot::print(message); }
+		void debugPrint(String message) { if (m_isDebugEnabled) Godot::print(message); }
 		String hello(String target1, String target2, int target3) { return String("Hello, {0} {1} {2}!").format(Array::make(target1, target2, target3)); };
 		
 		//

@@ -34,12 +34,12 @@ GD_OtherEntity::~GD_OtherEntity()
 
 void GD_OtherEntity::_init()
 {
-	Godot::print("GD_OtherEntity::Init");
+	//Godot::print("GD_OtherEntity::Init");
 }
 
 void GD_OtherEntity::_ready()
 {
-	Godot::print("GD_OtherEntity::_ready");
+	//Godot::print("GD_OtherEntity::_ready");
 }
 
 void GD_OtherEntity::_process(float _delta)

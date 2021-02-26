@@ -16,7 +16,7 @@ void GD_ClientApp::_register_methods()
 	register_method("_ready", &GD_ClientApp::_ready);
 	register_method("_process", &GD_ClientApp::_process);
 	register_method("_input", &GD_ClientApp::_input);
-	register_method("say", &GD_ClientApp::say);
+	register_method("debug_print", &GD_ClientApp::debugPrint);
 	register_method("hello", &GD_ClientApp::hello);
 
 	register_method("set_app_mode", &GD_ClientApp::setAppMode);
@@ -108,12 +108,12 @@ GD_ClientApp::~GD_ClientApp()
 
 void GD_ClientApp::_init(void)
 {
-	Godot::print("GD_ClientApp::Init");
+	//Godot::print("GD_ClientApp::Init");
 }
 
 void GD_ClientApp::_ready()
 {
-	Godot::print("GD_ClientApp::_ready");
+	//Godot::print("GD_ClientApp::_ready");
 	//get_node(NodePath("/root/Main/Reset"))->connect("pressed", this, "on_Reset_pressed");
 }
 	
@@ -430,7 +430,8 @@ void GD_ClientApp::onCreatedEntity(KBEngine::ENTITY_ID eid, bool bPlayer)
 			char buffer[16];
 			nodeName = nodeName + "_" + _itoa(((GD_Entity*)pNode)->getId(), buffer, 10);
 			pNode->set_name(nodeName);
-			Godot::print("onCreatedEntity (renamed): " + pNode->get_name() + " - " + ((GD_Entity*)pNode)->getEntityName());
+			if (m_isDebugEnabled)
+				Godot::print("onCreatedEntity (renamed): " + pNode->get_name() + " - " + ((GD_Entity*)pNode)->getEntityName());
 			((GD_Entity*)pNode)->destroyEntity();
 			pNode->call_deferred("free");
 
@@ -448,8 +449,11 @@ void GD_ClientApp::onCreatedEntity(KBEngine::ENTITY_ID eid, bool bPlayer)
 			}
 			String entityName = pPlayer->getEntityName();
 			char buffer[16]; _itoa((int)eid, buffer, 10);
-			String s = "onCreatedEntity (";	s = s + buffer +"): " + pPlayer->get_name() + " - " + pPlayer->getEntityName();
-			Godot::print(s);
+			if (m_isDebugEnabled)
+			{
+				String s = "onCreatedEntity (";	s = s + buffer + "): " + pPlayer->get_name() + " - " + pPlayer->getEntityName();
+				Godot::print(s);
+			}
 		}
 		else
 		{
@@ -471,8 +475,11 @@ void GD_ClientApp::onCreatedEntity(KBEngine::ENTITY_ID eid, bool bPlayer)
 			}
 			String entityName = pOther->getEntityName();
 			char buffer[16]; _itoa((int)eid, buffer, 10);
-			String s = "onCreatedEntity (";	s = s + buffer + "): " + pOther->get_name() + " - " + pOther->getEntityName();
-			Godot::print(s);
+			if (m_isDebugEnabled)
+			{
+				String s = "onCreatedEntity (";	s = s + buffer + "): " + pOther->get_name() + " - " + pOther->getEntityName();
+				Godot::print(s);
+			}
 		}
 		else
 		{
@@ -489,9 +496,12 @@ void GD_ClientApp::onEraseEntity(KBEngine::ENTITY_ID eid)
 	GD_Entity* entity = (GD_Entity*)getEntityNodeById(eid);
 	if (entity)
 	{
-		char buffer[16]; _itoa(entity->getId(), buffer, 10);
-		String s = "destroyEntity(";	s = s + buffer + "): " + entity->get_name() + " - " + entity->getEntityName();
-		Godot::print(s);
+		if (m_isDebugEnabled)
+		{
+			char buffer[16]; _itoa(entity->getId(), buffer, 10);
+			String s = "destroyEntity(";	s = s + buffer + "): " + entity->get_name() + " - " + entity->getEntityName();
+			Godot::print(s);
+		}
 		entity->destroyEntity();
 		entity->call_deferred("free");
 

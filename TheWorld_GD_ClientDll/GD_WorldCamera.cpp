@@ -13,26 +13,25 @@
 
 using namespace godot;
 
-int64_t GD_WorldCamera::s_ActiveCameraInstanceId = -1;
-Node* GD_WorldCamera::s_pActiveCameraNode = NULL;
-
 void GD_WorldCamera::_register_methods()
 {
 	register_method("_ready", &GD_WorldCamera::_ready);
 	register_method("_process", &GD_WorldCamera::_process);
 	register_method("_physics_process", &GD_WorldCamera::_physics_process);
 	register_method("_input", &GD_WorldCamera::_input);
+	register_method("is_active_camera", &GD_WorldCamera::isActivateCamera);
 }
 
 GD_WorldCamera::GD_WorldCamera()
 {
 	m_pSpaceWorldNode = NULL;
-	//m_isCamerInWorldMode = false;
 	m_isActive = false;
 	m_instanceId = -1;
 	m_PlayerCamera = false;
 	m_OtherEntityCamera = false;
 	m_WorldCamera = false;
+	m_updateCameraRequired = false;
+	m_isDebugEnabled = false;
 
 	// Camera Movement
 	m_numMoveStep = 0;
@@ -61,38 +60,27 @@ GD_WorldCamera::GD_WorldCamera()
 
 GD_WorldCamera::~GD_WorldCamera()
 {
-	if (s_ActiveCameraInstanceId == m_instanceId)
-	{
-		s_ActiveCameraInstanceId = -1;
-	}
-
-	if (s_pActiveCameraNode == this)
-		s_pActiveCameraNode = NULL;
 }
 
 void GD_WorldCamera::_init()
 {
-	Godot::print("GD_WorldCamera::Init");
+	//Godot::print("GD_WorldCamera::Init");
 
 	m_instanceId = get_instance_id();
 }
 
 void GD_WorldCamera::_ready()
 {
-	Godot::print("GD_WorldCamera::_ready");
+	//Godot::print("GD_WorldCamera::_ready");
 }
 
 void GD_WorldCamera::_process(float _delta)
 {
 	// To activate _process method add this Node to a Godot Scene
-	//Godot::print("TheWorld_GD_SpaceWorld::_process");
+	//Godot::print("GD_WorldCamera::_process");
 
 	if (!m_isActive)
 	{
-		GD_WorldCamera* activeCamera = (GD_WorldCamera*)getActiveCamera();
-		/*if (activeCamera)
-			activeCamera->_process(_delta);
-		get_tree()->set_input_as_handled();*/
 		return;
 	}
 	
@@ -102,14 +90,10 @@ void GD_WorldCamera::_process(float _delta)
 void GD_WorldCamera::_physics_process(float _delta)
 {
 	// To activate _process method add this Node to a Godot Scene
-	//Godot::print("TheWorld_GD_SpaceWorld::_physics_process");
+	//Godot::print("GD_WorldCamera::_physics_process");
 
 	if (!m_isActive)
 	{
-		GD_WorldCamera* activeCamera = (GD_WorldCamera*)getActiveCamera();
-		/*if (activeCamera)
-			activeCamera->_physics_process(_delta);
-		get_tree()->set_input_as_handled();*/
 		return;
 	}
 
@@ -130,8 +114,6 @@ void GD_WorldCamera::_physics_process(float _delta)
 		m_shiftVertCameraOn = true;
 	else
 		m_shiftVertCameraOn = false;
-
-	bool b = updateCamera();
 }
 
 void GD_WorldCamera::_input(const Ref<InputEvent> event)
@@ -140,14 +122,6 @@ void GD_WorldCamera::_input(const Ref<InputEvent> event)
 
 	if (!m_isActive)
 	{
-		GD_WorldCamera* activeCamera = (GD_WorldCamera*)getActiveCamera();
-		/*if (activeCamera)
-			activeCamera->_input(event);
-		SceneTree* pScene = get_tree();
-		if (pScene)
-			pScene->set_input_as_handled();
-		else
-			Godot::print("Scene NULL");*/
 		return;
 	}
 
@@ -156,61 +130,73 @@ void GD_WorldCamera::_input(const Ref<InputEvent> event)
 	{
 		//Godot::print("GD_WorldCamera::_input: " + event->as_text());
 		if (m_rotateCameraOn)
+		{
 			m_mouseRelativePosToRotate = eventMouseMotion->get_relative();
+			m_updateCameraRequired = true;
+		}
 		if (m_shiftOriCameraOn)
+		{
 			m_mouseRelativePosToShiftOriz = eventMouseMotion->get_relative();
+			m_updateCameraRequired = true;
+		}
 		if (m_shiftVertCameraOn)
+		{
 			m_mouseRelativePosToShiftVert = eventMouseMotion->get_relative();
+			m_updateCameraRequired = true;
+		}
 	}
 
 	if (event->is_action_pressed("ui_mouse_wheel_up"))
+	{
 		m_numMoveStep++;
+		m_updateCameraRequired = true;
+	}
 
 	if (event->is_action_pressed("ui_mouse_wheel_down"))
+	{
 		m_numMoveStep--;
+		m_updateCameraRequired = true;
+	}
 }
 
-void GD_WorldCamera::activateCamera(bool bActivate)
+void GD_WorldCamera::activateCamera(void)
 {
-	if (bActivate)
+	GD_WorldCamera* activeCamera = (GD_WorldCamera*)getActiveCamera();
+	if (activeCamera)
 	{
-		//make_current();
-		//set_process_input(true);
-		//m_isActive = true;
-		//s_ActiveCameraInstanceId = m_instanceId;
-		//s_pActiveCameraNode = this;
-	}
-	else
-	{
-		set_process_input(false);
+		activeCamera->set_process_input(false);
+		activeCamera->set_process(false);
+		activeCamera->set_physics_process(false);
+		activeCamera->remove_from_group(GD_ACTIVE_CAMERA_GROUP);
 		m_isActive = false;
-		s_ActiveCameraInstanceId = -1;
-		s_pActiveCameraNode = NULL;
 	}
+
+	make_current();
+	set_process_input(true);
+	set_process(true);
+	set_physics_process(true);
+	add_to_group(GD_ACTIVE_CAMERA_GROUP);
+	m_isActive = true;
+}
+
+bool GD_WorldCamera::isActiveCamera(void)
+{
+	return is_in_group(GD_ACTIVE_CAMERA_GROUP);
 }
 
 Node* GD_WorldCamera::getActiveCamera(void)
 {
-	return s_pActiveCameraNode;
-}
+	SceneTree* scene = get_tree();
+	if (scene == NULL)
+		return NULL;
+	
+	Array camArray = scene->get_nodes_in_group(GD_ACTIVE_CAMERA_GROUP);
 
-/*void GD_WorldCamera::setCameraInWorldMode(bool b, Transform* pNewPos)
-{
-	if (b)
-	{
-		set_transform(m_lastCameraPosInWorld);
-		m_isCamerInWorldMode = true;
-	}
+	if (camArray.size() > 0)
+		return camArray[0];
 	else
-	{
-		if (m_isCamerInWorldMode)
-		{
-			m_lastCameraPosInWorld = get_transform();
-			m_isCamerInWorldMode = false;
-		}
-		set_transform(*pNewPos);
-	}
-}*/
+		return NULL;
+}
 
 bool GD_WorldCamera::initPlayerCamera(Node* pEntityNode)
 {
@@ -234,17 +220,12 @@ bool GD_WorldCamera::initOtherEntityCamera(Node* pEntityNode)
 bool GD_WorldCamera::initCameraInWorld(Node* pSpaceWorld)
 {
 	m_pSpaceWorldNode = pSpaceWorld;
+
+	m_isDebugEnabled = ((GD_SpaceWorld*)m_pSpaceWorldNode)->isDebugEnabled();
 	
 	set_name("WorldCamera");
 
-	GD_WorldCamera* activeCamera = (GD_WorldCamera*)GD_WorldCamera::getActiveCamera();
-	if (activeCamera)
-		activeCamera->activateCamera(false);
-
-	//activateCamera();
-	make_current();
-	m_isActive = true;
-
+	activateCamera();
 
 	AABB aabb = ((GD_SpaceWorld*)m_pSpaceWorldNode)->get_aabbForWorldCameraInitPos();
 	Vector3 aabb_start = aabb.position;
@@ -261,8 +242,6 @@ bool GD_WorldCamera::initCameraInWorld(Node* pSpaceWorld)
 
 	look_at_from_position(cameraPos, lookAt, Vector3(0, 1, 0));
 
-	//m_isCamerInWorldMode = true;
-
 	m_WorldCamera = true;
 
 	return true;
@@ -270,6 +249,11 @@ bool GD_WorldCamera::initCameraInWorld(Node* pSpaceWorld)
 
 bool GD_WorldCamera::updateCamera()
 {
+	if (!m_updateCameraRequired)
+		return true;
+
+	m_updateCameraRequired = false;
+	
 	if (m_mouseRelativePosToRotate != Vector2(0, 0))
 	{
 		m_mouseRelativePosToRotate *= m_sensitivity;

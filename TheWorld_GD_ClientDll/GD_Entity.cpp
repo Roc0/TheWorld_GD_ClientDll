@@ -76,12 +76,12 @@ GD_Entity::~GD_Entity()
 
 void GD_Entity::_init()
 {
-	Godot::print("GD_Entity::Init");
+	//Godot::print("GD_Entity::Init");
 }
 
 void GD_Entity::_ready()
 {
-	Godot::print("GD_Entity::_ready");
+	//Godot::print("GD_Entity::_ready");
 }
 
 void GD_Entity::_process(float _delta)

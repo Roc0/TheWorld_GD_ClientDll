@@ -31,12 +31,12 @@ GD_PlayerEntity::~GD_PlayerEntity()
 
 void GD_PlayerEntity::_init()
 {
-	Godot::print("GD_PlayerEntity::Init");
+	//Godot::print("GD_PlayerEntity::Init");
 }
 
 void GD_PlayerEntity::_ready()
 {
-	Godot::print("GD_PlayerEntity::_ready");
+	//Godot::print("GD_PlayerEntity::_ready");
 }
 
 void GD_PlayerEntity::_process(float _delta)

@@ -55,24 +55,18 @@ GD_SpaceWorld::~GD_SpaceWorld()
 
 void GD_SpaceWorld::_init()
 {
-	Godot::print("GD_SpaceWorld::Init");
+	//Godot::print("GD_SpaceWorld::Init");
 }
 
 void GD_SpaceWorld::_ready()
 {
-	Godot::print("GD_SpaceWorld::_ready");
+	//Godot::print("GD_SpaceWorld::_ready");
 }
 
 void GD_SpaceWorld::_process(float _delta)
 {	
 	// To activate _process method add this Node to a Godot Scene
 	//Godot::print("GD_SpaceWorld::_process");
-}
-
-void GD_SpaceWorld::_physics_process(float _delta)
-{
-	// To activate _physics_process method add this Node to a Godot Scene
-	//Godot::print("GD_SpaceWorld::_physics_process");
 
 	if (m_isCameraSwitchRequired)
 	{
@@ -84,26 +78,14 @@ void GD_SpaceWorld::_physics_process(float _delta)
 
 		GD_ClientApp* pClientApp = (GD_ClientApp*)m_pClientAppNode;
 
-		GD_WorldCamera* activeCamera = (GD_WorldCamera*)GD_WorldCamera::getActiveCamera();
-		if (activeCamera)
-		{
-			activeCamera->activateCamera(false);
-			Godot::print("Disattivata Camera");
-		}
-
 		m_iProgEntityCamera++;
 		int iNumEntities = pClientApp->getEntityNodeCount();
 		if (m_iProgEntityCamera >= iNumEntities)
 		{
 			m_iProgEntityCamera = -1;
 
-			pWorldCamera->make_current();
-			pWorldCamera->m_isActive = true;
-			pWorldCamera->set_process_input(true);
-			GD_WorldCamera::s_ActiveCameraInstanceId = pWorldCamera->m_instanceId;
-			GD_WorldCamera::s_pActiveCameraNode = pWorldCamera;
-			Godot::print("Riattivata Camera");
-			//pWorldCamera->activateCamera(true);
+			pWorldCamera->activateCamera();
+			//Godot::print("World Camera Activated");
 		}
 		else
 		{
@@ -113,21 +95,18 @@ void GD_SpaceWorld::_physics_process(float _delta)
 				GD_WorldCamera* entityCam = (GD_WorldCamera*)entity->getCameraNode();
 				if (entityCam)
 				{
-					entityCam->make_current();
-					entityCam->m_isActive = true;
-					entityCam->set_process_input(true);
-					GD_WorldCamera::s_ActiveCameraInstanceId = entityCam->m_instanceId;
-					GD_WorldCamera::s_pActiveCameraNode = entityCam;
-					Godot::print("Riattivata Camera");
-					//entityCam->activateCamera(true);
+					entityCam->activateCamera();
+					//Godot::print("Entity Camera Activated");
 				}
-				else
-					Godot::print("Entity Camera not found!");
 			}
-			else
-				Godot::print("Entity not found!");
 		}
 	}
+}
+
+void GD_SpaceWorld::_physics_process(float _delta)
+{
+	// To activate _physics_process method add this Node to a Godot Scene
+	//Godot::print("GD_SpaceWorld::_physics_process");
 }
 
 void GD_SpaceWorld::_input(const Ref<InputEvent> event)
