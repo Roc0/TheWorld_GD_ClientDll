@@ -40,7 +40,9 @@ namespace godot {
 			return m_bAppInError;
 		}
 		bool isDebugEnabled(void) { return m_isDebugEnabled; }
-		void setDebugEnabled(bool debugEnabled = true) { m_isDebugEnabled = debugEnabled; }
+		void setDebugEnabled(bool b = true) { m_isDebugEnabled = b; }
+		bool isEditMode(void) { return m_isEditMode; }
+		void setEditMode(bool b = true) { m_isEditMode = b; }
 
 		//
 		// Godot Standard Functions
@@ -123,6 +125,7 @@ namespace godot {
 		int m_erroCodeApp;
 		//int m_iProgEntityCamera;
 		bool m_isDebugEnabled;
+		bool m_isEditMode;
 
 		Entity_Visuals* m_pPlayer_EntityVisuals;
 		Entity_Visuals* m_pNPC_EntityVisuals;

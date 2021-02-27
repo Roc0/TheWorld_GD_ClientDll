@@ -36,6 +36,8 @@ void GD_ClientApp::_register_methods()
 	register_method("enter_game", &GD_ClientApp::enterGame);
 	register_method("set_debug_enabled", &GD_ClientApp::setDebugEnabled);
 	register_method("is_debug_enabled", &GD_ClientApp::isDebugEnabled);
+	register_method("set_edit_mode", &GD_ClientApp::setEditMode);
+	register_method("is_edit_mode", &GD_ClientApp::isEditMode);
 
 	// AVATAR
 	register_method("get_avatar_count", &GD_ClientApp::getAvatarsCount);
@@ -76,6 +78,7 @@ GD_ClientApp::GD_ClientApp()
 	m_pNPC_EntityVisuals = NULL;
 	m_pMonster_EntityVisuals = NULL;
 	m_isDebugEnabled = false;
+	m_isEditMode = false;
 }
 
 GD_ClientApp::~GD_ClientApp()
@@ -121,10 +124,12 @@ void GD_ClientApp::_input(const Ref<InputEvent> event)
 {
 	if (event->is_action_pressed("ui_debug_print"))
 	{
-		Godot::print("Scene Tree");
+		Godot::print("*** Scene Tree Begin ***");
+		Godot::print("==>");
 		//m_pWorldNode->get_tree()->get_root()->print_tree_pretty();
 		get_tree()->get_root()->print_tree_pretty();
-
+		Godot::print("<==");
+		Godot::print("*** Scene Tree End ***");
 	}
 }
 
