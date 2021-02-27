@@ -66,7 +66,7 @@ GD_Entity::GD_Entity()
 	setValid(false);
 	setPlayer(false);
 	m_lastPos = Vector3(0, 0, 0);
-	m_isEntityShapeUpdated = false;
+	m_isEntityInitializationComplete = false;
 	m_isDebugEnabled = false;
 }
 
@@ -180,6 +180,7 @@ bool GD_Entity::initEntity(int id, Node* pClientApp, Node** ppEntityNode)
 	}
 
 	set_name(nodeName);
+	add_to_group(GD_CLIENTAPP_ENTITIES_CONTAINER_NODE);
 
 	ResourceLoader* resLoader = ResourceLoader::get_singleton();
 	Ref<PackedScene> s = resLoader->load(path);

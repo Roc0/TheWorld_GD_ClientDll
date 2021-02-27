@@ -576,7 +576,21 @@ Node* GD_ClientApp::getPlayerNode(bool bIgnoreValid)
 
 int GD_ClientApp::getEntityNodeCount(void)
 {
-	Node* pWorldNode = ((GD_SpaceWorld*)m_pSpaceWorldNode)->getWorldNode();
+	Array entities;
+	return getEntityNodes(entities);
+}
+
+int GD_ClientApp::getEntityNodes(Array& entities)
+{
+	SceneTree* scene = get_tree();
+	if (scene == NULL)
+		return 0;
+
+	entities = scene->get_nodes_in_group(GD_CLIENTAPP_ENTITIES_GROUP);
+
+	return entities.size();
+		
+	/*Node* pWorldNode = ((GD_SpaceWorld*)m_pSpaceWorldNode)->getWorldNode();
 	if (!pWorldNode)
 		return 0;
 
@@ -584,17 +598,18 @@ int GD_ClientApp::getEntityNodeCount(void)
 	if (!pNode)
 		return 0;
 
-	return pNode->get_child_count();
+	return pNode->get_child_count();*/
 }
 
 Node* GD_ClientApp::getEntityNodeByIdx(int idx, bool bIgnoreValid)
 {
-	int entitiesSize = getEntityNodeCount();
+	Array entityNodes;
+	int entitiesSize = getEntityNodes(entityNodes);
 
 	if (idx >= entitiesSize)
 		return NULL;
 
-	Node* pWorldNode = ((GD_SpaceWorld*)m_pSpaceWorldNode)->getWorldNode();
+	/*Node* pWorldNode = ((GD_SpaceWorld*)m_pSpaceWorldNode)->getWorldNode();
 	if (!pWorldNode)
 		return NULL;
 
@@ -603,8 +618,9 @@ Node* GD_ClientApp::getEntityNodeByIdx(int idx, bool bIgnoreValid)
 	if (!pNode)
 		return NULL;
 
+	Array entityNodes = pNode->get_children();*/
+
 	int idxEntity = 0;
-	Array entityNodes = pNode->get_children();
 	for (int i = 0; i < entityNodes.size(); i++)
 	{
 		GD_Entity* pEntityNode = entityNodes[i];

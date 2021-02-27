@@ -104,6 +104,7 @@ namespace godot {
 		// Godot Node
 		//
 		int getEntityNodeCount(void);
+		int getEntityNodes(Array& entities);
 		Node* getEntityNodeById(int id, bool bIgnoreValid = false);
 		Node* getEntityNodeByIdx(int idx, bool bIgnoreValid = false);
 		Node* getPlayerNode(bool bIgnoreValid = false);
@@ -139,4 +140,9 @@ namespace godot {
 // World Node
 #define	GD_CLIENTAPP_ENTITIES_CONTAINER_NODE	"Entities"
 #define	GD_CLIENTAPP_PLAYER_ENTITY_NODE				"PlayerEntity"
-#define	GD_CLIENTAPP_OTHER_ENTITY_NODE				"Entity"
+#define	GD_CLIENTAPP_OTHER_ENTITY_NODE				"OtherEntity"
+
+#define	GD_CLIENTAPP_ENTITIES_GROUP				"Entities"
+#define	GD_CLIENTAPP_PLAYER_GROUP				"Player"
+#define	GD_CLIENTAPP_MONSTERS_GROUP				"Monster"
+#define	GD_CLIENTAPP_NPCS_GROUP					"NPCs"

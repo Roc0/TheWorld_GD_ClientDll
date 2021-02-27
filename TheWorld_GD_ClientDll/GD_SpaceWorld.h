@@ -28,8 +28,6 @@ namespace godot {
 		void _physics_process(float _delta);
 		void _input(const Ref<InputEvent> event);
 
-		void say(String message) { Godot::print(message); }
-
 		void init(Node* pClientApp, Node* pWorldNode);
 		bool isWorldInitialized(void) { return m_isWorldInitialized; }
 		Node* getWorldNode(void) { return m_pWorldNode; }

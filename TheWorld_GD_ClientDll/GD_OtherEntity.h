@@ -23,8 +23,15 @@ namespace godot {
 		bool initEntity(int id, Node* pClientApp);
 		bool destroyEntity(void);
 
+		bool isMonster(void) { return m_isMonster; }
+		void setMonster(bool b = true) { m_isMonster = b; }
+		bool isNPC(void) { return m_isNPC; }
+		void setNPC(bool b = true) { m_isNPC = b; }
+
 	private:
 		bool m_initialPosSetted;
+		bool m_isMonster;
+		bool m_isNPC;
 	};
 
 }

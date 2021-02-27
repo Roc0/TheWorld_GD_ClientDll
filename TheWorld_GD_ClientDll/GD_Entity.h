@@ -55,8 +55,8 @@ namespace godot {
 		Node* getCameraPosNode(void);
 		Node* getClientAppNode(void) { return m_pClientAppNode; }
 
-		bool isEntityShapeUpdated(void) { return m_isEntityShapeUpdated; }
-		void setEntityShapeUpdated(bool isEntityShapeUpdated) { m_isEntityShapeUpdated = isEntityShapeUpdated; }
+		bool isEntityInitializationComplete(void) { return m_isEntityInitializationComplete; }
+		void setEntityInitializationComplete(bool isEntityInitializationComplete) { m_isEntityInitializationComplete = isEntityInitializationComplete; }
 
 		void setLastPos(Vector3 lastPos) { m_lastPos = lastPos; }
 		Vector3 getLastPos(void) { return m_lastPos; };
@@ -78,7 +78,7 @@ namespace godot {
 		bool m_isValid;
 		bool m_isPlayer;
 		Vector3 m_lastPos;
-		bool m_isEntityShapeUpdated;
+		bool m_isEntityInitializationComplete;
 		bool m_isDebugEnabled;
 	};
 

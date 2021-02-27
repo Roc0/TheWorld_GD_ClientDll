@@ -25,6 +25,9 @@ void GD_OtherEntity::_register_methods()
 GD_OtherEntity::GD_OtherEntity()
 {
 	setPlayer(false);
+	setMonster(false);
+	setNPC(false);
+
 	m_initialPosSetted = false;
 }
 
@@ -74,7 +77,7 @@ void GD_OtherEntity::_process(float _delta)
 	}
 
 	// Update Entity Shape
-	if (!isEntityShapeUpdated())
+	if (!isEntityInitializationComplete())
 	{
 		MeshInstance* entityShape = (MeshInstance*)get_node("Entity/Shape");
 		if (!entityShape)
@@ -96,6 +99,9 @@ void GD_OtherEntity::_process(float _delta)
 					SpatialMaterial* mat = ev->getEntityShapeMaterial(entityShapeMaterial.ptr());
 					entityShape->set_material_override(mat);
 					entityNode->set_mode(RIGID_BODY_MODE_STATIC);
+					
+					setMonster();
+					add_to_group(GD_CLIENTAPP_MONSTERS_GROUP);
 				}
 				else
 				{
@@ -103,8 +109,11 @@ void GD_OtherEntity::_process(float _delta)
 					SpatialMaterial* mat = ev->getEntityShapeMaterial(entityShapeMaterial.ptr());
 					entityShape->set_material_override(mat);
 					entityNode->set_mode(RIGID_BODY_MODE_STATIC);
+
+					setNPC();
+					add_to_group(GD_CLIENTAPP_NPCS_GROUP);
 				}
-				setEntityShapeUpdated(true);
+				setEntityInitializationComplete(true);
 			}
 		}
 	}

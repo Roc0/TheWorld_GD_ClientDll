@@ -19,7 +19,7 @@ void GD_WorldCamera::_register_methods()
 	register_method("_process", &GD_WorldCamera::_process);
 	register_method("_physics_process", &GD_WorldCamera::_physics_process);
 	register_method("_input", &GD_WorldCamera::_input);
-	register_method("is_active_camera", &GD_WorldCamera::isActivateCamera);
+	register_method("is_active_camera", &GD_WorldCamera::isActiveCamera);
 }
 
 GD_WorldCamera::GD_WorldCamera()
@@ -181,7 +181,8 @@ void GD_WorldCamera::activateCamera(void)
 
 bool GD_WorldCamera::isActiveCamera(void)
 {
-	return is_in_group(GD_ACTIVE_CAMERA_GROUP);
+	return m_isActive;
+	//return is_in_group(GD_ACTIVE_CAMERA_GROUP);
 }
 
 Node* GD_WorldCamera::getActiveCamera(void)

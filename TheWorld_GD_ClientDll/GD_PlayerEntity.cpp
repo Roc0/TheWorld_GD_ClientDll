@@ -71,7 +71,7 @@ void GD_PlayerEntity::_process(float _delta)
 	}
 
 	// Update Entity Shape
-	if (!isEntityShapeUpdated())
+	if (!isEntityInitializationComplete())
 	{
 		MeshInstance* entityShape = (MeshInstance*)get_node("Entity/Shape");
 		if (!entityShape)
@@ -87,7 +87,10 @@ void GD_PlayerEntity::_process(float _delta)
 			SpatialMaterial* mat = ev->getEntityShapeMaterial(entityShapeMaterial.ptr());
 			entityShape->set_material_override(mat);
 			entityNode->set_mode(RIGID_BODY_MODE_KINEMATIC);
-			setEntityShapeUpdated(true);
+
+			add_to_group(GD_CLIENTAPP_PLAYER_GROUP);
+
+			setEntityInitializationComplete(true);
 		}
 	}
 

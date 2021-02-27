@@ -32,7 +32,6 @@ namespace godot {
 		void activateCamera(void);
 		Node* getActiveCamera(void);
 		bool isActiveCamera(void);
-		bool isActivateCamera(void) { return m_isActive; };
 		bool isPlayerCamera() { return m_PlayerCamera; }
 		bool isOtherEntityCamera() { return m_OtherEntityCamera; }
 		bool isWorldCamera() { return m_WorldCamera; }

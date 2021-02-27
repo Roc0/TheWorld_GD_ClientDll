@@ -20,7 +20,6 @@ void GD_SpaceWorld::_register_methods()
 	register_method("_process", &GD_SpaceWorld::_process);
 	register_method("_physics_process", &GD_SpaceWorld::_physics_process);
 	register_method("_input", &GD_SpaceWorld::_input);
-	register_method("say", &GD_SpaceWorld::say);
 	register_method("enter_world", &GD_SpaceWorld::enterWorld);
 	register_method("exit_world", &GD_SpaceWorld::exitWorld);
 	//register_method("get_mesh_instance", &GD_SpaceWorld::getMeshInstance);
