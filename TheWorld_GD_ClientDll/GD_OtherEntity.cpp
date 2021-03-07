@@ -164,6 +164,16 @@ void GD_OtherEntity::_physics_process(float _delta)
 					{
 						posOnGround = dict["position"];
 						serverPos.y = posOnGround.y;
+
+						MeshInstance* pMeshI = (MeshInstance*)get_node("Shape");
+						if (pMeshI)
+						{
+							aabb = pMeshI->get_aabb();
+							Vector3 startingPoint = aabb.position;
+							Vector3 endingPoint = startingPoint + aabb.size;
+							float offset = (endingPoint.y - startingPoint.y) / 2;
+							serverPos.y += offset;
+						}
 					}
 				}
 

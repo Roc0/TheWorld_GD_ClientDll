@@ -104,8 +104,6 @@ void GD_PlayerEntity::_process(float _delta)
 				Vector3 aabb_start = aabb.position;
 				Vector3 aabb_end = aabb.position + aabb.size;
 
-
-
 				Transform t;
 				t = get_transform();
 				t.origin = Vector3(x, aabb_end.y + 50, z);
