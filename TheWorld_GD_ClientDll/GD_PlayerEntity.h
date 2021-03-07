@@ -27,7 +27,16 @@ namespace godot {
 		void faceForward(void);
 
 	private:
+		Vector3 m_velocity;
+		Vector3 m_direction;
 		float m_facingDirection;
+		bool m_initPositionFromServer;
+
+		const int C_MAX_SPEED = 20;
+		const float C_ACCEL = 5.0;
+		const float C_DECCEL = 15.0;
+		const int C_JUMP_SPEED = 15;
+		const int C_GRAVITY = -45;
 	};
 
 }

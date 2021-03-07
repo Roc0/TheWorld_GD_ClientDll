@@ -24,6 +24,7 @@ GD_PlayerEntity::GD_PlayerEntity()
 {
 	setPlayer(true);
 	m_facingDirection = 0;
+	m_initPositionFromServer = true;
 }
 
 GD_PlayerEntity::~GD_PlayerEntity()
@@ -100,11 +101,16 @@ void GD_PlayerEntity::_process(float _delta)
 		move(_delta);
 		faceForward();
 		
-		
+		if (m_initPositionFromServer)
+		{
+
+
+			m_initPositionFromServer = false;
+		}
 		
 		
 		float x, y, z;
-		kbentity->getServerPosition(x, y, z);
+		kbentity->getForClientPosition(x, y, z);
 		if (x != 0 || y != 0 || z != 0)
 		{
 			AABB aabb = pSpaceWorldNode->get_aabbForWorldCameraInitPos();
