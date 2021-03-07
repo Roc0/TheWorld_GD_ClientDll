@@ -11,6 +11,7 @@
 #include <RigidBody.hpp>
 #include <SpatialMaterial.hpp>
 #include <Position3d.hpp>
+#include <CollisionObject.hpp>
 //#include <SpatialMaterial.hpp>
 
 using namespace godot;
@@ -106,23 +107,19 @@ void GD_Entity::_input(const Ref<InputEvent> event)
 
 Node* GD_Entity::getCameraNode(void)
 {
-	Camera* entityCam = (Camera*)get_node("Entity/Camera");
+	Camera* entityCam = (Camera*)get_node("Camera");
 	if (!entityCam)
 	{
-		Node* entity = get_node("Entity");
-		if (!entity)
-			return NULL;
-
 		entityCam = GD_WorldCamera::_new();
 		if (entityCam)
-			entity->add_child(entityCam);
+			add_child(entityCam);
 		else
 			return NULL;
 
 		if (isPlayer())
-			((GD_WorldCamera*)entityCam)->initPlayerCamera(entity);
+			((GD_WorldCamera*)entityCam)->initPlayerCamera();
 		else
-			((GD_WorldCamera*)entityCam)->initOtherEntityCamera(entity);
+			((GD_WorldCamera*)entityCam)->initOtherEntityCamera();
 
 		Position3D* cameraPosNode = (Position3D*)getCameraPosNode();
 		if (!cameraPosNode)
@@ -135,7 +132,7 @@ Node* GD_Entity::getCameraNode(void)
 
 Node* GD_Entity::getCameraPosNode(void)
 {
-	Node* entityCamPos = get_node("Entity/CameraPos");
+	Node* entityCamPos = get_node("CameraPos");
 	if (!entityCamPos)
 	{
 		return NULL;
@@ -144,7 +141,7 @@ Node* GD_Entity::getCameraPosNode(void)
 	return entityCamPos;
 }
 
-bool GD_Entity::initEntity(int id, Node* pClientApp, Node** ppEntityNode)
+bool GD_Entity::initEntity(int id, Node* pClientApp)
 {
 	m_id = id;
 	m_pClientAppNode = pClientApp;
@@ -181,23 +178,43 @@ bool GD_Entity::initEntity(int id, Node* pClientApp, Node** ppEntityNode)
 
 	set_name(nodeName);
 	add_to_group(GD_CLIENTAPP_ENTITIES_CONTAINER_NODE);
+	set_mode(rigidBodyMode);
 
-	ResourceLoader* resLoader = ResourceLoader::get_singleton();
-	Ref<PackedScene> s = resLoader->load(path);
-	if (!s.ptr())
-		return false;
-	Node* pEntityNode = s->instance();
-	if (!pEntityNode)
-		return false;
+	// use resource as template duplicating nodes
+	{
+		ResourceLoader* resLoader = ResourceLoader::get_singleton();
+		Ref<PackedScene> s = resLoader->load(path);
+		if (!s.ptr())
+			return false;
+		Node* pEntityNode = s->instance();
+		if (!pEntityNode)
+			return false;
 
-	((RigidBody*)pEntityNode)->set_mode(rigidBodyMode);
-	add_child(pEntityNode);
+		Node *pNode = pEntityNode->get_node("Shape");
+		if (!pNode)
+			return false;
+		add_child(pNode->duplicate());
 
-	*ppEntityNode = pEntityNode;
-	
+		pNode = pEntityNode->get_node("CollisionShape");
+		if (!pNode)
+			return false;
+		add_child(pNode->duplicate());
+		/*Transform t;
+		t = ((CollisionObject*)pNode)->get_transform();
+		t.origin.y -= 1;
+		((CollisionObject*)pNode)->set_transform(t);*/
+
+		pNode = pEntityNode->get_node("CameraPos");
+		if (!pNode)
+			return false;
+		add_child(pNode->duplicate());
+
+		pEntityNode->queue_free();
+	}
+
 	if (((GD_ClientApp*)m_pClientAppNode)->isDebugEnabled())
 		Godot::print("GD_Entity::initEntity " + nodeName);
-
+	
 	return true;
 }
 

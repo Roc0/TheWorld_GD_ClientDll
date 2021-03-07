@@ -3,6 +3,7 @@
 #include <Godot.hpp>
 #include <Spatial.hpp>
 #include <SpatialMaterial.hpp>
+#include <RigidBody.hpp>
 
 #include <TheWorld_ClientApp.h>
 
@@ -26,9 +27,9 @@ namespace godot {
 		Ref<SpatialMaterial> m_entityShapeMaterial;
 	};
 
-	class GD_Entity : public Spatial
+	class GD_Entity : public RigidBody
 	{
-		GODOT_CLASS(GD_Entity, Spatial)
+		GODOT_CLASS(GD_Entity, RigidBody)
 
 	public:
 		static void _register_methods();
@@ -42,7 +43,7 @@ namespace godot {
 		void _physics_process(float _delta);
 		void _input(const Ref<InputEvent> event);
 
-		bool initEntity(int id, Node* pClientApp, Node** ppEntityNode);
+		bool initEntity(int id, Node* pClientApp);
 		bool destroyEntity(void);
 
 		bool isValid(void) { return m_isValid; }

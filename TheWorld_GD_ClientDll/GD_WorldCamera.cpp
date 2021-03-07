@@ -200,7 +200,7 @@ Node* GD_WorldCamera::getActiveCamera(void)
 		return NULL;
 }
 
-bool GD_WorldCamera::initPlayerCamera(Node* pEntityNode)
+bool GD_WorldCamera::initPlayerCamera(void)
 {
 	set_name("Camera");
 
@@ -209,7 +209,7 @@ bool GD_WorldCamera::initPlayerCamera(Node* pEntityNode)
 	return true;
 }
 
-bool GD_WorldCamera::initOtherEntityCamera(Node* pEntityNode)
+bool GD_WorldCamera::initOtherEntityCamera(void)
 {
 	set_name("Camera");
 

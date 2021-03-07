@@ -65,17 +65,10 @@ void GD_PlayerEntity::_process(float _delta)
 
 	String entityNodeName = get_name();
 
-	RigidBody* entityNode = (RigidBody*)get_node("Entity");
-	if (!entityNode)
-	{
-		pAppNode->setAppInError(GD_CLIENTAPP_ERROR_ENTITY_PROCESS);
-		return;
-	}
-
 	// Update Entity Shape
 	if (!isEntityInitializationComplete())
 	{
-		MeshInstance* entityShape = (MeshInstance*)get_node("Entity/Shape");
+		MeshInstance* entityShape = (MeshInstance*)get_node("Shape");
 		if (!entityShape)
 		{
 			pAppNode->setAppInError(GD_CLIENTAPP_ERROR_ENTITY_PROCESS);
@@ -88,7 +81,7 @@ void GD_PlayerEntity::_process(float _delta)
 			Entity_Visuals* ev = pAppNode->getEntityVisuals(GD_CLIENTAPP_ENTITYVISUALS_PLAYER);
 			SpatialMaterial* mat = ev->getEntityShapeMaterial(entityShapeMaterial.ptr());
 			entityShape->set_material_override(mat);
-			entityNode->set_mode(RIGID_BODY_MODE_KINEMATIC);
+			set_mode(RIGID_BODY_MODE_KINEMATIC);
 
 			setEntityInitializationComplete(true);
 		}
@@ -110,6 +103,8 @@ void GD_PlayerEntity::_process(float _delta)
 				AABB aabb = pSpaceWorldNode->get_aabbForWorldCameraInitPos();
 				Vector3 aabb_start = aabb.position;
 				Vector3 aabb_end = aabb.position + aabb.size;
+
+
 
 				Transform t;
 				t = get_transform();
@@ -161,10 +156,7 @@ void GD_PlayerEntity::move(float _delta)
 
 void GD_PlayerEntity::faceForward(void)
 {
-	Node* pEntityNode = get_node("Entity");
-	if (!pEntityNode)
-		return;
-	Node *pShapeNode = pEntityNode->get_node("Shape");
+	Node *pShapeNode = get_node("Shape");
 	if (!pShapeNode)
 		return;
 	((Spatial*)pShapeNode)->rotate_y(m_facingDirection);
@@ -172,11 +164,9 @@ void GD_PlayerEntity::faceForward(void)
 
 bool GD_PlayerEntity::initEntity(int id, Node* pClientApp)
 {
-	Node* pEntityNode = NULL;
+	bool b = GD_Entity::initEntity(id, pClientApp);
 
-	bool b = GD_Entity::initEntity(id, pClientApp, &pEntityNode);
-
-	if (!b || !pEntityNode)
+	if (!b)
 		return false;
 
 	add_to_group(GD_CLIENTAPP_PLAYER_GROUP);

@@ -69,17 +69,10 @@ void GD_OtherEntity::_process(float _delta)
 
 	String entityNodeName = get_name();
 
-	RigidBody* entityNode = (RigidBody*)get_node("Entity");
-	if (!entityNode)
-	{
-		pAppNode->setAppInError(GD_CLIENTAPP_ERROR_ENTITY_PROCESS);
-		return;
-	}
-
 	// Update Entity Shape
 	if (!isEntityInitializationComplete())
 	{
-		MeshInstance* entityShape = (MeshInstance*)get_node("Entity/Shape");
+		MeshInstance* entityShape = (MeshInstance*)get_node("Shape");
 		if (!entityShape)
 		{
 			pAppNode->setAppInError(GD_CLIENTAPP_ERROR_ENTITY_PROCESS);
@@ -98,7 +91,7 @@ void GD_OtherEntity::_process(float _delta)
 					Entity_Visuals* ev = pAppNode->getEntityVisuals(GD_CLIENTAPP_ENTITYVISUALS_MONSTER);
 					SpatialMaterial* mat = ev->getEntityShapeMaterial(entityShapeMaterial.ptr());
 					entityShape->set_material_override(mat);
-					entityNode->set_mode(RIGID_BODY_MODE_STATIC);
+					set_mode(RIGID_BODY_MODE_STATIC);
 					
 					setMonster();
 					add_to_group(GD_CLIENTAPP_MONSTERS_GROUP);
@@ -108,7 +101,7 @@ void GD_OtherEntity::_process(float _delta)
 					Entity_Visuals* ev = pAppNode->getEntityVisuals(GD_CLIENTAPP_ENTITYVISUALS_NPC);
 					SpatialMaterial* mat = ev->getEntityShapeMaterial(entityShapeMaterial.ptr());
 					entityShape->set_material_override(mat);
-					entityNode->set_mode(RIGID_BODY_MODE_STATIC);
+					set_mode(RIGID_BODY_MODE_STATIC);
 
 					setNPC();
 					add_to_group(GD_CLIENTAPP_NPCS_GROUP);
@@ -206,14 +199,10 @@ void GD_OtherEntity::_input(const Ref<InputEvent> event)
 
 bool GD_OtherEntity::initEntity(int id, Node* pClientApp)
 {
-	Node* pEntityNode = NULL;
+	bool b = GD_Entity::initEntity(id, pClientApp);
 
-	bool b = GD_Entity::initEntity(id, pClientApp, &pEntityNode);
-
-	if (!b || !pEntityNode)
+	if (!b)
 		return false;
-
-	//((RigidBody*)pEntityNode)->set_gr
 
 	return b;
 }

@@ -149,3 +149,13 @@ namespace godot {
 #define	GD_CLIENTAPP_PLAYER_GROUP				"Player"
 #define	GD_CLIENTAPP_MONSTERS_GROUP				"Monster"
 #define	GD_CLIENTAPP_NPCS_GROUP					"NPCs"
+
+//	/root
+//		/Main
+//			/World
+//				/Entities
+//					/PlayerEntity|OtherEntity
+//						/Shape
+//						/ColisionShape
+//						/CameraPos
+//						/Camera
