@@ -173,8 +173,8 @@ bool GD_Entity::initEntity(int id, Node* pClientApp, Node** ppEntityNode)
 		nodeName = nodeName + "_" + _itoa(id, buffer, 10);
 
 		// Static mode. The body behaves like a StaticBody, and can only move by user code.
-		//rigidBodyMode = RIGID_BODY_MODE_STATIC;
-		rigidBodyMode = RIGID_BODY_MODE_RIGID;
+		rigidBodyMode = RIGID_BODY_MODE_STATIC;
+		//rigidBodyMode = RIGID_BODY_MODE_RIGID;
 
 		path = "res://OtherEntity.tscn";
 	}

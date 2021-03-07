@@ -144,6 +144,7 @@ void GD_OtherEntity::_physics_process(float _delta)
 	if (kbentity)
 	{
 		Vector3 serverPos;
+		//kbentity->getLastKnownServerPosition(serverPos.x, serverPos.y, serverPos.z);
 		kbentity->getServerPosition(serverPos.x, serverPos.y, serverPos.z);
 		// specificare meglio cosa si fa se uno fra x y e z è nullo (per y come ora per gli altri posizione precedente)
 		if (serverPos.x != 0 || serverPos.y != 0 || serverPos.z != 0)
@@ -182,6 +183,7 @@ void GD_OtherEntity::_physics_process(float _delta)
 				{
 					set_transform(t);
 					setLastPos(t.origin);
+					//kbentity->setLastKnownServerPosition(serverPos.x, serverPos.y, serverPos.z);
 					if (isDebugEnabled())
 					{
 						sprintf(buffer, "********************************************************************** Entity %d - %f/%f/%f", getId(), getLastPos().x, getLastPos().y, getLastPos().z);

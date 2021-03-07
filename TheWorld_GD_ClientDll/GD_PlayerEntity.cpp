@@ -23,6 +23,7 @@ void GD_PlayerEntity::_register_methods()
 GD_PlayerEntity::GD_PlayerEntity()
 {
 	setPlayer(true);
+	m_facingDirection = 0;
 }
 
 GD_PlayerEntity::~GD_PlayerEntity()
@@ -88,8 +89,6 @@ void GD_PlayerEntity::_process(float _delta)
 			entityShape->set_material_override(mat);
 			entityNode->set_mode(RIGID_BODY_MODE_KINEMATIC);
 
-			add_to_group(GD_CLIENTAPP_PLAYER_GROUP);
-
 			setEntityInitializationComplete(true);
 		}
 	}
@@ -98,6 +97,12 @@ void GD_PlayerEntity::_process(float _delta)
 	KBEntity* kbentity = pAppNode->getEntityById(getId(true), bPlayer);
 	if (kbentity)
 	{
+		move(_delta);
+		faceForward();
+		
+		
+		
+		
 		float x, y, z;
 		kbentity->getServerPosition(x, y, z);
 		if (x != 0 || y != 0 || z != 0)
@@ -139,6 +144,22 @@ void GD_PlayerEntity::_input(const Ref<InputEvent> event)
 	//Godot::print("GD_PlayerEntity::_input: " + event->as_text());
 }
 
+void GD_PlayerEntity::move(float _delta)
+{
+
+}
+
+void GD_PlayerEntity::faceForward(void)
+{
+	Node* pEntityNode = get_node("Entity");
+	if (!pEntityNode)
+		return;
+	Node *pShapeNode = pEntityNode->get_node("Shape");
+	if (!pShapeNode)
+		return;
+	((Spatial*)pShapeNode)->rotate_y(m_facingDirection);
+}
+
 bool GD_PlayerEntity::initEntity(int id, Node* pClientApp)
 {
 	Node* pEntityNode = NULL;
@@ -147,6 +168,8 @@ bool GD_PlayerEntity::initEntity(int id, Node* pClientApp)
 
 	if (!b || !pEntityNode)
 		return false;
+
+	add_to_group(GD_CLIENTAPP_PLAYER_GROUP);
 
 	return b;
 }

@@ -23,7 +23,11 @@ namespace godot {
 		bool initEntity(int id, Node* pClientApp);
 		bool destroyEntity(void);
 
+		void move(float _delta);
+		void faceForward(void);
+
 	private:
+		float m_facingDirection;
 	};
 
 }
