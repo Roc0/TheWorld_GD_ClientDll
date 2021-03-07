@@ -103,32 +103,36 @@ void GD_PlayerEntity::_process(float _delta)
 		
 		if (m_initPositionFromServer)
 		{
+			float x, y, z;
+			kbentity->getForClientPosition(x, y, z);
+			if (x != 0 || y != 0 || z != 0)
+			{
+				AABB aabb = pSpaceWorldNode->get_aabbForWorldCameraInitPos();
+				Vector3 aabb_start = aabb.position;
+				Vector3 aabb_end = aabb.position + aabb.size;
 
-
+				Transform t;
+				t = get_transform();
+				t.origin = Vector3(x, aabb_end.y + 50, z);
+				set_transform(t);
+				setLastPos(t.origin);
+			}
 			m_initPositionFromServer = false;
 		}
 		
-		
-		float x, y, z;
-		kbentity->getForClientPosition(x, y, z);
-		if (x != 0 || y != 0 || z != 0)
+		Transform t;
+		t = get_transform();
+		//t.origin = Vector3(x, aabb_end.y, z);
+		if (t.origin != getLastPos())
 		{
-			AABB aabb = pSpaceWorldNode->get_aabbForWorldCameraInitPos();
-			Vector3 aabb_start = aabb.position;
-			Vector3 aabb_end = aabb.position + aabb.size;
-
-			Transform t;
-			t.origin = Vector3(x, aabb_end.y, z);
 			set_transform(t);
-			if (t.origin != getLastPos())
+			setLastPos(t.origin);
+			kbentity->setForClientPosition(t.origin.x, t.origin.y, t.origin.z);
+			if (isDebugEnabled())
 			{
-				setLastPos(t.origin);
-				if (isDebugEnabled())
-				{
-					sprintf(buffer, "Player %d - x = %f y = %f z = %f", getId(), getLastPos().x, getLastPos().y, getLastPos().z);
-					//String message;	message = message + "Player " + _itoa(getId(), buffer, 10) + " x = " + _itoa(getLastPos().x, buffer, 10) + " y = " + _itoa(getLastPos().y, buffer, 10) + " z = " + _itoa(getLastPos().z, buffer, 10);
-					Godot::print(buffer);
-				}
+				sprintf(buffer, "Player %d - x = %f y = %f z = %f", getId(), getLastPos().x, getLastPos().y, getLastPos().z);
+				//String message;	message = message + "Player " + _itoa(getId(), buffer, 10) + " x = " + _itoa(getLastPos().x, buffer, 10) + " y = " + _itoa(getLastPos().y, buffer, 10) + " z = " + _itoa(getLastPos().z, buffer, 10);
+				Godot::print(buffer);
 			}
 		}
 	}

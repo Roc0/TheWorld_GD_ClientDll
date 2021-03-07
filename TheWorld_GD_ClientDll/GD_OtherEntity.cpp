@@ -175,14 +175,13 @@ void GD_OtherEntity::_physics_process(float _delta)
 				}
 
 				Transform t;
-
 				t = get_transform();
 				t.origin = serverPos;
 				if (t.origin != lastPos)
 				{
 					set_transform(t);
 					setLastPos(t.origin);
-					kbentity->setForClientPosition(serverPos.x, serverPos.y, serverPos.z);
+					kbentity->setForClientPosition(t.origin.x, t.origin.y, t.origin.z);
 					if (isDebugEnabled())
 					{
 						sprintf(buffer, "********************************************************************** Entity %d - %f/%f/%f", getId(), getLastPos().x, getLastPos().y, getLastPos().z);

@@ -20,6 +20,7 @@ void GD_WorldCamera::_register_methods()
 	register_method("_physics_process", &GD_WorldCamera::_physics_process);
 	register_method("_input", &GD_WorldCamera::_input);
 	register_method("is_active_camera", &GD_WorldCamera::isActiveCamera);
+	register_method("get_active_camera", &GD_WorldCamera::getActiveCamera);
 }
 
 GD_WorldCamera::GD_WorldCamera()
