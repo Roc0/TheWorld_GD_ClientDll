@@ -122,7 +122,7 @@ void GD_Entity::resetDebugEnabled(void)
 
 Node* GD_Entity::getCameraNode(void)
 {
-	Camera* entityCam = (Camera*)get_node("Camera");
+	Camera* entityCam = (Camera*)get_node_or_null("Camera");
 	if (!entityCam)
 	{
 		entityCam = GD_WorldCamera::_new();

@@ -582,7 +582,7 @@ Node* GD_ClientApp::getPlayerNode(bool bIgnoreValid)
 
 	Node* pEntitiesNode = pWorldNode->get_node(GD_CLIENTAPP_ENTITIES_CONTAINER_NODE);
 
-	Node* pNode = pEntitiesNode->get_node(GD_CLIENTAPP_PLAYER_ENTITY_NODE);
+	Node* pNode = pEntitiesNode->get_node_or_null(GD_CLIENTAPP_PLAYER_ENTITY_NODE);
 	if (pNode)
 	{
 		GD_PlayerEntity* pPlayerEntityNode = cast_to<GD_PlayerEntity>(pNode);
