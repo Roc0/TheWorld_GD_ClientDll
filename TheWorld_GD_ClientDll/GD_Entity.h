@@ -59,11 +59,37 @@ namespace godot {
 		bool isEntityInitializationComplete(void) { return m_isEntityInitializationComplete; }
 		void setEntityInitializationComplete(bool isEntityInitializationComplete) { m_isEntityInitializationComplete = isEntityInitializationComplete; }
 
+		void setDesideredPos(Vector3 desideredPos) { m_desideredPos = desideredPos; }
+		Vector3 getDesideredPos(void) { return m_desideredPos; };
+
 		void setLastPos(Vector3 lastPos) { m_lastPos = lastPos; }
 		Vector3 getLastPos(void) { return m_lastPos; };
 
-		void setLastYaw(float lastYaw) { m_lastYaw = lastYaw; }
-		float getLastYaw(void) { return m_lastYaw; };
+		void setDesideredDirection(float yaw, float pitch, float roll)
+		{
+			m_desideredDirection.z = yaw;
+			m_desideredDirection.y = pitch;
+			m_desideredDirection.x = roll;
+		}
+		void getDesideredDirection(float& yaw, float& pitch, float& roll)
+		{
+			yaw = m_desideredDirection.z;
+			pitch = m_desideredDirection.y;
+			roll = m_desideredDirection.x;
+		};
+
+		void setLastDirection(float yaw, float pitch, float roll)
+		{ 
+			m_lastDirection.z = yaw; 
+			m_lastDirection.y = pitch;
+			m_lastDirection.x = roll;
+		}
+		void getLastDirection(float& yaw, float& pitch, float& roll)
+		{ 
+			yaw = m_lastDirection.z;
+			pitch = m_lastDirection.y;
+			roll = m_lastDirection.x;
+		};
 
 		bool isDebugEnabled(void);
 		void resetDebugEnabled(void);
@@ -82,8 +108,8 @@ namespace godot {
 		Node* m_pClientAppNode;
 		bool m_isValid;
 		bool m_isPlayer;
-		Vector3 m_lastPos;
-		float m_lastYaw;
+		Vector3 m_lastPos, m_desideredPos;
+		Vector3 m_lastDirection, m_desideredDirection;
 		bool m_isEntityInitializationComplete;
 		int m_isDebugEnabled;
 	};

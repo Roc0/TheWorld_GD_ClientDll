@@ -110,7 +110,7 @@ void GD_SpaceWorld::_process(float _delta)
 	{
 		if (m_isWorldInitialized)
 		{
-			Node * lineDrawerNode = get_node(NodePath("/root/DrawLine3d"));
+			Node * lineDrawerNode = get_node_or_null(NodePath("/root/DrawLine3d"));
 			//Node* lineDrawerNode = get_tree()->get_root()->get_node("DrawLine3d");
 			if (lineDrawerNode)
 			{

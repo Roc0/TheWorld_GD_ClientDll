@@ -46,10 +46,10 @@ void GD_PlayerEntity::_process(float _delta)
 	// To activate _process method add this Node to a Godot Scene
 	//Godot::print("GD_PlayerEntity::_process");
 
-	GD_Entity::_process(_delta);
-
 	if (!isValid())
 		return;
+
+	GD_Entity::_process(_delta);
 
 	//String entityName = getEntityName();
 	//if (entityName == "")
