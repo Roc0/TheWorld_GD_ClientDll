@@ -38,7 +38,9 @@ namespace godot {
 		//MeshInstance* getMeshInstance(void);
 		AABB get_aabbForWorldCameraInitPos(void);
 		//RayCast* getWorldCaster(void) { return m_pWorldCaster; }
-		bool isDebugEnabled(void) { return m_isDebugEnabled; }
+		Node* getClientAppNode(void) { return m_pClientAppNode; }
+		bool isDebugEnabled(void);
+		void resetDebugEnabled(void);
 
 	private:
 		Node* m_pClientAppNode;
@@ -47,7 +49,7 @@ namespace godot {
 		Node* m_pWorldNode;
 		bool m_isWorldInitialized;
 		//RayCast* m_pWorldCaster;
-		bool m_isDebugEnabled;
+		int m_isDebugEnabled;
 		int m_iProgEntityCamera;
 		bool m_isCameraSwitchRequired;
 	};

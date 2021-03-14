@@ -35,7 +35,8 @@ namespace godot {
 		bool isPlayerCamera() { return m_PlayerCamera; }
 		bool isOtherEntityCamera() { return m_OtherEntityCamera; }
 		bool isWorldCamera() { return m_WorldCamera; }
-		bool isDebugEnabled(void) { return m_isDebugEnabled; }
+		bool isDebugEnabled(void);
+		void resetDebugEnabled(void);
 
 	private:
 		Node* m_pSpaceWorldNode;
@@ -46,7 +47,7 @@ namespace godot {
 		bool m_updateCameraRequired;
 		bool m_isActive;
 		int64_t m_instanceId;
-		bool m_isDebugEnabled;
+		int m_isDebugEnabled;
 
 		// Camera Movement
 		int m_numMoveStep;

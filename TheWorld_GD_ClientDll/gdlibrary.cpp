@@ -3,6 +3,7 @@
 #include "GD_WorldCamera.h"
 #include "GD_PlayerEntity.h"
 #include "GD_OtherEntity.h"
+#include "GD_Line.h"
 
 //using namespace godot;
 
@@ -22,4 +23,5 @@ extern "C" void GDN_EXPORT godot_nativescript_init(void *handle) {
 	godot::register_class<godot::GD_Entity>();
 	godot::register_class<godot::GD_PlayerEntity>();
 	godot::register_class<godot::GD_OtherEntity>();
+	godot::register_class<godot::GD_Line>();
 }

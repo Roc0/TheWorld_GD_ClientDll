@@ -134,6 +134,8 @@ void GD_PlayerEntity::_process(float _delta)
 		pAppNode->setAppInError(GD_CLIENTAPP_ERROR_ENTITY_PROCESS);
 		return;
 	}
+
+	resetDebugEnabled();
 }
 
 void GD_PlayerEntity::_physics_process(float _delta)

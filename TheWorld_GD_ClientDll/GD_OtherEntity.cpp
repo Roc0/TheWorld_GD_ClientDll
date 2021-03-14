@@ -110,6 +110,8 @@ void GD_OtherEntity::_process(float _delta)
 			}
 		}
 	}
+
+	resetDebugEnabled();
 }
 
 void GD_OtherEntity::_physics_process(float _delta)
@@ -136,25 +138,25 @@ void GD_OtherEntity::_physics_process(float _delta)
 	KBEntity* kbentity = pAppNode->getEntityById(getId(true), bPlayer);
 	if (kbentity)
 	{
-		Vector3 serverPos;
-		kbentity->getForClientPosition(serverPos.x, serverPos.y, serverPos.z);
+		Vector3 entityPos;
+		kbentity->getForClientPosition(entityPos.x, entityPos.y, entityPos.z);
 		// specificare meglio cosa si fa se uno fra x y e z è nullo (per y come ora per gli altri posizione precedente)
-		if (serverPos.x != 0 || serverPos.y != 0 || serverPos.z != 0)
+		if (entityPos.x != 0 || entityPos.y != 0 || entityPos.z != 0)
 		{
 			Vector3 lastPos = getLastPos();
 
-			if (!(lastPos.x == serverPos.x && lastPos.z == serverPos.z))
+			if (!(lastPos.x == entityPos.x && lastPos.z == entityPos.z))
 			{
-				if (serverPos.y == 0)
+				if (entityPos.y == 0)
 				{
 					AABB aabb = pSpaceWorldNode->get_aabbForWorldCameraInitPos();
 					Vector3 aabb_start = aabb.position;
 					Vector3 aabb_end = aabb.position + aabb.size;
 
-					Vector3 posOnGround(serverPos.x, aabb_end.y, serverPos.z);
+					Vector3 posOnGround(entityPos.x, aabb_end.y, entityPos.z);
 
 					PhysicsDirectSpaceState* pSpaceState = get_world()->get_direct_space_state();
-					Dictionary dict = pSpaceState->intersect_ray(Vector3(serverPos.x, aabb_end.y, serverPos.z), Vector3(serverPos.x, aabb_start.y, serverPos.z));
+					Dictionary dict = pSpaceState->intersect_ray(Vector3(entityPos.x, aabb_end.y, entityPos.z), Vector3(entityPos.x, aabb_start.y, entityPos.z));
 					if (dict.empty())
 					{
 						// Something was wrong
@@ -163,7 +165,7 @@ void GD_OtherEntity::_physics_process(float _delta)
 					else
 					{
 						posOnGround = dict["position"];
-						serverPos.y = posOnGround.y;
+						entityPos.y = posOnGround.y;
 
 						MeshInstance* pMeshI = (MeshInstance*)get_node("Shape");
 						if (pMeshI)
@@ -172,24 +174,53 @@ void GD_OtherEntity::_physics_process(float _delta)
 							Vector3 startingPoint = aabb.position;
 							Vector3 endingPoint = startingPoint + aabb.size;
 							float offset = (endingPoint.y - startingPoint.y) / 2;
-							serverPos.y += offset;
+							entityPos.y += offset;
 						}
 					}
 				}
 
 				Transform t;
 				t = get_transform();
-				t.origin = serverPos;
+				t.origin = entityPos;
 				if (t.origin != lastPos)
 				{
 					set_transform(t);
 					setLastPos(t.origin);
 					kbentity->setForClientPosition(t.origin.x, t.origin.y, t.origin.z);
-					if (isDebugEnabled())
+					/*if (isDebugEnabled())
 					{
 						sprintf(buffer, "********************************************************************** Entity %d - %f/%f/%f", getId(), getLastPos().x, getLastPos().y, getLastPos().z);
 						//String message;	message = message + "Entity " + _itoa(getId(), buffer, 10) + " x = " + _itoa(getLastPos().x, buffer, 10) + " y = " + _itoa(getLastPos().y, buffer, 10) + " z = " + _itoa(getLastPos().z, buffer, 10);
 						Godot::print(buffer);
+					}*/
+				}
+
+				{
+					MeshInstance* pMeshI = (MeshInstance*)get_node("Shape");
+					if (pMeshI)
+					{
+						//AABB aabb = pMeshI->get_aabb();
+						//Vector3 startingPoint = aabb.position;
+						//Vector3 endingPoint = startingPoint + aabb.size;
+						//Vector3 startLine((endingPoint.x - startingPoint.x) / 2, (endingPoint.y - startingPoint.y) * 2, (endingPoint.z - startingPoint.z) / 2);
+						//t = pMeshI->get_global_transform();
+						//Vector3 endLine = startLine + Vector3;
+						//startLine = pMeshI->to_global(startLine);
+						//endLine = pMeshI->to_global(endLine);
+						float yaw, pitch, roll;
+						kbentity->getForClientDirection(yaw, pitch, roll);
+
+						if (getLastYaw() != yaw)
+						{
+							//pMeshI->rotate_y(yaw + kPi / 2);
+							pMeshI->global_rotate(Vector3(0, 1, 0), yaw);
+							setLastYaw(yaw);
+							if (isDebugEnabled())
+							{
+								sprintf(buffer, "********************************************************************** Entity %d - %f", getId(), yaw);
+								Godot::print(buffer);
+							}
+						}
 					}
 				}
 			}

@@ -32,10 +32,11 @@ GD_SpaceWorld::GD_SpaceWorld()
 	m_pWorldNode = NULL;
 	m_isWorldInitialized = false;
 	//m_pWorldCaster = NULL;
-	m_isDebugEnabled = false;
 	m_pClientAppNode = NULL;
 	m_iProgEntityCamera = -1;
 	m_isCameraSwitchRequired = false;
+
+	resetDebugEnabled();
 }
 
 GD_SpaceWorld::~GD_SpaceWorld()
@@ -100,6 +101,23 @@ void GD_SpaceWorld::_process(float _delta)
 			}
 		}
 	}
+
+	if (isDebugEnabled())
+	{
+		if (m_isWorldInitialized)
+		{
+			Node * lineDrawerNode = get_node(NodePath("/root/DrawLine3d"));
+			//Node* lineDrawerNode = get_tree()->get_root()->get_node("DrawLine3d");
+			if (lineDrawerNode)
+			{
+				Color red(128.0 / 255, 25.0 / 255, 0, 255.0 / 255);
+				AABB aabb = get_aabbForWorldCameraInitPos();
+				lineDrawerNode->call("DrawParallelepiped", aabb.position, aabb.position + aabb.size, red);
+			}
+		}
+	}
+	
+	resetDebugEnabled();
 }
 
 void GD_SpaceWorld::_physics_process(float _delta)
@@ -117,10 +135,24 @@ void GD_SpaceWorld::_input(const Ref<InputEvent> event)
 void GD_SpaceWorld::init(Node* pClientApp, Node* pWorldNode)
 {
 	m_pClientAppNode = pClientApp;
-	m_isDebugEnabled = ((GD_ClientApp*)m_pClientAppNode)->isDebugEnabled();
 	m_pWorldNode = pWorldNode;
 	//m_pWorldCaster = (RayCast*)m_pWorldNode->get_node("WorldCaster");
 }
+
+bool GD_SpaceWorld::isDebugEnabled(void)
+{
+	if (m_isDebugEnabled == -1)
+	{
+		m_isDebugEnabled = ((GD_ClientApp*)m_pClientAppNode)->isDebugEnabled() ? 1 : 0;
+	}
+	return (m_isDebugEnabled == 1 ? true : false);
+}
+
+void GD_SpaceWorld::resetDebugEnabled(void)
+{
+	m_isDebugEnabled = -1;
+}
+
 
 /*MeshInstance* GD_SpaceWorld::getMeshInstance(void)
 {

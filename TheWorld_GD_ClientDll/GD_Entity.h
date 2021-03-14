@@ -62,7 +62,11 @@ namespace godot {
 		void setLastPos(Vector3 lastPos) { m_lastPos = lastPos; }
 		Vector3 getLastPos(void) { return m_lastPos; };
 
-		bool isDebugEnabled(void) { return m_isDebugEnabled; }
+		void setLastYaw(float lastYaw) { m_lastYaw = lastYaw; }
+		float getLastYaw(void) { return m_lastYaw; };
+
+		bool isDebugEnabled(void);
+		void resetDebugEnabled(void);
 
 		// Entity Attributes
 		int getId(bool bIgnoreValid = false);
@@ -79,8 +83,9 @@ namespace godot {
 		bool m_isValid;
 		bool m_isPlayer;
 		Vector3 m_lastPos;
+		float m_lastYaw;
 		bool m_isEntityInitializationComplete;
-		bool m_isDebugEnabled;
+		int m_isDebugEnabled;
 	};
 
 }

@@ -68,7 +68,8 @@ GD_Entity::GD_Entity()
 	setPlayer(false);
 	m_lastPos = Vector3(0, 0, 0);
 	m_isEntityInitializationComplete = false;
-	m_isDebugEnabled = false;
+	
+	resetDebugEnabled();
 }
 
 GD_Entity::~GD_Entity()
@@ -103,6 +104,20 @@ void GD_Entity::_physics_process(float _delta)
 void GD_Entity::_input(const Ref<InputEvent> event)
 {
 	//Godot::print("GD_Entity::_input: " + event->as_text());
+}
+
+bool GD_Entity::isDebugEnabled(void)
+{
+	if (m_isDebugEnabled == -1)
+	{
+		m_isDebugEnabled = ((GD_ClientApp*)m_pClientAppNode)->isDebugEnabled() ? 1 : 0;
+	}
+	return (m_isDebugEnabled == 1 ? true : false);
+}
+
+void GD_Entity::resetDebugEnabled(void)
+{
+	m_isDebugEnabled = -1;
 }
 
 Node* GD_Entity::getCameraNode(void)
@@ -145,8 +160,6 @@ bool GD_Entity::initEntity(int id, Node* pClientApp)
 {
 	m_id = id;
 	m_pClientAppNode = pClientApp;
-
-	m_isDebugEnabled = ((GD_ClientApp*)m_pClientAppNode)->isDebugEnabled();
 
 	setValid(true);
 

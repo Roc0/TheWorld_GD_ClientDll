@@ -32,8 +32,7 @@ GD_WorldCamera::GD_WorldCamera()
 	m_OtherEntityCamera = false;
 	m_WorldCamera = false;
 	m_updateCameraRequired = false;
-	m_isDebugEnabled = false;
-
+	
 	// Camera Movement
 	m_numMoveStep = 0;
 	m_wheelVelocity = 5.0;
@@ -57,6 +56,8 @@ GD_WorldCamera::GD_WorldCamera()
 	m_totalPitch = 0.0;
 	m_pitchLimit = 360;
 	// Camera Rotation
+
+	resetDebugEnabled();
 }
 
 GD_WorldCamera::~GD_WorldCamera()
@@ -86,6 +87,8 @@ void GD_WorldCamera::_process(float _delta)
 	}
 	
 	bool b = updateCamera();
+
+	resetDebugEnabled();
 }
 
 void GD_WorldCamera::_physics_process(float _delta)
@@ -160,6 +163,21 @@ void GD_WorldCamera::_input(const Ref<InputEvent> event)
 	}
 }
 
+bool GD_WorldCamera::isDebugEnabled(void)
+{
+	if (m_isDebugEnabled == -1)
+	{
+		m_isDebugEnabled = ((GD_ClientApp*)((GD_SpaceWorld*)m_pSpaceWorldNode)->getClientAppNode())->isDebugEnabled() ? 1 : 0;
+	}
+	return (m_isDebugEnabled == 1 ? true : false);
+}
+
+void GD_WorldCamera::resetDebugEnabled(void)
+{
+	m_isDebugEnabled = -1;
+}
+
+
 void GD_WorldCamera::activateCamera(void)
 {
 	GD_WorldCamera* activeCamera = (GD_WorldCamera*)getActiveCamera();
@@ -223,8 +241,6 @@ bool GD_WorldCamera::initCameraInWorld(Node* pSpaceWorld)
 {
 	m_pSpaceWorldNode = pSpaceWorld;
 
-	m_isDebugEnabled = ((GD_SpaceWorld*)m_pSpaceWorldNode)->isDebugEnabled();
-	
 	set_name("WorldCamera");
 
 	activateCamera();

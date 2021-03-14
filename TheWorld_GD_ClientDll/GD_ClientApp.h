@@ -98,8 +98,12 @@ namespace godot {
 		void onClearAvatars(void);
 		void onEraseAvatar(KBEngine::DBID dbid);
 		void onUpdateAvatars(void);
-		void onPlayerEnterSpace(KBEngine::SPACE_ID spaceId);
-		void onPlayerLeaveSpace(KBEngine::SPACE_ID spaceId);
+		void onEntityEnterWorld(KBEngine::ENTITY_ID eid);
+		void onEntityLeaveWorld(KBEngine::ENTITY_ID eid);
+		void onEntityEnterSpace(KBEngine::ENTITY_ID eid, KBEngine::SPACE_ID spaceId);
+		void onEntityLeaveSpace(KBEngine::ENTITY_ID eid, KBEngine::SPACE_ID spaceId);
+		void onPlayerEnterSpace(KBEngine::ENTITY_ID eid, KBEngine::SPACE_ID spaceId);
+		void onPlayerLeaveSpace(KBEngine::ENTITY_ID eid, KBEngine::SPACE_ID spaceId);
 		void onAddSpaceGeoMapping(KBEngine::SPACE_ID spaceId, const char* resPath);
 
 		//

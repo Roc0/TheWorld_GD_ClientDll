@@ -131,6 +131,10 @@ void GD_ClientApp::_input(const Ref<InputEvent> event)
 		Godot::print("<==");
 		Godot::print("*** Scene Tree End ***");
 	}
+	if (event->is_action_pressed("ui_toggle_debug_mode"))
+	{
+		setDebugEnabled(!isDebugEnabled());
+	}
 }
 
 void GD_ClientApp::_process(float _delta)
@@ -531,12 +535,28 @@ void GD_ClientApp::onUpdateAvatars(void)
 	emit_signal("update_avatars");
 }
 
-void GD_ClientApp::onPlayerEnterSpace(KBEngine::SPACE_ID spaceId)
+void GD_ClientApp::onEntityEnterWorld(KBEngine::ENTITY_ID eid)
+{
+}
+
+void GD_ClientApp::onEntityLeaveWorld(KBEngine::ENTITY_ID eid)
+{
+}
+
+void GD_ClientApp::onEntityEnterSpace(KBEngine::ENTITY_ID eid, KBEngine::SPACE_ID spaceId)
+{
+}
+
+void GD_ClientApp::onEntityLeaveSpace(KBEngine::ENTITY_ID eid, KBEngine::SPACE_ID spaceId)
+{
+}
+
+void GD_ClientApp::onPlayerEnterSpace(KBEngine::ENTITY_ID eid, KBEngine::SPACE_ID spaceId)
 {
 	emit_signal("player_enter_space", (int)spaceId);
 }
 
-void GD_ClientApp::onPlayerLeaveSpace(KBEngine::SPACE_ID spaceId)
+void GD_ClientApp::onPlayerLeaveSpace(KBEngine::ENTITY_ID eid, KBEngine::SPACE_ID spaceId)
 {
 	emit_signal("player_leave_space", (int)spaceId);
 }
