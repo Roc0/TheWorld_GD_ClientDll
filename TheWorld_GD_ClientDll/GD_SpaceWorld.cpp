@@ -23,6 +23,8 @@ void GD_SpaceWorld::_register_methods()
 	register_method("enter_world", &GD_SpaceWorld::enterWorld);
 	register_method("exit_world", &GD_SpaceWorld::exitWorld);
 	//register_method("get_mesh_instance", &GD_SpaceWorld::getMeshInstance);
+
+	register_signal<GD_SpaceWorld>((char*)"active_camera_changed", "", GODOT_VARIANT_TYPE_NIL);
 }
 
 GD_SpaceWorld::GD_SpaceWorld()
@@ -86,6 +88,7 @@ void GD_SpaceWorld::_process(float _delta)
 
 			pWorldCamera->activateCamera();
 			//Godot::print("World Camera Activated");
+			emit_signal("active_camera_changed");
 		}
 		else
 		{
@@ -97,6 +100,7 @@ void GD_SpaceWorld::_process(float _delta)
 				{
 					entityCam->activateCamera();
 					//Godot::print("Entity Camera Activated");
+					emit_signal("active_camera_changed");
 				}
 			}
 		}
@@ -201,6 +205,8 @@ bool GD_SpaceWorld::enterWorld(void)
 	bool b = m_pWorldCameraNode->initCameraInWorld(this);
 	if (!b)
 		return b;
+
+	emit_signal("active_camera_changed");
 
 	if (isDebugEnabled())
 	{
