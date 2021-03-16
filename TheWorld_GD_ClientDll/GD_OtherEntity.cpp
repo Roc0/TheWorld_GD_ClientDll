@@ -129,18 +129,13 @@ void GD_OtherEntity::_process(float _delta)
 		}*/
 	}
 
+	Vector3 realDirection = desideredEntityPos - lastPos;
+	realDirection.normalize();
+
 	{
 		MeshInstance* pMeshI = (MeshInstance*)get_node("Shape");
 		if (pMeshI)
 		{
-			//AABB aabb = pMeshI->get_aabb();
-			//Vector3 startingPoint = aabb.position;
-			//Vector3 endingPoint = startingPoint + aabb.size;
-			//Vector3 startLine((endingPoint.x - startingPoint.x) / 2, (endingPoint.y - startingPoint.y) * 2, (endingPoint.z - startingPoint.z) / 2);
-			//t = pMeshI->get_global_transform();
-			//Vector3 endLine = startLine + Vector3;
-			//startLine = pMeshI->to_global(startLine);
-			//endLine = pMeshI->to_global(endLine);
 			float desideredYaw, desideredPitch, desideredRoll;
 			getDesideredDirection(desideredYaw, desideredPitch, desideredRoll);
 			float lastYaw, lastPitch, lastRoll;
@@ -149,7 +144,7 @@ void GD_OtherEntity::_process(float _delta)
 			if (lastYaw != desideredYaw)
 			{
 				//pMeshI->rotate_y(yaw + kPi / 2);
-				pMeshI->global_rotate(Vector3(0, 1, 0), desideredYaw);
+				//pMeshI->global_rotate(Vector3(0, 1, 0), desideredYaw);
 				setLastDirection(desideredYaw, lastPitch, lastRoll);
 				if (isDebugEnabled())
 				{
@@ -157,6 +152,8 @@ void GD_OtherEntity::_process(float _delta)
 					Godot::print(buffer);
 				}
 			}
+
+			pMeshI->look_at(desideredEntityPos + realDirection, Vector3(0, 1, 0));
 		}
 	}
 
@@ -166,6 +163,21 @@ void GD_OtherEntity::_process(float _delta)
 		if (lineDrawerNode)
 		{
 			lineDrawerNode->call("DrawCartesianAxis", desideredEntityPos, 1.0);
+
+			Color yellow(244.0 / 256.0, 246.0 / 256.0, 10.0 / 256.0);
+			lineDrawerNode->call("DrawRay", desideredEntityPos, realDirection, yellow, 0.1);
+
+			Color white(1, 1, 1, 1);
+			Vector3 realDirectionProjectedOnXZPlane(realDirection.x, 0, realDirection.z);
+			realDirectionProjectedOnXZPlane.normalize();
+			lineDrawerNode->call("DrawRay", desideredEntityPos, realDirectionProjectedOnXZPlane, white, 0.1);
+
+			//float desideredYaw, desideredPitch, desideredRoll;
+			//getDesideredDirection(desideredYaw, desideredPitch, desideredRoll);
+			//Vector3 normalX(1, 0, 0);	Vector3 normalY(0, 1, 0);
+			//Vector3 yawDirection = normalX.rotated(normalY, desideredYaw - kPi / 2);
+			//yawDirection.normalize();
+			//lineDrawerNode->call("DrawRay", desideredEntityPos, yawDirection, Color(0, 0, 0, 1), 0.1);
 		}
 	}
 	
@@ -183,8 +195,6 @@ void GD_OtherEntity::_physics_process(float _delta)
 	//String entityName = getEntityName();
 	//if (entityName == "")
 	//	return;
-
-	//char buffer[256];
 
 	GD_ClientApp* pAppNode = (GD_ClientApp*)getClientAppNode();
 	GD_SpaceWorld* pSpaceWorldNode = (GD_SpaceWorld*)pAppNode->getSpaceWorldNode();
@@ -245,51 +255,6 @@ void GD_OtherEntity::_physics_process(float _delta)
 					}
 					
 					setDesideredPos(entityPos);
-
-					/*Transform t;
-					t = get_transform();
-					t.origin = entityPos;
-					if (t.origin != lastPos)
-					{
-						set_transform(t);
-						setLastPos(t.origin);
-						kbentity->setForClientPosition(t.origin.x, t.origin.y, t.origin.z);
-						//if (isDebugEnabled())
-						//{
-						//	sprintf(buffer, "********************************************************************** Entity %d - %f/%f/%f", getId(), getLastPos().x, getLastPos().y, getLastPos().z);
-						//	//String message;	message = message + "Entity " + _itoa(getId(), buffer, 10) + " x = " + _itoa(getLastPos().x, buffer, 10) + " y = " + _itoa(getLastPos().y, buffer, 10) + " z = " + _itoa(getLastPos().z, buffer, 10);
-						//	Godot::print(buffer);
-						//}
-					}
-
-					{
-						MeshInstance* pMeshI = (MeshInstance*)get_node("Shape");
-						if (pMeshI)
-						{
-							//AABB aabb = pMeshI->get_aabb();
-							//Vector3 startingPoint = aabb.position;
-							//Vector3 endingPoint = startingPoint + aabb.size;
-							//Vector3 startLine((endingPoint.x - startingPoint.x) / 2, (endingPoint.y - startingPoint.y) * 2, (endingPoint.z - startingPoint.z) / 2);
-							//t = pMeshI->get_global_transform();
-							//Vector3 endLine = startLine + Vector3;
-							//startLine = pMeshI->to_global(startLine);
-							//endLine = pMeshI->to_global(endLine);
-							float yaw, pitch, roll;
-							kbentity->getForClientDirection(yaw, pitch, roll);
-
-							if (getLastYaw() != yaw)
-							{
-								//pMeshI->rotate_y(yaw + kPi / 2);
-								pMeshI->global_rotate(Vector3(0, 1, 0), yaw);
-								setLastYaw(yaw);
-								if (isDebugEnabled())
-								{
-									sprintf(buffer, "********************************************************************** Entity %d - %f", getId(), yaw);
-									Godot::print(buffer);
-								}
-							}
-						}
-					}*/
 				}
 			}
 		}

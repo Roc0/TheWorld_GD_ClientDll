@@ -143,6 +143,19 @@ void GD_ClientApp::_process(float _delta)
 	//Godot::print("GD_ClientApp::_process");
 }
 
+Node* GD_ClientApp::getActiveCamera(void)
+{
+	GD_SpaceWorld*pWorldNode = (GD_SpaceWorld*)getSpaceWorldNode();
+	if (!pWorldNode)
+		return NULL;
+
+	GD_WorldCamera* pWorldCamera = (GD_WorldCamera*)pWorldNode->getWorldCameraNode();
+	if (!pWorldCamera)
+		return NULL;
+
+	return pWorldCamera->getActiveCamera();
+}
+
 void GD_ClientApp::setAppMode(int r, bool bForce)
 {
 	TheWorld_ClientApp::setAppMode((TheWorld_ClientApp::_AppMode)r, bForce);

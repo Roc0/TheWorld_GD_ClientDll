@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GD_Entity.h"
+#include <Vector2.hpp>
 
 namespace godot {
 
@@ -23,13 +24,17 @@ namespace godot {
 		bool initEntity(int id, Node* pClientApp);
 		bool destroyEntity(void);
 
+		Vector2 get_2d_movement(void);
+		Vector3 moveVertically(Vector3 direction, float _delta);
+		Vector3 h_accel(Vector3 direction, float _delta);
 		void move(float _delta);
 		void faceForward(void);
 
 	private:
 		Vector3 m_velocity;
 		Vector3 m_direction;
-		float m_facingDirection;
+		Vector3 m_facingDirection;
+		float m_facingDirectionAngle;
 		bool m_initPositionFromServer;
 
 		const int C_MAX_SPEED = 20;
