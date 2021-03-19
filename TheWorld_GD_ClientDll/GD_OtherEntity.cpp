@@ -24,7 +24,7 @@ void GD_OtherEntity::_register_methods()
 
 GD_OtherEntity::GD_OtherEntity()
 {
-	setPlayer(false);
+	entityCommon()->setPlayer(false);
 	setMonster(false);
 	setNPC(false);
 
@@ -47,13 +47,12 @@ void GD_OtherEntity::_ready()
 
 void GD_OtherEntity::_process(float _delta)
 {
+	//return;	// DEBUG_MODE
 	// To activate _process method add this Node to a Godot Scene
 	//Godot::print("GD_OtherEntity::_process");
 
-	if (!isValid())
+	if (!entityCommon()->isValid())
 		return;
-
-	GD_Entity::_process(_delta);
 
 	//String entityName = getEntityName();
 	//if (entityName == "")
@@ -61,7 +60,7 @@ void GD_OtherEntity::_process(float _delta)
 
 	char buffer[1024];
 
-	GD_ClientApp* pAppNode = (GD_ClientApp*)getClientAppNode();
+	GD_ClientApp* pAppNode = (GD_ClientApp*)entityCommon()->getClientAppNode();
 	GD_SpaceWorld* pSpaceWorldNode = (GD_SpaceWorld*)pAppNode->getSpaceWorldNode();
 
 	if (!pSpaceWorldNode->isWorldInitialized())
@@ -70,7 +69,7 @@ void GD_OtherEntity::_process(float _delta)
 	String entityNodeName = get_name();
 
 	// Update Entity Shape
-	if (!isEntityInitializationComplete())
+	if (!entityCommon()->isEntityInitializationComplete())
 	{
 		MeshInstance* entityShape = (MeshInstance*)get_node("Shape");
 		if (!entityShape)
@@ -82,7 +81,7 @@ void GD_OtherEntity::_process(float _delta)
 		Ref<SpatialMaterial> entityShapeMaterial = entityShape->get_surface_material(0);
 		if (entityShapeMaterial.ptr())
 		{
-			std::wstring s = getClassName().unicode_str();
+			std::wstring s = entityCommon()->getClassName().unicode_str();
 			if (s != L"")
 			{
 				std::wstring m(L"monster");
@@ -91,7 +90,7 @@ void GD_OtherEntity::_process(float _delta)
 					Entity_Visuals* ev = pAppNode->getEntityVisuals(GD_CLIENTAPP_ENTITYVISUALS_MONSTER);
 					SpatialMaterial* mat = ev->getEntityShapeMaterial(entityShapeMaterial.ptr());
 					entityShape->set_material_override(mat);
-					set_mode(RIGID_BODY_MODE_STATIC);
+					//set_mode(RIGID_BODY_MODE_STATIC);
 					
 					setMonster();
 					add_to_group(GD_CLIENTAPP_MONSTERS_GROUP);
@@ -101,18 +100,18 @@ void GD_OtherEntity::_process(float _delta)
 					Entity_Visuals* ev = pAppNode->getEntityVisuals(GD_CLIENTAPP_ENTITYVISUALS_NPC);
 					SpatialMaterial* mat = ev->getEntityShapeMaterial(entityShapeMaterial.ptr());
 					entityShape->set_material_override(mat);
-					set_mode(RIGID_BODY_MODE_STATIC);
+					//set_mode(RIGID_BODY_MODE_STATIC);
 
 					setNPC();
 					add_to_group(GD_CLIENTAPP_NPCS_GROUP);
 				}
-				setEntityInitializationComplete(true);
+				entityCommon()->setEntityInitializationComplete(true);
 			}
 		}
 	}
 
-	Vector3 desideredEntityPos = getDesideredPos();
-	Vector3 lastPos = getLastPos();
+	Vector3 desideredEntityPos = entityCommon()->getDesideredPos();
+	Vector3 lastPos = entityCommon()->getLastPos();
 
 	if (desideredEntityPos != lastPos)
 	{
@@ -120,7 +119,7 @@ void GD_OtherEntity::_process(float _delta)
 		t = get_transform();
 		t.origin = desideredEntityPos;
 		set_transform(t);
-		setLastPos(desideredEntityPos);
+		entityCommon()->setLastPos(desideredEntityPos);
 		/*if (isDebugEnabled())
 		{
 			sprintf(buffer, "********************************************************************** Entity %d - %f/%f/%f", getId(), getLastPos().x, getLastPos().y, getLastPos().z);
@@ -137,27 +136,30 @@ void GD_OtherEntity::_process(float _delta)
 		if (pMeshI)
 		{
 			float desideredYaw, desideredPitch, desideredRoll;
-			getDesideredDirection(desideredYaw, desideredPitch, desideredRoll);
+			entityCommon()->getDesideredDirection(desideredYaw, desideredPitch, desideredRoll);
 			float lastYaw, lastPitch, lastRoll;
-			getLastDirection(lastYaw, lastPitch, lastRoll);
+			entityCommon()->getLastDirection(lastYaw, lastPitch, lastRoll);
 
 			if (lastYaw != desideredYaw)
 			{
 				//pMeshI->rotate_y(yaw + kPi / 2);
 				//pMeshI->global_rotate(Vector3(0, 1, 0), desideredYaw);
-				setLastDirection(desideredYaw, lastPitch, lastRoll);
-				if (isDebugEnabled())
+				entityCommon()->setLastDirection(desideredYaw, lastPitch, lastRoll);
+				if (entityCommon()->isDebugEnabled())
 				{
-					sprintf(buffer, "********************************************************************** Entity %d - %f", getId(), desideredYaw);
+					sprintf(buffer, "********************************************************************** Entity %d - %f", entityCommon()->getId(), desideredYaw);
 					Godot::print(buffer);
 				}
 			}
 
-			pMeshI->look_at(desideredEntityPos + realDirection, Vector3(0, 1, 0));
+			Transform t = get_transform();
+			Vector3 v = desideredEntityPos + realDirection;
+			if (v != t.origin)
+				pMeshI->look_at(desideredEntityPos + realDirection, Vector3(0, 1, 0));
 		}
 	}
 
-	if (isDebugEnabled())
+	if (entityCommon()->isDebugEnabled())
 	{
 		Node* lineDrawerNode = get_node_or_null(NodePath("/root/DrawLine3d"));
 		if (lineDrawerNode)
@@ -181,29 +183,30 @@ void GD_OtherEntity::_process(float _delta)
 		}
 	}
 	
-	resetDebugEnabled();
+	entityCommon()->resetDebugEnabled();
 }
 
 void GD_OtherEntity::_physics_process(float _delta)
 {
+	//return;	// DEBUG_MODE
 	// To activate _process method add this Node to a Godot Scene
 	//Godot::print("GD_OtherEntity::_physics_process");
 
-	if (!isValid())
+	if (!entityCommon()->isValid())
 		return;
 
 	//String entityName = getEntityName();
 	//if (entityName == "")
 	//	return;
 
-	GD_ClientApp* pAppNode = (GD_ClientApp*)getClientAppNode();
+	GD_ClientApp* pAppNode = (GD_ClientApp*)entityCommon()->getClientAppNode();
 	GD_SpaceWorld* pSpaceWorldNode = (GD_SpaceWorld*)pAppNode->getSpaceWorldNode();
 
 	if (!pSpaceWorldNode->isWorldInitialized())
 		return;
 
 	bool bPlayer;
-	KBEntity* kbentity = pAppNode->getEntityById(getId(true), bPlayer);
+	KBEntity* kbentity = pAppNode->getEntityById(entityCommon()->getId(true), bPlayer);
 	if (kbentity)
 	{
 		{
@@ -212,11 +215,11 @@ void GD_OtherEntity::_physics_process(float _delta)
 			// specificare meglio cosa si fa se uno fra x y e z è nullo (per y come ora per gli altri posizione precedente)
 			if (entityPos.x != 0 || entityPos.y != 0 || entityPos.z != 0)
 			{
-				Vector3 lastPos = getLastPos();
+				Vector3 lastPos = entityCommon()->getLastPos();
 
 				if (lastPos.x == entityPos.x && lastPos.z == entityPos.z)
 				{
-					setDesideredPos(lastPos);
+					entityCommon()->setDesideredPos(lastPos);
 				}
 				else
 				{
@@ -254,7 +257,7 @@ void GD_OtherEntity::_physics_process(float _delta)
 						}
 					}
 					
-					setDesideredPos(entityPos);
+					entityCommon()->setDesideredPos(entityPos);
 				}
 			}
 		}
@@ -262,7 +265,7 @@ void GD_OtherEntity::_physics_process(float _delta)
 		{
 			float yaw, pitch, roll;
 			kbentity->getForClientDirection(yaw, pitch, roll);
-			setDesideredDirection(yaw, pitch, roll);
+			entityCommon()->setDesideredDirection(yaw, pitch, roll);
 		}
 	}
 	else
@@ -279,7 +282,7 @@ void GD_OtherEntity::_input(const Ref<InputEvent> event)
 
 bool GD_OtherEntity::initEntity(int id, Node* pClientApp)
 {
-	bool b = GD_Entity::initEntity(id, pClientApp);
+	bool b = entityCommon()->initEntity(id, pClientApp, this);
 
 	if (!b)
 		return false;
@@ -289,7 +292,7 @@ bool GD_OtherEntity::initEntity(int id, Node* pClientApp)
 
 bool GD_OtherEntity::destroyEntity(void)
 {
-	bool b = GD_Entity::destroyEntity();
+	bool b = entityCommon()->destroyEntity();
 
 	return b;
 }

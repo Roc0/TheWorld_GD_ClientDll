@@ -447,14 +447,14 @@ void GD_ClientApp::onCreatedEntity(KBEngine::ENTITY_ID eid, bool bPlayer)
 		Node* pNode = getPlayerNode();
 		if (pNode)
 		{
-			
+			GD_PlayerEntity* pPlayer = (GD_PlayerEntity*)pNode;
 			String nodeName = GD_CLIENTAPP_PLAYER_ENTITY_NODE;
 			char buffer[16];
-			nodeName = nodeName + "_" + _itoa(((GD_Entity*)pNode)->getId(), buffer, 10);
+			nodeName = nodeName + "_" + _itoa(pPlayer->entityCommon()->getId(), buffer, 10);
 			pNode->set_name(nodeName);
 			if (m_isDebugEnabled)
-				Godot::print("onCreatedEntity (renamed): " + pNode->get_name() + " - " + ((GD_Entity*)pNode)->getEntityName());
-			((GD_Entity*)pNode)->destroyEntity();
+				Godot::print("onCreatedEntity (renamed): " + pNode->get_name() + " - " + pPlayer->entityCommon()->getEntityName());
+			pPlayer->destroyEntity();
 			pNode->call_deferred("free");
 
 		}
@@ -469,11 +469,11 @@ void GD_ClientApp::onCreatedEntity(KBEngine::ENTITY_ID eid, bool bPlayer)
 				setAppInError(GD_CLIENTAPP_ERROR_INIT_NODE_ENTITY);
 				return;
 			}
-			String entityName = pPlayer->getEntityName();
+			String entityName = pPlayer->entityCommon()->getEntityName();
 			char buffer[16]; _itoa((int)eid, buffer, 10);
 			if (m_isDebugEnabled)
 			{
-				String s = "onCreatedEntity (";	s = s + buffer + "): " + pPlayer->get_name() + " - " + pPlayer->getEntityName();
+				String s = "onCreatedEntity (";	s = s + buffer + "): " + pPlayer->get_name() + " - " + pPlayer->entityCommon()->getEntityName();
 				Godot::print(s);
 			}
 		}
@@ -495,11 +495,11 @@ void GD_ClientApp::onCreatedEntity(KBEngine::ENTITY_ID eid, bool bPlayer)
 				setAppInError(GD_CLIENTAPP_ERROR_INIT_NODE_ENTITY);
 				return;
 			}
-			String entityName = pOther->getEntityName();
+			String entityName = pOther->entityCommon()->getEntityName();
 			char buffer[16]; _itoa((int)eid, buffer, 10);
 			if (m_isDebugEnabled)
 			{
-				String s = "onCreatedEntity (";	s = s + buffer + "): " + pOther->get_name() + " - " + pOther->getEntityName();
+				String s = "onCreatedEntity (";	s = s + buffer + "): " + pOther->get_name() + " - " + pOther->entityCommon()->getEntityName();
 				Godot::print(s);
 			}
 		}
@@ -515,16 +515,18 @@ void GD_ClientApp::onCreatedEntity(KBEngine::ENTITY_ID eid, bool bPlayer)
 
 void GD_ClientApp::onEraseEntity(KBEngine::ENTITY_ID eid)
 {
-	GD_Entity* entity = (GD_Entity*)getEntityNodeById(eid);
+	Node* entity = getEntityNodeById(eid);
 	if (entity)
 	{
+		GD_Entity_Common* pEntityCommon = NULL;
+		GET_ENTITY_COMMON(pEntityCommon, entity);
 		if (m_isDebugEnabled)
 		{
-			char buffer[16]; _itoa(entity->getId(), buffer, 10);
-			String s = "destroyEntity(";	s = s + buffer + "): " + entity->get_name() + " - " + entity->getEntityName();
+			char buffer[16]; _itoa(pEntityCommon->getId(), buffer, 10);
+			String s = "destroyEntity(";	s = s + buffer + "): " + entity->get_name() + " - " + pEntityCommon->getEntityName();
 			Godot::print(s);
 		}
-		entity->destroyEntity();
+		pEntityCommon->destroyEntity();
 		entity->call_deferred("free");
 
 		emit_signal("erase_entity", (int)eid);
@@ -604,7 +606,7 @@ Node* GD_ClientApp::getPlayerNode(bool bIgnoreValid)
 			if (bIgnoreValid)
 				return pPlayerEntityNode;
 			else
-				if (pPlayerEntityNode->isValid())
+				if (pPlayerEntityNode->entityCommon()->isValid())
 					return pPlayerEntityNode;
 		}
 	}
@@ -661,7 +663,7 @@ Node* GD_ClientApp::getEntityNodeByIdx(int idx, bool bIgnoreValid)
 	int idxEntity = 0;
 	for (int i = 0; i < entityNodes.size(); i++)
 	{
-		GD_Entity* pEntityNode = entityNodes[i];
+		Node* pEntityNode = entityNodes[i];
 		GD_PlayerEntity* pPlayerEntityNode = cast_to<GD_PlayerEntity>(pEntityNode);
 		GD_OtherEntity* pOtherEntityNode = cast_to<GD_OtherEntity>(pEntityNode);
 		if (pOtherEntityNode != nullptr || pPlayerEntityNode != nullptr)
@@ -675,7 +677,9 @@ Node* GD_ClientApp::getEntityNodeByIdx(int idx, bool bIgnoreValid)
 			}
 			else
 			{
-				if (pEntityNode->isValid())
+				GD_Entity_Common* pEntityCommon = NULL;
+				GET_ENTITY_COMMON(pEntityCommon, pEntityNode);
+				if (pEntityCommon->isValid())
 				{
 					if (idxEntity == idx)
 						return pEntityNode;
@@ -703,12 +707,14 @@ Node* GD_ClientApp::getEntityNodeById(int id, bool bIgnoreValid)
 	Array entityNodes = pNode->get_children();
 	for (int i = 0; i < entityNodes.size(); i++)
 	{
-		GD_Entity* pEntityNode = entityNodes[i];
+		Node* pEntityNode = entityNodes[i];
 		GD_PlayerEntity* pPlayerEntityNode = cast_to<GD_PlayerEntity>(pEntityNode);
 		GD_OtherEntity* pOtherEntityNode = cast_to<GD_OtherEntity>(pEntityNode);
 		if (pOtherEntityNode != nullptr || pPlayerEntityNode != nullptr)
 		{
-			if (pEntityNode->getId(bIgnoreValid) == id)
+			GD_Entity_Common* pEntityCommon = NULL;
+			GET_ENTITY_COMMON(pEntityCommon, pEntityNode);
+			if (pEntityCommon->getId(bIgnoreValid) == id)
 				return pEntityNode;
 		}
 	}

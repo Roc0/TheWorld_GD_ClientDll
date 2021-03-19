@@ -1,6 +1,7 @@
 #include "GD_ClientApp.h"
 #include "GD_SpaceWorld.h"
-#include "GD_Entity.h"
+#include "GD_PlayerEntity.h"
+#include "GD_OtherEntity.h"
 
 #include <Godot.hpp>
 #include <Reference.hpp>
@@ -92,10 +93,13 @@ void GD_SpaceWorld::_process(float _delta)
 		}
 		else
 		{
-			GD_Entity* entity = (GD_Entity*)pClientApp->getEntityNodeByIdx(m_iProgEntityCamera);
+			Node* entity = pClientApp->getEntityNodeByIdx(m_iProgEntityCamera);
 			if (entity)
 			{
-				GD_WorldCamera* entityCam = (GD_WorldCamera*)entity->getCameraNode();
+				GD_Entity_Common* pEntityCommon = NULL;
+				GET_ENTITY_COMMON(pEntityCommon, entity);
+				GD_WorldCamera* entityCam = NULL;;
+				entityCam = (GD_WorldCamera*)pEntityCommon->getCameraNode();
 				if (entityCam)
 				{
 					entityCam->activateCamera();

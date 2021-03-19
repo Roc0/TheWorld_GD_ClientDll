@@ -2,12 +2,13 @@
 
 #include "GD_Entity.h"
 #include <Vector2.hpp>
+#include <KinematicBody.hpp>
 
 namespace godot {
 
-	class GD_PlayerEntity : public GD_Entity
+	class GD_PlayerEntity : public KinematicBody
 	{
-		GODOT_CLASS(GD_PlayerEntity, GD_Entity)
+		GODOT_CLASS(GD_PlayerEntity, KinematicBody)
 
 	public:
 		static void _register_methods();
@@ -29,6 +30,11 @@ namespace godot {
 		Vector3 h_accel(Vector3 direction, float _delta);
 		void move(float _delta);
 		void faceForward(void);
+
+		GD_Entity_Common* entityCommon(void) { return &m_entityCommon; }
+
+	private:
+		GD_Entity_Common m_entityCommon;
 
 	private:
 		Vector3 m_velocity;

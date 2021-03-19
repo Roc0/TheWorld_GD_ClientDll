@@ -23,7 +23,7 @@ void GD_PlayerEntity::_register_methods()
 
 GD_PlayerEntity::GD_PlayerEntity()
 {
-	setPlayer(true);
+	entityCommon()->setPlayer(true);
 	m_facingDirectionAngle = 0;
 	m_initPositionFromServer = true;
 }
@@ -44,13 +44,12 @@ void GD_PlayerEntity::_ready()
 
 void GD_PlayerEntity::_process(float _delta)
 {
+	//return;	// DEBUG_MODE
 	// To activate _process method add this Node to a Godot Scene
 	//Godot::print("GD_PlayerEntity::_process");
 
-	if (!isValid())
+	if (!entityCommon()->isValid())
 		return;
-
-	GD_Entity::_process(_delta);
 
 	//String entityName = getEntityName();
 	//if (entityName == "")
@@ -58,16 +57,16 @@ void GD_PlayerEntity::_process(float _delta)
 
 	char buffer[256];
 
-	GD_ClientApp* pAppNode = (GD_ClientApp*)getClientAppNode();
+	GD_ClientApp* pAppNode = (GD_ClientApp*)entityCommon()->getClientAppNode();
 	GD_SpaceWorld* pSpaceWorldNode = (GD_SpaceWorld*)pAppNode->getSpaceWorldNode();
 
 	if (!pSpaceWorldNode->isWorldInitialized())
 		return;
 
-	String entityNodeName = get_name();
+	//String entityNodeName = get_name();
 
 	// Update Entity Shape
-	if (!isEntityInitializationComplete())
+	if (!entityCommon()->isEntityInitializationComplete())
 	{
 		MeshInstance* entityShape = (MeshInstance*)get_node("Shape");
 		if (!entityShape)
@@ -82,14 +81,14 @@ void GD_PlayerEntity::_process(float _delta)
 			Entity_Visuals* ev = pAppNode->getEntityVisuals(GD_CLIENTAPP_ENTITYVISUALS_PLAYER);
 			SpatialMaterial* mat = ev->getEntityShapeMaterial(entityShapeMaterial.ptr());
 			entityShape->set_material_override(mat);
-			set_mode(RIGID_BODY_MODE_KINEMATIC);
+			//set_mode(RIGID_BODY_MODE_KINEMATIC);
 
-			setEntityInitializationComplete(true);
+			entityCommon()->setEntityInitializationComplete(true);
 		}
 	}
 
 	bool bPlayer;
-	KBEntity* kbentity = pAppNode->getEntityById(getId(true), bPlayer);
+	KBEntity* kbentity = pAppNode->getEntityById(entityCommon()->getId(true), bPlayer);
 	if (kbentity)
 	{
 		if (m_initPositionFromServer)
@@ -106,7 +105,7 @@ void GD_PlayerEntity::_process(float _delta)
 				t = get_transform();
 				t.origin = Vector3(x, aabb_end.y + 10, z);
 				set_transform(t);
-				setLastPos(t.origin);
+				entityCommon()->setLastPos(t.origin);
 			}
 			m_initPositionFromServer = false;
 		}
@@ -121,7 +120,7 @@ void GD_PlayerEntity::_process(float _delta)
 		return;
 	}
 
-	resetDebugEnabled();
+	entityCommon()->resetDebugEnabled();
 }
 
 void GD_PlayerEntity::_physics_process(float _delta)
@@ -209,7 +208,7 @@ void GD_PlayerEntity::move(float _delta)
 {
 	godot::Vector2 desideredMovement = get_2d_movement();
 
-	GD_ClientApp *pClientApp = (GD_ClientApp*)getClientAppNode();
+	GD_ClientApp *pClientApp = (GD_ClientApp*)entityCommon()->getClientAppNode();
 	if (!pClientApp)
 		return;
 
@@ -251,15 +250,15 @@ void GD_PlayerEntity::move(float _delta)
 
 void GD_PlayerEntity::faceForward(void)
 {
-	Node *pShapeNode = get_node("Shape");
-	if (!pShapeNode)
-		return;
-	((Spatial*)pShapeNode)->look_at(m_facingDirection, Vector3(0, 1, 0));
+	//Node *pShapeNode = get_node("Shape");
+	//if (!pShapeNode)
+	//	return;
+	//((Spatial*)pShapeNode)->look_at(m_facingDirection, Vector3(0, 1, 0));
 }
 
 bool GD_PlayerEntity::initEntity(int id, Node* pClientApp)
 {
-	bool b = GD_Entity::initEntity(id, pClientApp);
+	bool b = entityCommon()->initEntity(id, pClientApp, this);
 
 	if (!b)
 		return false;
@@ -271,7 +270,7 @@ bool GD_PlayerEntity::initEntity(int id, Node* pClientApp)
 
 bool GD_PlayerEntity::destroyEntity(void)
 {
-	bool b = GD_Entity::destroyEntity();
+	bool b = entityCommon()->destroyEntity();
 
 	return b;
 }

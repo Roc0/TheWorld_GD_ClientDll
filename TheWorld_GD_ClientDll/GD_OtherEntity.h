@@ -1,12 +1,13 @@
 #pragma once
 
 #include "GD_Entity.h"
+#include <StaticBody.hpp>
 
 namespace godot {
 
-	class GD_OtherEntity : public GD_Entity
+	class GD_OtherEntity : public StaticBody
 	{
-		GODOT_CLASS(GD_OtherEntity, GD_Entity)
+		GODOT_CLASS(GD_OtherEntity, StaticBody)
 
 	public:
 		static void _register_methods();
@@ -27,6 +28,11 @@ namespace godot {
 		void setMonster(bool b = true) { m_isMonster = b; }
 		bool isNPC(void) { return m_isNPC; }
 		void setNPC(bool b = true) { m_isNPC = b; }
+
+		GD_Entity_Common* entityCommon(void) { return &m_entityCommon; }
+
+	private:
+		GD_Entity_Common m_entityCommon;
 
 	private:
 		bool m_initialPosSetted;

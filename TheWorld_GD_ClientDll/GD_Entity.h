@@ -12,6 +12,16 @@
 #define RIGID_BODY_MODE_CHARACTER	2		
 #define RIGID_BODY_MODE_KINEMATIC	3
 
+#define GET_ENTITY_COMMON(_ptr_entity_common, _entity_node) \
+	{ \
+		GD_PlayerEntity* pPlayerEntityNode = cast_to<GD_PlayerEntity>(_entity_node); \
+		GD_OtherEntity* pOtherEntityNode = cast_to<GD_OtherEntity>(_entity_node); \
+		if (pPlayerEntityNode) \
+			_ptr_entity_common = pPlayerEntityNode->entityCommon(); \
+		else \
+			_ptr_entity_common = pOtherEntityNode->entityCommon(); \
+	}
+
 namespace godot {
 
 	class Entity_Visuals
@@ -27,23 +37,13 @@ namespace godot {
 		Ref<SpatialMaterial> m_entityShapeMaterial;
 	};
 
-	class GD_Entity : public RigidBody
+	class GD_Entity_Common //: public RigidBody
 	{
-		GODOT_CLASS(GD_Entity, RigidBody)
-
 	public:
-		static void _register_methods();
+		GD_Entity_Common();
+		~GD_Entity_Common();
 
-		GD_Entity();
-		~GD_Entity();
-
-		void _init(); // our initializer called by Godot
-		void _ready();
-		void _process(float _delta);
-		void _physics_process(float _delta);
-		void _input(const Ref<InputEvent> event);
-
-		bool initEntity(int id, Node* pClientApp);
+		bool initEntity(int id, Node* pClientApp, Node* pEntityNode);
 		bool destroyEntity(void);
 
 		bool isValid(void) { return m_isValid; }
@@ -52,6 +52,7 @@ namespace godot {
 		bool isPlayer() { return m_isPlayer; }
 		void setPlayer(bool isPlayer) { m_isPlayer = isPlayer; }
 
+		Node* getEntityNode(void);
 		Node* getCameraNode(void);
 		Node* getCameraPosNode(void);
 		Node* getClientAppNode(void) { return m_pClientAppNode; }
@@ -104,6 +105,8 @@ namespace godot {
 		int m_id;
 		String m_entityName;
 		String m_className;
+
+		std::string m_entityNodeName;
 
 		Node* m_pClientAppNode;
 		bool m_isValid;

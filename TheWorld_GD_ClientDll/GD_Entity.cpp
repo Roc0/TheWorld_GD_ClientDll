@@ -52,15 +52,7 @@ SpatialMaterial* Entity_Visuals::getEntityShapeMaterial(SpatialMaterial* templat
 	}
 }
 
-void GD_Entity::_register_methods()
-{
-	register_method("_ready", &GD_Entity::_ready);
-	register_method("_process", &GD_Entity::_process);
-	register_method("_physics_process", &GD_Entity::_physics_process);
-	register_method("_input", &GD_Entity::_input);
-}
-
-GD_Entity::GD_Entity()
+GD_Entity_Common::GD_Entity_Common()
 {
 	m_id = -1;
 	m_pClientAppNode = NULL;
@@ -72,41 +64,11 @@ GD_Entity::GD_Entity()
 	resetDebugEnabled();
 }
 
-GD_Entity::~GD_Entity()
+GD_Entity_Common::~GD_Entity_Common()
 {
 }
 
-void GD_Entity::_init()
-{
-	//Godot::print("GD_Entity::Init");
-}
-
-void GD_Entity::_ready()
-{
-	//Godot::print("GD_Entity::_ready");
-}
-
-void GD_Entity::_process(float _delta)
-{
-	// To activate _process method add this Node to a Godot Scene
-	//Godot::print("GD_Entity::_process");
-
-	if (!isValid())
-		return;
-}
-
-void GD_Entity::_physics_process(float _delta)
-{
-	// To activate _process method add this Node to a Godot Scene
-	//Godot::print("GD_Entity::_physics_process");
-}
-
-void GD_Entity::_input(const Ref<InputEvent> event)
-{
-	//Godot::print("GD_Entity::_input: " + event->as_text());
-}
-
-bool GD_Entity::isDebugEnabled(void)
+bool GD_Entity_Common::isDebugEnabled(void)
 {
 	if (m_isDebugEnabled == -1)
 	{
@@ -115,19 +77,48 @@ bool GD_Entity::isDebugEnabled(void)
 	return (m_isDebugEnabled == 1 ? true : false);
 }
 
-void GD_Entity::resetDebugEnabled(void)
+void GD_Entity_Common::resetDebugEnabled(void)
 {
 	m_isDebugEnabled = -1;
 }
 
-Node* GD_Entity::getCameraNode(void)
+Node* GD_Entity_Common::getEntityNode(void)
 {
-	Camera* entityCam = (Camera*)get_node_or_null("Camera");
+	if (!m_pClientAppNode)
+		return NULL;
+
+	Node* pSpaceWorldNode = ((GD_ClientApp*)m_pClientAppNode)->getSpaceWorldNode();
+	if (!pSpaceWorldNode)
+		return NULL;
+
+	Node* pWorldNode = ((GD_SpaceWorld*)pSpaceWorldNode)->getWorldNode();
+	if (!pWorldNode)
+		return NULL;
+
+	String sEntitiesPath = GD_CLIENTAPP_ENTITIES_CONTAINER_NODE;
+	NodePath entitiesPath(sEntitiesPath);
+	Node* entitiesNode = pWorldNode->get_node(entitiesPath);
+	if (!entitiesNode)
+		return NULL;
+
+	NodePath entityNodePath(m_entityNodeName.c_str());
+	Node* pentityNode = entitiesNode->get_node(entityNodePath);
+
+	return pentityNode;
+}
+
+Node* GD_Entity_Common::getCameraNode(void)
+{
+	Node* entityNode = getEntityNode();
+	if (!entityNode)
+		return NULL;
+
+	Camera* entityCam = (Camera*)entityNode->get_node_or_null("Camera");
 	if (!entityCam)
 	{
 		entityCam = GD_WorldCamera::_new();
 		if (entityCam)
-			add_child(entityCam);
+			entityNode->add_child(entityCam);
 		else
 			return NULL;
 
@@ -145,9 +136,13 @@ Node* GD_Entity::getCameraNode(void)
 	return entityCam;
 }
 
-Node* GD_Entity::getCameraPosNode(void)
+Node* GD_Entity_Common::getCameraPosNode(void)
 {
-	Node* entityCamPos = get_node("CameraPos");
+	Node* entityNode = getEntityNode();
+	if (!entityNode)
+		return NULL;
+
+	Node* entityCamPos = entityNode->get_node("CameraPos");
 	if (!entityCamPos)
 	{
 		return NULL;
@@ -156,7 +151,7 @@ Node* GD_Entity::getCameraPosNode(void)
 	return entityCamPos;
 }
 
-bool GD_Entity::initEntity(int id, Node* pClientApp)
+bool GD_Entity_Common::initEntity(int id, Node* pClientApp, Node* pEntityNode)
 {
 	m_id = id;
 	m_pClientAppNode = pClientApp;
@@ -165,33 +160,33 @@ bool GD_Entity::initEntity(int id, Node* pClientApp)
 
 	char buffer[16];
 	//String entityName = getEntityName();
-	String nodeName, path;
+	String path;
 	int64_t rigidBodyMode;
 
 	if (isPlayer())
 	{
-		nodeName = GD_CLIENTAPP_PLAYER_ENTITY_NODE;
+		m_entityNodeName = GD_CLIENTAPP_PLAYER_ENTITY_NODE;
 
 		// Kinematic body mode. The body behaves like a KinematicBody, and can only move by user code
-		rigidBodyMode = RIGID_BODY_MODE_KINEMATIC;
+		//rigidBodyMode = RIGID_BODY_MODE_KINEMATIC;
 
 		path = "res://Player.tscn";
 	}
 	else
 	{
-		nodeName = GD_CLIENTAPP_OTHER_ENTITY_NODE;
-		nodeName = nodeName + "_" + _itoa(id, buffer, 10);
+		m_entityNodeName = GD_CLIENTAPP_OTHER_ENTITY_NODE;
+		m_entityNodeName = m_entityNodeName + "_" + _itoa(id, buffer, 10);
 
 		// Static mode. The body behaves like a StaticBody, and can only move by user code.
-		rigidBodyMode = RIGID_BODY_MODE_STATIC;
-		//rigidBodyMode = RIGID_BODY_MODE_RIGID;
+		//rigidBodyMode = RIGID_BODY_MODE_STATIC;
+		////rigidBodyMode = RIGID_BODY_MODE_RIGID;
 
 		path = "res://OtherEntity.tscn";
 	}
 
-	set_name(nodeName);
-	add_to_group(GD_CLIENTAPP_ENTITIES_CONTAINER_NODE);
-	set_mode(rigidBodyMode);
+	pEntityNode->set_name(m_entityNodeName.c_str());
+	pEntityNode->add_to_group(GD_CLIENTAPP_ENTITIES_CONTAINER_NODE);
+	//set_mode(rigidBodyMode);
 
 	// use resource as template duplicating nodes
 	{
@@ -199,45 +194,45 @@ bool GD_Entity::initEntity(int id, Node* pClientApp)
 		Ref<PackedScene> s = resLoader->load(path);
 		if (!s.ptr())
 			return false;
-		Node* pEntityNode = s->instance();
-		if (!pEntityNode)
+		Node* pEntityNodeTemplate = s->instance();
+		if (!pEntityNodeTemplate)
 			return false;
 
-		Node *pNode = pEntityNode->get_node("Shape");
+		Node *pNode = pEntityNodeTemplate->get_node("Shape");
 		if (!pNode)
 			return false;
-		add_child(pNode->duplicate());
+		pEntityNode->add_child(pNode->duplicate());
 
-		pNode = pEntityNode->get_node("CollisionShape");
+		pNode = pEntityNodeTemplate->get_node("CollisionShape");
 		if (!pNode)
 			return false;
-		add_child(pNode->duplicate());
+		pEntityNode->add_child(pNode->duplicate());
 		/*Transform t;
 		t = ((CollisionObject*)pNode)->get_transform();
 		t.origin.y -= 1;
 		((CollisionObject*)pNode)->set_transform(t);*/
 
-		pNode = pEntityNode->get_node("CameraPos");
+		pNode = pEntityNodeTemplate->get_node("CameraPos");
 		if (!pNode)
 			return false;
-		add_child(pNode->duplicate());
+		pEntityNode->add_child(pNode->duplicate());
 
-		pEntityNode->queue_free();
+		pEntityNodeTemplate->queue_free();
 	}
 
 	if (((GD_ClientApp*)m_pClientAppNode)->isDebugEnabled())
-		Godot::print("GD_Entity::initEntity " + nodeName);
+		Godot::print("GD_Entity_Common::initEntity " + String(m_entityNodeName.c_str()));
 	
 	return true;
 }
 
-bool GD_Entity::destroyEntity(void)
+bool GD_Entity_Common::destroyEntity(void)
 {
 	setValid(false);
 	return true;
 }
 
-int GD_Entity::getId(bool bIgnoreValid)
+int GD_Entity_Common::getId(bool bIgnoreValid)
 {
 	if (bIgnoreValid)
 		return m_id;
@@ -245,7 +240,7 @@ int GD_Entity::getId(bool bIgnoreValid)
 		return isValid() ? m_id : -1;
 }
 
-String GD_Entity::getEntityName(bool bIgnoreValid)
+String GD_Entity_Common::getEntityName(bool bIgnoreValid)
 {
 	if (!isValid() && !bIgnoreValid)
 		return "";
@@ -266,7 +261,7 @@ String GD_Entity::getEntityName(bool bIgnoreValid)
 	return m_entityName;
 }
 
-String GD_Entity::getClassName(bool bIgnoreValid)
+String GD_Entity_Common::getClassName(bool bIgnoreValid)
 {
 	if (!isValid() && !bIgnoreValid)
 		return "";

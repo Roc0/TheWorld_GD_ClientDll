@@ -20,7 +20,6 @@ extern "C" void GDN_EXPORT godot_nativescript_init(void *handle) {
 	godot::register_class<godot::GD_ClientApp>();
 	godot::register_class<godot::GD_SpaceWorld>();
 	godot::register_class<godot::GD_WorldCamera>();
-	godot::register_class<godot::GD_Entity>();
 	godot::register_class<godot::GD_PlayerEntity>();
 	godot::register_class<godot::GD_OtherEntity>();
 	godot::register_class<godot::GD_Line>();
