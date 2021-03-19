@@ -30,11 +30,12 @@ namespace godot {
 		Entity_Visuals(int iType);
 		~Entity_Visuals();
 	
-		SpatialMaterial* getEntityShapeMaterial(SpatialMaterial* templateMaterial);
+		SpatialMaterial* getEntityShapeMaterial(SpatialMaterial* templateMaterial, int iEntityStatus);
 
 	private:
 		int m_iType;
-		Ref<SpatialMaterial> m_entityShapeMaterial;
+		Ref<SpatialMaterial> m_entityShapeMaterial_freeEntity;
+		Ref<SpatialMaterial> m_entityShapeMaterial_deadEntity;
 	};
 
 	class GD_Entity_Common //: public RigidBody
@@ -92,6 +93,9 @@ namespace godot {
 			roll = m_lastDirection.x;
 		};
 
+		void setLastEntityStatus(int iLastEntityStatus) { m_iLastEntityStatus = iLastEntityStatus; }
+		int getLastEntityStatus(void) { return m_iLastEntityStatus; }
+
 		bool isDebugEnabled(void);
 		void resetDebugEnabled(void);
 
@@ -113,6 +117,7 @@ namespace godot {
 		bool m_isPlayer;
 		Vector3 m_lastPos, m_desideredPos;
 		Vector3 m_lastDirection, m_desideredDirection;
+		int m_iLastEntityStatus;
 		bool m_isEntityInitializationComplete;
 		int m_isDebugEnabled;
 	};

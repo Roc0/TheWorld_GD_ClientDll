@@ -25,30 +25,68 @@ Entity_Visuals::~Entity_Visuals()
 {
 }
 
-SpatialMaterial* Entity_Visuals::getEntityShapeMaterial(SpatialMaterial* templateMaterial)
+SpatialMaterial* Entity_Visuals::getEntityShapeMaterial(SpatialMaterial* templateMaterial, int iEntityStatus)
 {
-	Color greenEntity(51.0 / 255, 102.0 / 255, 0, 255.0 / 255);
-	Color redEntity(128.0 / 255, 25.0 / 255, 0, 255.0 / 255);
-	Color lightblueEntity(0 / 255, 192.0 / 255, 255.0 / 255, 255.0 / 255);
+	Color greenEntity(51.0 / 255.0, 102.0 / 255.0, 0.0, 255.0 / 255.0);
+	Color redEntity(128.0 / 255.0, 25.0 / 255.0, 0.0, 255.0 / 255.0);
+	Color lightblueEntity(0.0 / 255.0, 192.0 / 255.0, 255.0 / 255.0, 255.0 / 255.0);
 
-	if (m_entityShapeMaterial.ptr())
-		return m_entityShapeMaterial.ptr();
-	else
+	Color whiteEntity(255.0 / 255.0, 255.0 / 255.0, 255.0 / 255.0, 255.0 / 255.0);
+
+	switch (iEntityStatus)
 	{
-		m_entityShapeMaterial = templateMaterial->duplicate();
-		if (m_iType == GD_CLIENTAPP_ENTITYVISUALS_PLAYER)
+		case ENTITY_STATE_DEAD:
 		{
-			m_entityShapeMaterial->set_albedo(greenEntity);
+			if (m_entityShapeMaterial_deadEntity.ptr())
+				return m_entityShapeMaterial_deadEntity.ptr();
+			else
+			{
+				m_entityShapeMaterial_deadEntity = templateMaterial->duplicate();
+				if (m_iType == GD_CLIENTAPP_ENTITYVISUALS_PLAYER)
+				{
+					m_entityShapeMaterial_deadEntity->set_albedo(whiteEntity);
+				}
+				else if (m_iType == GD_CLIENTAPP_ENTITYVISUALS_MONSTER)
+				{
+					m_entityShapeMaterial_deadEntity->set_albedo(whiteEntity);
+				}
+				else if (m_iType == GD_CLIENTAPP_ENTITYVISUALS_NPC)
+				{
+					m_entityShapeMaterial_deadEntity->set_albedo(whiteEntity);
+				}
+				return m_entityShapeMaterial_deadEntity.ptr();
+			}
 		}
-		else if (m_iType == GD_CLIENTAPP_ENTITYVISUALS_MONSTER)
+		break;
+
+		//case ENTITY_STATE_UNKNOW:
+		//case ENTITY_STATE_FREE:
+		//case ENTITY_STATE_REST:
+		//case ENTITY_STATE_FIGHT:
+		//case ENTITY_STATE_MAX:
+		default:
 		{
-			m_entityShapeMaterial->set_albedo(redEntity);
+			if (m_entityShapeMaterial_freeEntity.ptr())
+				return m_entityShapeMaterial_freeEntity.ptr();
+			else
+			{
+				m_entityShapeMaterial_freeEntity = templateMaterial->duplicate();
+				if (m_iType == GD_CLIENTAPP_ENTITYVISUALS_PLAYER)
+				{
+					m_entityShapeMaterial_freeEntity->set_albedo(greenEntity);
+				}
+				else if (m_iType == GD_CLIENTAPP_ENTITYVISUALS_MONSTER)
+				{
+					m_entityShapeMaterial_freeEntity->set_albedo(redEntity);
+				}
+				else if (m_iType == GD_CLIENTAPP_ENTITYVISUALS_NPC)
+				{
+					m_entityShapeMaterial_freeEntity->set_albedo(lightblueEntity);
+				}
+				return m_entityShapeMaterial_freeEntity.ptr();
+			}
 		}
-		else if (m_iType == GD_CLIENTAPP_ENTITYVISUALS_NPC)
-		{
-			m_entityShapeMaterial->set_albedo(lightblueEntity);
-		}
-		return m_entityShapeMaterial.ptr();
+		break;
 	}
 }
 
@@ -60,6 +98,7 @@ GD_Entity_Common::GD_Entity_Common()
 	setPlayer(false);
 	m_lastPos = Vector3(0, 0, 0);
 	m_isEntityInitializationComplete = false;
+	m_iLastEntityStatus = ENTITY_STATE_UNKNOW;
 	
 	resetDebugEnabled();
 }

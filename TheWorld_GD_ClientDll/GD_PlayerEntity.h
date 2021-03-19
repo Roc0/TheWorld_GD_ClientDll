@@ -28,7 +28,7 @@ namespace godot {
 		Vector2 get_2d_movement(void);
 		Vector3 moveVertically(Vector3 direction, float _delta);
 		Vector3 h_accel(Vector3 direction, float _delta);
-		void move(float _delta);
+		void move(float _delta, KBEntity* kbentity);
 		void faceForward(void);
 
 		GD_Entity_Common* entityCommon(void) { return &m_entityCommon; }

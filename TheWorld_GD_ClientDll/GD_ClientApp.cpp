@@ -131,9 +131,21 @@ void GD_ClientApp::_input(const Ref<InputEvent> event)
 		Godot::print("<==");
 		Godot::print("*** Scene Tree End ***");
 	}
+	
 	if (event->is_action_pressed("ui_toggle_debug_mode"))
 	{
 		setDebugEnabled(!isDebugEnabled());
+	}
+
+	if (event->is_action_pressed("ui_relive"))
+	{
+		bool bPlayer;
+		KBEntity* pPlayer = getEntityById(getPlayerID(), bPlayer);
+		if (pPlayer)
+		{
+			if(pPlayer->getState() == ENTITY_STATE_DEAD)
+				kbengine_Relive();
+		}
 	}
 }
 

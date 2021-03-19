@@ -68,9 +68,19 @@ void GD_OtherEntity::_process(float _delta)
 
 	String entityNodeName = get_name();
 
-	// Update Entity Shape
-	if (!entityCommon()->isEntityInitializationComplete())
+	bool bPlayer;
+	KBEntity* kbentity = pAppNode->getEntityById(entityCommon()->getId(true), bPlayer);
+	if (!kbentity)
 	{
+		pAppNode->setAppInError(GD_CLIENTAPP_ERROR_ENTITY_PROCESS);
+		return;
+	}
+
+	// Update Entity Shape
+	if (!entityCommon()->isEntityInitializationComplete() || kbentity->getState() != entityCommon()->getLastEntityStatus())
+	{
+		entityCommon()->setLastEntityStatus(kbentity->getState());
+		
 		MeshInstance* entityShape = (MeshInstance*)get_node("Shape");
 		if (!entityShape)
 		{
@@ -88,7 +98,7 @@ void GD_OtherEntity::_process(float _delta)
 				if (caseInSensWStringEqual(s, m))
 				{
 					Entity_Visuals* ev = pAppNode->getEntityVisuals(GD_CLIENTAPP_ENTITYVISUALS_MONSTER);
-					SpatialMaterial* mat = ev->getEntityShapeMaterial(entityShapeMaterial.ptr());
+					SpatialMaterial* mat = ev->getEntityShapeMaterial(entityShapeMaterial.ptr(), kbentity->getState());
 					entityShape->set_material_override(mat);
 					//set_mode(RIGID_BODY_MODE_STATIC);
 					
@@ -98,7 +108,7 @@ void GD_OtherEntity::_process(float _delta)
 				else
 				{
 					Entity_Visuals* ev = pAppNode->getEntityVisuals(GD_CLIENTAPP_ENTITYVISUALS_NPC);
-					SpatialMaterial* mat = ev->getEntityShapeMaterial(entityShapeMaterial.ptr());
+					SpatialMaterial* mat = ev->getEntityShapeMaterial(entityShapeMaterial.ptr(), kbentity->getState());
 					entityShape->set_material_override(mat);
 					//set_mode(RIGID_BODY_MODE_STATIC);
 

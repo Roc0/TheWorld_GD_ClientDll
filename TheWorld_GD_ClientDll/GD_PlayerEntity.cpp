@@ -63,11 +63,19 @@ void GD_PlayerEntity::_process(float _delta)
 	if (!pSpaceWorldNode->isWorldInitialized())
 		return;
 
-	//String entityNodeName = get_name();
+	bool bPlayer;
+	KBEntity* kbentity = pAppNode->getEntityById(entityCommon()->getId(true), bPlayer);
+	if (!kbentity)
+	{
+		pAppNode->setAppInError(GD_CLIENTAPP_ERROR_ENTITY_PROCESS);
+		return;
+	}
 
 	// Update Entity Shape
-	if (!entityCommon()->isEntityInitializationComplete())
+	if (!entityCommon()->isEntityInitializationComplete() || kbentity->getState() != entityCommon()->getLastEntityStatus())
 	{
+		entityCommon()->setLastEntityStatus(kbentity->getState());
+
 		MeshInstance* entityShape = (MeshInstance*)get_node("Shape");
 		if (!entityShape)
 		{
@@ -79,7 +87,7 @@ void GD_PlayerEntity::_process(float _delta)
 		if (entityShapeMaterial.ptr())
 		{
 			Entity_Visuals* ev = pAppNode->getEntityVisuals(GD_CLIENTAPP_ENTITYVISUALS_PLAYER);
-			SpatialMaterial* mat = ev->getEntityShapeMaterial(entityShapeMaterial.ptr());
+			SpatialMaterial* mat = ev->getEntityShapeMaterial(entityShapeMaterial.ptr(), kbentity->getState());
 			entityShape->set_material_override(mat);
 			//set_mode(RIGID_BODY_MODE_KINEMATIC);
 
@@ -87,37 +95,56 @@ void GD_PlayerEntity::_process(float _delta)
 		}
 	}
 
-	bool bPlayer;
-	KBEntity* kbentity = pAppNode->getEntityById(entityCommon()->getId(true), bPlayer);
-	if (kbentity)
+	if (m_initPositionFromServer)
 	{
-		if (m_initPositionFromServer)
+		float x, y, z;
+		kbentity->getForClientPosition(x, y, z);
+		if (x != 0 || y != 0 || z != 0)
+		{
+			AABB aabb = pSpaceWorldNode->get_aabbForWorldCameraInitPos();
+			Vector3 aabb_start = aabb.position;
+			Vector3 aabb_end = aabb.position + aabb.size;
+
+			Transform t;
+			t = get_transform();
+			t.origin = Vector3(x, aabb_end.y + 10, z);
+			set_transform(t);
+			entityCommon()->setLastPos(t.origin);
+		}
+		m_initPositionFromServer = false;
+	}
+		
+	move(_delta, kbentity);
+
+	faceForward();
+
+	pAppNode->kbengine_UpdateVolatile();
+
+	if (entityCommon()->isDebugEnabled())
+	{
+		Node* lineDrawerNode = get_node_or_null(NodePath("/root/DrawLine3d"));
+		if (lineDrawerNode)
 		{
 			float x, y, z;
 			kbentity->getForClientPosition(x, y, z);
-			if (x != 0 || y != 0 || z != 0)
-			{
-				AABB aabb = pSpaceWorldNode->get_aabbForWorldCameraInitPos();
-				Vector3 aabb_start = aabb.position;
-				Vector3 aabb_end = aabb.position + aabb.size;
+			Vector3 entityPos(x, y, z);
+			lineDrawerNode->call("DrawCartesianAxis", entityPos, 1.0);
 
-				Transform t;
-				t = get_transform();
-				t.origin = Vector3(x, aabb_end.y + 10, z);
-				set_transform(t);
-				entityCommon()->setLastPos(t.origin);
-			}
-			m_initPositionFromServer = false;
+			/*Color yellow(244.0 / 256.0, 246.0 / 256.0, 10.0 / 256.0);
+			lineDrawerNode->call("DrawRay", entityPos, realDirection, yellow, 0.1);
+
+			Color white(1, 1, 1, 1);
+			Vector3 realDirectionProjectedOnXZPlane(realDirection.x, 0, realDirection.z);
+			realDirectionProjectedOnXZPlane.normalize();
+			lineDrawerNode->call("DrawRay", entityPos, realDirectionProjectedOnXZPlane, white, 0.1);*/
+
+			//float desideredYaw, desideredPitch, desideredRoll;
+			//getDesideredDirection(desideredYaw, desideredPitch, desideredRoll);
+			//Vector3 normalX(1, 0, 0);	Vector3 normalY(0, 1, 0);
+			//Vector3 yawDirection = normalX.rotated(normalY, desideredYaw - kPi / 2);
+			//yawDirection.normalize();
+			//lineDrawerNode->call("DrawRay", desideredEntityPos, yawDirection, Color(0, 0, 0, 1), 0.1);
 		}
-		
-		move(_delta);
-
-		faceForward();
-	}
-	else
-	{
-		pAppNode->setAppInError(GD_CLIENTAPP_ERROR_ENTITY_PROCESS);
-		return;
 	}
 
 	entityCommon()->resetDebugEnabled();
@@ -204,7 +231,7 @@ godot::Vector3 GD_PlayerEntity::h_accel(godot::Vector3 direction, float _delta)
 	return m_velocity;
 }
 
-void GD_PlayerEntity::move(float _delta)
+void GD_PlayerEntity::move(float _delta, KBEntity* kbentity)
 {
 	godot::Vector2 desideredMovement = get_2d_movement();
 
@@ -231,21 +258,9 @@ void GD_PlayerEntity::move(float _delta)
 
 	move_and_slide(m_velocity, Vector3(0, 1, 0));
 
-	/*Transform t;
+	Transform t;
 	t = get_transform();
-	//t.origin = Vector3(x, aabb_end.y, z);
-	if (t.origin != getLastPos())
-	{
-		set_transform(t);
-		setLastPos(t.origin);
-		kbentity->setForClientPosition(t.origin.x, t.origin.y, t.origin.z);
-		if (isDebugEnabled())
-		{
-			sprintf(buffer, "Player %d - x = %f y = %f z = %f", getId(), getLastPos().x, getLastPos().y, getLastPos().z);
-			//String message;	message = message + "Player " + _itoa(getId(), buffer, 10) + " x = " + _itoa(getLastPos().x, buffer, 10) + " y = " + _itoa(getLastPos().y, buffer, 10) + " z = " + _itoa(getLastPos().z, buffer, 10);
-			Godot::print(buffer);
-		}
-	}*/
+	kbentity->setForClientPosition(t.origin.x, t.origin.y, t.origin.z);
 }
 
 void GD_PlayerEntity::faceForward(void)
