@@ -49,6 +49,8 @@ void GD_ClientApp::_register_methods()
 	register_method("get_entity_count", &GD_ClientApp::getEntitiesCount);
 	register_method("get_entity_id_by_idx", &GD_ClientApp::getEntityIdByIdx);
 	register_method("get_entity_name_by_id", &GD_ClientApp::getEntityNameById);
+	register_method("get_hp_by_id", &GD_ClientApp::getHPById);
+	register_method("get_mp_by_id", &GD_ClientApp::getMPById);
 
 	register_method("get_space_world", &GD_ClientApp::getSpaceWorldNode);
 
@@ -369,6 +371,26 @@ String GD_ClientApp::getEntityNameById(int id)
 		return "";
 }
 
+int GD_ClientApp::getHPById(int id)
+{
+	bool bPlayer;
+	KBEntity* pEntity = getEntity((KBEngine::ENTITY_ID)id, bPlayer);
+	if (pEntity)
+		return pEntity->getHP();
+	else
+		return -1;
+}
+
+int GD_ClientApp::getMPById(int id)
+{
+	bool bPlayer;
+	KBEntity* pEntity = getEntity((KBEngine::ENTITY_ID)id, bPlayer);
+	if (pEntity)
+		return pEntity->getMP();
+	else
+		return -1;
+}
+
 int GD_ClientApp::getPlayerID(void)
 {
 	return kbengine_PlayerID();
@@ -543,7 +565,6 @@ void GD_ClientApp::onEraseEntity(KBEngine::ENTITY_ID eid)
 
 		emit_signal("erase_entity", (int)eid);
 	}
-	
 }
 
 void GD_ClientApp::onClearAvatars(void)
@@ -591,6 +612,58 @@ void GD_ClientApp::onPlayerLeaveSpace(KBEngine::ENTITY_ID eid, KBEngine::SPACE_I
 void GD_ClientApp::onAddSpaceGeoMapping(KBEngine::SPACE_ID spaceId, const char* resPath)
 {
 	emit_signal("add_space_geomapping", (int)spaceId, resPath);
+}
+
+void GD_ClientApp::onMaxHPChanged(KBEngine::ENTITY_ID eid, int MaxHP)
+{
+	Node* entity = getEntityNodeById(eid);
+	if (entity)
+	{
+		GD_Entity_Common* pEntityCommon = NULL;
+		GET_ENTITY_COMMON(pEntityCommon, entity);
+		pEntityCommon->setMaxHP(MaxHP);
+	}
+}
+
+void GD_ClientApp::onMaxMPChanged(KBEngine::ENTITY_ID eid, int MaxMP)
+{
+	Node* entity = getEntityNodeById(eid);
+	if (entity)
+	{
+		GD_Entity_Common* pEntityCommon = NULL;
+		GET_ENTITY_COMMON(pEntityCommon, entity);
+		pEntityCommon->setMaxMP(MaxMP);
+	}
+}
+
+void GD_ClientApp::onHPChanged(KBEngine::ENTITY_ID eid, int HP)
+{
+	Node* entity = getEntityNodeById(eid);
+	if (entity)
+	{
+		GD_Entity_Common* pEntityCommon = NULL;
+		GET_ENTITY_COMMON(pEntityCommon, entity);
+		pEntityCommon->setHP(HP);
+	}
+}
+
+void GD_ClientApp::onMPChanged(KBEngine::ENTITY_ID eid, int MP)
+{
+	Node* entity = getEntityNodeById(eid);
+	if (entity)
+	{
+		GD_Entity_Common* pEntityCommon = NULL;
+		GET_ENTITY_COMMON(pEntityCommon, entity);
+		pEntityCommon->setMP(MP);
+	}
+}
+
+void GD_ClientApp::onRecvDamage(KBEngine::ENTITY_ID eid, KBEngine::ENTITY_ID attacker, int skillID, int damageType, int damage)
+{
+}
+
+void GD_ClientApp::onAttackDamage(KBEngine::ENTITY_ID eid, KBEngine::ENTITY_ID receiver, int skillID, int damageType, int damage)
+{
 }
 
 Node* GD_ClientApp::getSpaceWorldNode(void)

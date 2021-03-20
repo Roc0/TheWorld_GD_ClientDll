@@ -83,6 +83,8 @@ namespace godot {
 		int getEntityIdByIdx(int idx);
 		KBEntity* getEntityById(int id, bool& bPlayer);
 		String getEntityNameById(int id);
+		int getHPById(int id);
+		int getMPById(int id);
 		// ENTITY
 
 		Node* getSpaceWorldNode(void);
@@ -106,6 +108,12 @@ namespace godot {
 		void onPlayerEnterSpace(KBEngine::ENTITY_ID eid, KBEngine::SPACE_ID spaceId);
 		void onPlayerLeaveSpace(KBEngine::ENTITY_ID eid, KBEngine::SPACE_ID spaceId);
 		void onAddSpaceGeoMapping(KBEngine::SPACE_ID spaceId, const char* resPath);
+		void onMaxHPChanged(KBEngine::ENTITY_ID eid, int MaxHP);
+		void onMaxMPChanged(KBEngine::ENTITY_ID eid, int MaxMP);
+		void onHPChanged(KBEngine::ENTITY_ID eid, int HP);
+		void onMPChanged(KBEngine::ENTITY_ID eid, int MP);
+		void onRecvDamage(KBEngine::ENTITY_ID eid, KBEngine::ENTITY_ID attacker, int skillID, int damageType, int damage);
+		void onAttackDamage(KBEngine::ENTITY_ID eid, KBEngine::ENTITY_ID receiver, int skillID, int damageType, int damage);
 
 		//
 		// Godot Node

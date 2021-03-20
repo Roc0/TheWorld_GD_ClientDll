@@ -103,12 +103,21 @@ namespace godot {
 		int getId(bool bIgnoreValid = false);
 		String getEntityName(bool bIgnoreValid = false);
 		String getClassName(bool bIgnoreValid = false);
+		void setHP(int HP) { m_HP = HP; }
+		int getHP(void) { return m_HP; }
+		void setMaxHP(int MaxHP) { m_MaxHP = MaxHP; }
+		int getMaxHP(void) { return m_MaxHP; }
+		void setMP(int MP) { m_MP = MP; }
+		int getMP(void) { return m_MP; }
+		void setMaxMP(int MaxMP) { m_MaxMP = MaxMP; }
+		int getMaxMP(void) { return m_MaxMP; }
 
 	private:
 		// Entity Attributes
 		int m_id;
 		String m_entityName;
 		String m_className;
+		int m_HP, m_MaxHP, m_MP, m_MaxMP;
 
 		std::string m_entityNodeName;
 

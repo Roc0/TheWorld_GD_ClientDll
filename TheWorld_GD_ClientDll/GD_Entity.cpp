@@ -99,7 +99,8 @@ GD_Entity_Common::GD_Entity_Common()
 	m_lastPos = Vector3(0, 0, 0);
 	m_isEntityInitializationComplete = false;
 	m_iLastEntityStatus = ENTITY_STATE_UNKNOW;
-	
+	m_HP = 0;	m_MaxHP = 0;	m_MP = 0;	m_MaxMP = 0;
+
 	resetDebugEnabled();
 }
 
