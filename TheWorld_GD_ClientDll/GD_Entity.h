@@ -55,7 +55,6 @@ namespace godot {
 
 		Node* getEntityNode(void);
 		Node* getCameraNode(void);
-		Node* getCameraPosNode(void);
 		Node* getClientAppNode(void) { return m_pClientAppNode; }
 
 		bool isEntityInitializationComplete(void) { return m_isEntityInitializationComplete; }

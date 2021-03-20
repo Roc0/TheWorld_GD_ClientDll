@@ -167,28 +167,10 @@ Node* GD_Entity_Common::getCameraNode(void)
 		else
 			((GD_WorldCamera*)entityCam)->initOtherEntityCamera();
 
-		Position3D* cameraPosNode = (Position3D*)getCameraPosNode();
-		if (!cameraPosNode)
-			return NULL;
-		((GD_WorldCamera*)entityCam)->set_transform(cameraPosNode->get_transform());
+		((GD_WorldCamera*)entityCam)->look_at_from_position(getLastPos() + Vector3(0, 10, -10), getLastPos(), Vector3(0, 1, 0));
 	}
 
 	return entityCam;
-}
-
-Node* GD_Entity_Common::getCameraPosNode(void)
-{
-	Node* entityNode = getEntityNode();
-	if (!entityNode)
-		return NULL;
-
-	Node* entityCamPos = entityNode->get_node("CameraPos");
-	if (!entityCamPos)
-	{
-		return NULL;
-	}
-
-	return entityCamPos;
 }
 
 bool GD_Entity_Common::initEntity(int id, Node* pClientApp, Node* pEntityNode)
@@ -199,28 +181,18 @@ bool GD_Entity_Common::initEntity(int id, Node* pClientApp, Node* pEntityNode)
 	setValid(true);
 
 	char buffer[16];
-	//String entityName = getEntityName();
 	String path;
 	int64_t rigidBodyMode;
 
 	if (isPlayer())
 	{
 		m_entityNodeName = GD_CLIENTAPP_PLAYER_ENTITY_NODE;
-
-		// Kinematic body mode. The body behaves like a KinematicBody, and can only move by user code
-		//rigidBodyMode = RIGID_BODY_MODE_KINEMATIC;
-
 		path = "res://Player.tscn";
 	}
 	else
 	{
 		m_entityNodeName = GD_CLIENTAPP_OTHER_ENTITY_NODE;
 		m_entityNodeName = m_entityNodeName + "_" + _itoa(id, buffer, 10);
-
-		// Static mode. The body behaves like a StaticBody, and can only move by user code.
-		//rigidBodyMode = RIGID_BODY_MODE_STATIC;
-		////rigidBodyMode = RIGID_BODY_MODE_RIGID;
-
 		path = "res://OtherEntity.tscn";
 	}
 
@@ -244,15 +216,6 @@ bool GD_Entity_Common::initEntity(int id, Node* pClientApp, Node* pEntityNode)
 		pEntityNode->add_child(pNode->duplicate());
 
 		pNode = pEntityNodeTemplate->get_node("CollisionShape");
-		if (!pNode)
-			return false;
-		pEntityNode->add_child(pNode->duplicate());
-		/*Transform t;
-		t = ((CollisionObject*)pNode)->get_transform();
-		t.origin.y -= 1;
-		((CollisionObject*)pNode)->set_transform(t);*/
-
-		pNode = pEntityNodeTemplate->get_node("CameraPos");
 		if (!pNode)
 			return false;
 		pEntityNode->add_child(pNode->duplicate());

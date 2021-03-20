@@ -171,5 +171,4 @@ namespace godot {
 //					/PlayerEntity|OtherEntity
 //						/Shape
 //						/ColisionShape
-//						/CameraPos
 //						/Camera

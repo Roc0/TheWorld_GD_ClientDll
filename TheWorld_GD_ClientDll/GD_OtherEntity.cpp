@@ -54,10 +54,6 @@ void GD_OtherEntity::_process(float _delta)
 	if (!entityCommon()->isValid())
 		return;
 
-	//String entityName = getEntityName();
-	//if (entityName == "")
-	//	return;
-
 	char buffer[1024];
 
 	GD_ClientApp* pAppNode = (GD_ClientApp*)entityCommon()->getClientAppNode();
@@ -130,12 +126,6 @@ void GD_OtherEntity::_process(float _delta)
 		t.origin = desideredEntityPos;
 		set_transform(t);
 		entityCommon()->setLastPos(desideredEntityPos);
-		/*if (isDebugEnabled())
-		{
-			sprintf(buffer, "********************************************************************** Entity %d - %f/%f/%f", getId(), getLastPos().x, getLastPos().y, getLastPos().z);
-			//String message;	message = message + "Entity " + _itoa(getId(), buffer, 10) + " x = " + _itoa(getLastPos().x, buffer, 10) + " y = " + _itoa(getLastPos().y, buffer, 10) + " z = " + _itoa(getLastPos().z, buffer, 10);
-			Godot::print(buffer);
-		}*/
 	}
 
 	Vector3 realDirection = desideredEntityPos - lastPos;
@@ -167,6 +157,12 @@ void GD_OtherEntity::_process(float _delta)
 			if (v != t.origin)
 				pMeshI->look_at(desideredEntityPos + realDirection, Vector3(0, 1, 0));
 		}
+	}
+
+	Node * entityCamera = entityCommon()->getCameraNode();
+	if (entityCamera)
+	{
+		((GD_WorldCamera*)entityCamera)->look_at_from_position(entityCommon()->getLastPos() + Vector3(0, 10, -10), entityCommon()->getLastPos(), Vector3(0, 1, 0));
 	}
 
 	if (entityCommon()->isDebugEnabled())
