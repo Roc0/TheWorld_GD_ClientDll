@@ -6,6 +6,7 @@
 #include <Godot.hpp>
 
 #define Vector3Zero Vector3(0, 0, 0)
+#define Vector3UP Vector3(0, 1, 0)
 
 static constexpr float kPi = 3.14159265358979323846f;
 static constexpr float kPi2 = 6.28318530717958647692f;
@@ -117,4 +118,42 @@ static bool caseInSensStringEqual(std::string& str1, std::string& str2)
 static bool caseInSensWStringEqual(std::wstring& str1, std::wstring& str2)
 {
 	return boost::iequals(str1, str2);
+}
+
+/*static float roundToDigit(float num, int digit)
+{
+	//float value = (int)(num * pow(10.0, digit) + .5);
+	//float v = (float)value / (int)pow(10.0, digit);
+	//return v;
+	
+	char str[40];
+	sprintf(str, "%.6f", num);
+	sscanf(str, "%f", &num);
+	return num;
+}*/
+
+static bool isEqualWithLimitedPrecision(float num1, float num2, int precision)
+{
+	float diff = abs(num1 - num2);
+
+	float value = 0;
+	if (precision == 7)
+		value = 0.0000001;
+	else if (precision == 6)
+		value = 0.000001;
+	else if (precision == 5)
+		value = 0.00001;
+	else if (precision == 4)
+		value = 0.0001;
+	else if (precision == 3)
+		value = 0.001;
+	else if (precision == 2)
+		value = 0.01;
+	else if (precision == 1)
+		value = 0.1;
+
+	if (diff < value)
+		return true;
+
+	return false;
 }

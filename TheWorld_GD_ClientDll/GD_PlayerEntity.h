@@ -37,7 +37,7 @@ namespace godot {
 		GD_Entity_Common m_entityCommon;
 
 	private:
-		Vector3 m_velocity;
+		Vector3 m_velocity, m_realVelocity;
 		Vector3 m_direction;
 		Vector3 m_facingDirection;
 		float m_facingDirectionAngle;

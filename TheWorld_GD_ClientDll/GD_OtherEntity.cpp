@@ -72,8 +72,6 @@ void GD_OtherEntity::_process(float _delta)
 		return;
 	}
 
-	bool bResetCameraRequired = false;
-	
 	// *******************
 	// Update Entity Shape
 	// *******************
@@ -140,7 +138,7 @@ void GD_OtherEntity::_process(float _delta)
 	// Set Entity Position
 	// *******************
 
-	if (isNPC())
+	/*if (isNPC())
 	{
 		if (entityCommon()->isDebugEnabled())
 		{
@@ -153,43 +151,37 @@ void GD_OtherEntity::_process(float _delta)
 		{
 			Godot::print("NPC");
 		}
-	}
+	}*/
 
 	// **********************
 	// Set Entity Orientation
 	// **********************
-	Vector3 realDirection = Vector3(0, 0, 0);
-	if (lastPos != Vector3(0, 0, 0))
+	Vector3 realDirection;
+	if (lastPos != Vector3Zero)
 	{
 		realDirection = desideredEntityPos - lastPos;
 		realDirection.normalize();
 	}
 	{
-		//MeshInstance* pMeshI = (MeshInstance*)get_node("Shape");
-		//if (pMeshI)
-		//{
-			float desideredYaw, desideredPitch, desideredRoll;
-			entityCommon()->getDesideredDirection(desideredYaw, desideredPitch, desideredRoll);
-			float lastYaw, lastPitch, lastRoll;
-			entityCommon()->getLastDirection(lastYaw, lastPitch, lastRoll);
+		float desideredYaw, desideredPitch, desideredRoll;
+		entityCommon()->getDesideredDirection(desideredYaw, desideredPitch, desideredRoll);
+		float lastYaw, lastPitch, lastRoll;
+		entityCommon()->getLastDirection(lastYaw, lastPitch, lastRoll);
 
-			if (lastYaw != desideredYaw)
+		if (lastYaw != desideredYaw)
+		{
+			entityCommon()->setLastDirection(desideredYaw, lastPitch, lastRoll);
+			if (entityCommon()->isDebugEnabled())
 			{
-				//pMeshI->rotate_y(yaw + kPi / 2);
-				//pMeshI->global_rotate(Vector3(0, 1, 0), desideredYaw);
-				entityCommon()->setLastDirection(desideredYaw, lastPitch, lastRoll);
-				if (entityCommon()->isDebugEnabled())
-				{
-					sprintf(buffer, "********************************************************************** Entity %d - %f", entityCommon()->getId(), desideredYaw);
-					Godot::print(buffer);
-				}
+				sprintf(buffer, "********************************************************************** Entity %d - %f", entityCommon()->getId(), desideredYaw);
+				Godot::print(buffer);
 			}
+		}
 
-			Transform t = get_transform();
-			Vector3 desideredOrientation = desideredEntityPos + realDirection;
-			if (desideredOrientation != t.origin)
-				look_at(desideredOrientation, Vector3(0, 1, 0));
-		//}
+		Transform t = get_transform();
+		Vector3 desideredOrientation = desideredEntityPos + realDirection;
+		if (desideredOrientation != t.origin)
+			look_at(desideredOrientation, Vector3(0, 1, 0));
 	}
 	// **********************
 	// Set Entity Orientation
@@ -198,36 +190,11 @@ void GD_OtherEntity::_process(float _delta)
 	// *****************
 	// Set Entity Camera
 	// *****************
-	if (lastPos == Vector3Zero || bResetCameraRequired)
+	if (lastPos == Vector3Zero)
 	{
 		Node* entityCamera = entityCommon()->getCameraNode();
 		if (entityCamera)
-		{
-			Vector3 cameraPos = entityCommon()->getLastPos() + Vector3(-1, 0, 0);
-			Vector3 cameraLookAt = cameraPos;
-			if (realDirection != Vector3(0, 0, 0))
-				cameraLookAt = cameraPos + realDirection;
-
-			//((GD_WorldCamera*)entityCamera)->look_at_from_position(entityCommon()->getLastPos() + Vector3(0, 10, -10), entityCommon()->getLastPos(), Vector3(0, 1, 0));
-			//cameraPos = cameraLookAt;
-			if (cameraPos != cameraLookAt)
-			{
-				/*((GD_WorldCamera*)entityCamera)->look_at_from_position(cameraPos, cameraLookAt, Vector3(0, 1, 0));
-				Transform t;
-				t = ((GD_WorldCamera*)entityCamera)->get_transform();*/
-			}
-			else
-			{
-				((GD_WorldCamera*)entityCamera)->look_at_from_position(entityCommon()->getLastPos() + Vector3(0, 5, 5), entityCommon()->getLastPos(), Vector3(0, 1, 0));
-
-				/*Transform t;
-				t.origin = Vector3(0, 20, -20);
-				t.basis.x = Vector3(1, 0, 0);
-				t.basis.y = Vector3(0, -0.707, 0.707);
-				t.basis.z = Vector3(0, -0.707, -0.707);
-				((GD_WorldCamera*)entityCamera)->set_transform(t);*/
-			}
-		}
+			((GD_WorldCamera*)entityCamera)->look_at_from_position(entityCommon()->getLastPos() + Vector3(0, 5, 5), entityCommon()->getLastPos(), Vector3(0, 1, 0));
 	}
 	// *****************
 	// Set Entity Camera

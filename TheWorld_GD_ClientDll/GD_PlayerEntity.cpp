@@ -71,7 +71,9 @@ void GD_PlayerEntity::_process(float _delta)
 		return;
 	}
 
+	// *******************
 	// Update Entity Shape
+	// *******************
 	if (!entityCommon()->isEntityInitializationComplete() || kbentity->getState() != entityCommon()->getLastEntityStatus())
 	{
 		entityCommon()->setLastEntityStatus(kbentity->getState());
@@ -89,12 +91,19 @@ void GD_PlayerEntity::_process(float _delta)
 			Entity_Visuals* ev = pAppNode->getEntityVisuals(GD_CLIENTAPP_ENTITYVISUALS_PLAYER);
 			SpatialMaterial* mat = ev->getEntityShapeMaterial(entityShapeMaterial.ptr(), kbentity->getState());
 			entityShape->set_material_override(mat);
-			//set_mode(RIGID_BODY_MODE_KINEMATIC);
 
 			entityCommon()->setEntityInitializationComplete(true);
 		}
 	}
+	// *******************
+	// Update Entity Shape
+	// *******************
 
+	Vector3 lastPos = entityCommon()->getLastPos();
+
+	// *******************
+	// Set Entity Position
+	// *******************
 	if (m_initPositionFromServer)
 	{
 		float x, y, z;
@@ -109,17 +118,79 @@ void GD_PlayerEntity::_process(float _delta)
 			t = get_transform();
 			t.origin = Vector3(x, aabb_end.y + 10, z);
 			set_transform(t);
-			entityCommon()->setLastPos(t.origin);
 		}
 		m_initPositionFromServer = false;
 	}
+	
+	Vector3 newEntityPos;
+
+	{
+		move(_delta, kbentity);
+		float x, y, z;
+		kbentity->getForClientPosition(x, y, z);
+		newEntityPos.x = x;	newEntityPos.y = y;	newEntityPos.z = z;
+	}
+	// *******************
+	// Set Entity Position
+	// *******************
+
+	// **********************
+	// Set Entity Orientation
+	// **********************
+	if (newEntityPos != lastPos)
+	{
+		//Transform t = get_transform();
+		Vector3 faceTo = newEntityPos + m_realVelocity;
 		
-	move(_delta, kbentity);
+		if (faceTo != newEntityPos)
+		{
+			Vector3 realDirection = faceTo - newEntityPos;
+			float angle = realDirection.angle_to(Vector3UP);
+			if (isEqualWithLimitedPrecision(angle, 0, 6) || isEqualWithLimitedPrecision(angle, 3.141592, 6))
+				Godot::print("angle - " + String(std::to_string(angle).c_str()));
+			else
+			{
+				look_at(faceTo, Vector3UP);
+				Godot::print("angle - " + String(std::to_string(angle).c_str()));
+				Godot::print("m_realVelocity - " + String(std::to_string(m_realVelocity.x).c_str()) + " " + String(std::to_string(m_realVelocity.y).c_str()) + " " + String(std::to_string(m_realVelocity.z).c_str()));
+				if (m_realVelocity.x == m_realVelocity.z)
+					Godot::print("AAA");
+			}
+		}
+	}
 
-	faceForward();
+	//faceForward();
+	// **********************
+	// Set Entity Orientation
+	// **********************
 
+	if (newEntityPos != lastPos)
+		entityCommon()->setLastPos(newEntityPos);
+
+	// *****************
+	// Set Entity Camera
+	// *****************
+	if (lastPos == Vector3Zero)
+	{
+		Node* entityCamera = entityCommon()->getCameraNode();
+		if (entityCamera)
+			((GD_WorldCamera*)entityCamera)->look_at_from_position(entityCommon()->getLastPos() + Vector3(0, 5, 5), entityCommon()->getLastPos(), Vector3(0, 1, 0));
+	}
+	// *****************
+	// Set Entity Camera
+	// *****************
+
+	// *****************
+	// Update server POS
+	// *****************
 	pAppNode->kbengine_UpdateVolatile();
+	// *****************
+	// Update server POS
+	// *****************
 
+	// *************
+	// DEBUG Drawing
+	// *************
 	if (entityCommon()->isDebugEnabled())
 	{
 		Node* lineDrawerNode = get_node_or_null(NodePath("/root/DrawLine3d"));
@@ -146,6 +217,9 @@ void GD_PlayerEntity::_process(float _delta)
 			//lineDrawerNode->call("DrawRay", desideredEntityPos, yawDirection, Color(0, 0, 0, 1), 0.1);
 		}
 	}
+	// *************
+	// DEBUG Drawing
+	// *************
 
 	entityCommon()->resetDebugEnabled();
 }
@@ -248,7 +322,7 @@ void GD_PlayerEntity::move(float _delta, KBEntity* kbentity)
 
 	Transform cameraGlobalTranform = pActiveCamera->get_global_transform();
 
-	m_direction = Vector3(0, 0, 0);
+	m_direction = Vector3Zero;
 	m_direction += cameraGlobalTranform.basis.z.normalized() * desideredMovement.y;
 	m_direction += cameraGlobalTranform.basis.x.normalized() * desideredMovement.x;
 
@@ -256,7 +330,11 @@ void GD_PlayerEntity::move(float _delta, KBEntity* kbentity)
 
 	m_velocity = h_accel(m_direction, _delta);
 
-	move_and_slide(m_velocity, Vector3(0, 1, 0));
+	m_realVelocity = move_and_slide(m_velocity, Vector3(0, 1, 0));
+	/*if (m_velocity == m_realVelocity)
+		Godot::print("UGUALI  - " + String(std::to_string(m_velocity.x).c_str()) + " " + String(std::to_string(m_velocity.y).c_str()) + " " + String(std::to_string(m_velocity.z).c_str()) + " - " + String(std::to_string(m_realVelocity.x).c_str()) + " " + String(std::to_string(m_realVelocity.y).c_str()) + " " + String(std::to_string(m_realVelocity.z).c_str()));
+	else
+		Godot::print("DIVERSI - " + String(std::to_string(m_velocity.x).c_str()) + " " + String(std::to_string(m_velocity.y).c_str()) + " " + String(std::to_string(m_velocity.z).c_str()) + " - " + String(std::to_string(m_realVelocity.x).c_str()) + " " + String(std::to_string(m_realVelocity.y).c_str()) + " " + String(std::to_string(m_realVelocity.z).c_str()));*/
 
 	Transform t;
 	t = get_transform();
