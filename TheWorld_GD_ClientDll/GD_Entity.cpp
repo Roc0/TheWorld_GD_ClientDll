@@ -167,7 +167,7 @@ Node* GD_Entity_Common::getCameraNode(void)
 		else
 			((GD_WorldCamera*)entityCam)->initOtherEntityCamera();
 
-		((GD_WorldCamera*)entityCam)->look_at_from_position(getLastPos() + Vector3(0, 10, -10), getLastPos(), Vector3(0, 1, 0));
+		((GD_WorldCamera*)entityCam)->look_at_from_position(getLastPos() + Vector3(0, 5, -5), getLastPos(), Vector3(0, 1, 0));
 	}
 
 	return entityCam;

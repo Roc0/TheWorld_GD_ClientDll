@@ -267,6 +267,9 @@ bool GD_WorldCamera::initCameraInWorld(Node* pSpaceWorld)
 
 bool GD_WorldCamera::updateCamera()
 {
+	if (isPlayerCamera() || isOtherEntityCamera())
+		return true;
+
 	if (!m_updateCameraRequired)
 		return true;
 

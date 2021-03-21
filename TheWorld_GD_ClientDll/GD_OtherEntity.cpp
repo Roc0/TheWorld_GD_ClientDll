@@ -72,7 +72,9 @@ void GD_OtherEntity::_process(float _delta)
 		return;
 	}
 
+	// *******************
 	// Update Entity Shape
+	// *******************
 	if (!entityCommon()->isEntityInitializationComplete() || kbentity->getState() != entityCommon()->getLastEntityStatus())
 	{
 		entityCommon()->setLastEntityStatus(kbentity->getState());
@@ -115,10 +117,15 @@ void GD_OtherEntity::_process(float _delta)
 			}
 		}
 	}
+	// *******************
+	// Update Entity Shape
+	// *******************
 
+	// *******************
+	// Set Entity Position
+	// *******************
 	Vector3 desideredEntityPos = entityCommon()->getDesideredPos();
 	Vector3 lastPos = entityCommon()->getLastPos();
-
 	if (desideredEntityPos != lastPos)
 	{
 		Transform t;
@@ -127,10 +134,26 @@ void GD_OtherEntity::_process(float _delta)
 		set_transform(t);
 		entityCommon()->setLastPos(desideredEntityPos);
 	}
+	// *******************
+	// Set Entity Position
+	// *******************
 
-	Vector3 realDirection = desideredEntityPos - lastPos;
-	realDirection.normalize();
-
+	// *********************
+	// Set Shape Orientation
+	// *********************
+	Vector3 realDirection = Vector3(0, 0, 0);
+	if (lastPos != Vector3(0, 0, 0))
+	{
+		realDirection = desideredEntityPos - lastPos;
+		realDirection.normalize();
+	}
+	/*if (isNPC())
+	{
+		if (entityCommon()->isDebugEnabled())
+		{
+			Godot::print("NPC");
+		}
+	}*/
 	{
 		MeshInstance* pMeshI = (MeshInstance*)get_node("Shape");
 		if (pMeshI)
@@ -153,18 +176,53 @@ void GD_OtherEntity::_process(float _delta)
 			}
 
 			Transform t = get_transform();
-			Vector3 v = desideredEntityPos + realDirection;
-			if (v != t.origin)
-				pMeshI->look_at(desideredEntityPos + realDirection, Vector3(0, 1, 0));
+			Vector3 desideredOrientation = desideredEntityPos + realDirection;
+			if (desideredOrientation != t.origin)
+				pMeshI->look_at(desideredOrientation, Vector3(0, 1, 0));
 		}
 	}
+	// *********************
+	// Set Shape Orientation
+	// *********************
 
+	// *****************
+	// Set Entity Camera
+	// *****************
 	Node * entityCamera = entityCommon()->getCameraNode();
 	if (entityCamera)
 	{
-		((GD_WorldCamera*)entityCamera)->look_at_from_position(entityCommon()->getLastPos() + Vector3(0, 10, -10), entityCommon()->getLastPos(), Vector3(0, 1, 0));
-	}
+		Vector3 cameraPos = entityCommon()->getLastPos() + Vector3(-1, 0, 0);
+		Vector3 cameraLookAt = cameraPos;
+		if (realDirection != Vector3(0, 0, 0))
+			cameraLookAt = cameraPos + realDirection;
 
+		//((GD_WorldCamera*)entityCamera)->look_at_from_position(entityCommon()->getLastPos() + Vector3(0, 10, -10), entityCommon()->getLastPos(), Vector3(0, 1, 0));
+		//cameraPos = cameraLookAt;
+		if (cameraPos != cameraLookAt)
+		{
+			/*((GD_WorldCamera*)entityCamera)->look_at_from_position(cameraPos, cameraLookAt, Vector3(0, 1, 0));
+			Transform t;
+			t = ((GD_WorldCamera*)entityCamera)->get_transform();*/
+		}
+		else
+		{
+			((GD_WorldCamera*)entityCamera)->look_at_from_position(entityCommon()->getLastPos() + Vector3(0, 5, -5), entityCommon()->getLastPos(), Vector3(0, 1, 0));
+			
+			/*Transform t;
+			t.origin = Vector3(0, 20, -20);
+			t.basis.x = Vector3(1, 0, 0);
+			t.basis.y = Vector3(0, -0.707, 0.707);
+			t.basis.z = Vector3(0, -0.707, -0.707);
+			((GD_WorldCamera*)entityCamera)->set_transform(t);*/
+		}
+	}
+	// *****************
+	// Set Entity Camera
+	// *****************
+
+	// *************
+	// DEBUG Drawing
+	// *************
 	if (entityCommon()->isDebugEnabled())
 	{
 		Node* lineDrawerNode = get_node_or_null(NodePath("/root/DrawLine3d"));
@@ -188,7 +246,10 @@ void GD_OtherEntity::_process(float _delta)
 			//lineDrawerNode->call("DrawRay", desideredEntityPos, yawDirection, Color(0, 0, 0, 1), 0.1);
 		}
 	}
-	
+	// *************
+	// DEBUG Drawing
+	// *************
+
 	entityCommon()->resetDebugEnabled();
 }
 
