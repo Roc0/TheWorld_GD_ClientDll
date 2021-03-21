@@ -5,6 +5,8 @@
 
 #include <Godot.hpp>
 
+#define Vector3Zero Vector3(0, 0, 0)
+
 static constexpr float kPi = 3.14159265358979323846f;
 static constexpr float kPi2 = 6.28318530717958647692f;
 static constexpr float kEpsilon = 0.0001f;

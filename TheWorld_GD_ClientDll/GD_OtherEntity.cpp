@@ -72,6 +72,8 @@ void GD_OtherEntity::_process(float _delta)
 		return;
 	}
 
+	bool bResetCameraRequired = false;
+	
 	// *******************
 	// Update Entity Shape
 	// *******************
@@ -138,26 +140,34 @@ void GD_OtherEntity::_process(float _delta)
 	// Set Entity Position
 	// *******************
 
-	// *********************
-	// Set Shape Orientation
-	// *********************
+	if (isNPC())
+	{
+		if (entityCommon()->isDebugEnabled())
+		{
+			Godot::print("NPC");
+		}
+	}
+	if (isMonster())
+	{
+		if (entityCommon()->isDebugEnabled())
+		{
+			Godot::print("NPC");
+		}
+	}
+
+	// **********************
+	// Set Entity Orientation
+	// **********************
 	Vector3 realDirection = Vector3(0, 0, 0);
 	if (lastPos != Vector3(0, 0, 0))
 	{
 		realDirection = desideredEntityPos - lastPos;
 		realDirection.normalize();
 	}
-	/*if (isNPC())
 	{
-		if (entityCommon()->isDebugEnabled())
-		{
-			Godot::print("NPC");
-		}
-	}*/
-	{
-		MeshInstance* pMeshI = (MeshInstance*)get_node("Shape");
-		if (pMeshI)
-		{
+		//MeshInstance* pMeshI = (MeshInstance*)get_node("Shape");
+		//if (pMeshI)
+		//{
 			float desideredYaw, desideredPitch, desideredRoll;
 			entityCommon()->getDesideredDirection(desideredYaw, desideredPitch, desideredRoll);
 			float lastYaw, lastPitch, lastRoll;
@@ -178,42 +188,45 @@ void GD_OtherEntity::_process(float _delta)
 			Transform t = get_transform();
 			Vector3 desideredOrientation = desideredEntityPos + realDirection;
 			if (desideredOrientation != t.origin)
-				pMeshI->look_at(desideredOrientation, Vector3(0, 1, 0));
-		}
+				look_at(desideredOrientation, Vector3(0, 1, 0));
+		//}
 	}
-	// *********************
-	// Set Shape Orientation
-	// *********************
+	// **********************
+	// Set Entity Orientation
+	// **********************
 
 	// *****************
 	// Set Entity Camera
 	// *****************
-	Node * entityCamera = entityCommon()->getCameraNode();
-	if (entityCamera)
+	if (lastPos == Vector3Zero || bResetCameraRequired)
 	{
-		Vector3 cameraPos = entityCommon()->getLastPos() + Vector3(-1, 0, 0);
-		Vector3 cameraLookAt = cameraPos;
-		if (realDirection != Vector3(0, 0, 0))
-			cameraLookAt = cameraPos + realDirection;
+		Node* entityCamera = entityCommon()->getCameraNode();
+		if (entityCamera)
+		{
+			Vector3 cameraPos = entityCommon()->getLastPos() + Vector3(-1, 0, 0);
+			Vector3 cameraLookAt = cameraPos;
+			if (realDirection != Vector3(0, 0, 0))
+				cameraLookAt = cameraPos + realDirection;
 
-		//((GD_WorldCamera*)entityCamera)->look_at_from_position(entityCommon()->getLastPos() + Vector3(0, 10, -10), entityCommon()->getLastPos(), Vector3(0, 1, 0));
-		//cameraPos = cameraLookAt;
-		if (cameraPos != cameraLookAt)
-		{
-			/*((GD_WorldCamera*)entityCamera)->look_at_from_position(cameraPos, cameraLookAt, Vector3(0, 1, 0));
-			Transform t;
-			t = ((GD_WorldCamera*)entityCamera)->get_transform();*/
-		}
-		else
-		{
-			((GD_WorldCamera*)entityCamera)->look_at_from_position(entityCommon()->getLastPos() + Vector3(0, 5, -5), entityCommon()->getLastPos(), Vector3(0, 1, 0));
-			
-			/*Transform t;
-			t.origin = Vector3(0, 20, -20);
-			t.basis.x = Vector3(1, 0, 0);
-			t.basis.y = Vector3(0, -0.707, 0.707);
-			t.basis.z = Vector3(0, -0.707, -0.707);
-			((GD_WorldCamera*)entityCamera)->set_transform(t);*/
+			//((GD_WorldCamera*)entityCamera)->look_at_from_position(entityCommon()->getLastPos() + Vector3(0, 10, -10), entityCommon()->getLastPos(), Vector3(0, 1, 0));
+			//cameraPos = cameraLookAt;
+			if (cameraPos != cameraLookAt)
+			{
+				/*((GD_WorldCamera*)entityCamera)->look_at_from_position(cameraPos, cameraLookAt, Vector3(0, 1, 0));
+				Transform t;
+				t = ((GD_WorldCamera*)entityCamera)->get_transform();*/
+			}
+			else
+			{
+				((GD_WorldCamera*)entityCamera)->look_at_from_position(entityCommon()->getLastPos() + Vector3(0, 5, 5), entityCommon()->getLastPos(), Vector3(0, 1, 0));
+
+				/*Transform t;
+				t.origin = Vector3(0, 20, -20);
+				t.basis.x = Vector3(1, 0, 0);
+				t.basis.y = Vector3(0, -0.707, 0.707);
+				t.basis.z = Vector3(0, -0.707, -0.707);
+				((GD_WorldCamera*)entityCamera)->set_transform(t);*/
+			}
 		}
 	}
 	// *****************
@@ -238,12 +251,13 @@ void GD_OtherEntity::_process(float _delta)
 			realDirectionProjectedOnXZPlane.normalize();
 			lineDrawerNode->call("DrawRay", desideredEntityPos, realDirectionProjectedOnXZPlane, white, 0.1);
 
-			//float desideredYaw, desideredPitch, desideredRoll;
-			//getDesideredDirection(desideredYaw, desideredPitch, desideredRoll);
-			//Vector3 normalX(1, 0, 0);	Vector3 normalY(0, 1, 0);
-			//Vector3 yawDirection = normalX.rotated(normalY, desideredYaw - kPi / 2);
-			//yawDirection.normalize();
-			//lineDrawerNode->call("DrawRay", desideredEntityPos, yawDirection, Color(0, 0, 0, 1), 0.1);
+			Color black(0, 0, 0, 1);
+			float desideredYaw, desideredPitch, desideredRoll;
+			entityCommon()->getDesideredDirection(desideredYaw, desideredPitch, desideredRoll);
+			Vector3 normalX(1, 0, 0);	Vector3 normalY(0, 1, 0);
+			Vector3 yawDirection = normalX.rotated(normalY, desideredYaw - kPi / 2);
+			yawDirection.normalize();
+			lineDrawerNode->call("DrawRay", desideredEntityPos, yawDirection, black, 0.1);
 		}
 	}
 	// *************
