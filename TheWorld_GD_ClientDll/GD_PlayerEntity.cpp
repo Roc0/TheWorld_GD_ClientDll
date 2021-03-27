@@ -10,6 +10,7 @@
 #include <SpatialMaterial.hpp>
 #include <RayCast.hpp>
 #include <Input.hpp>
+#include <GlobalConstants.hpp >
 
 using namespace godot;
 
@@ -51,20 +52,16 @@ void GD_PlayerEntity::_process(float _delta)
 	if (!entityCommon()->isValid())
 		return;
 
-	//String entityName = getEntityName();
-	//if (entityName == "")
-	//	return;
-
 	char buffer[256];
 
 	GD_ClientApp* pAppNode = (GD_ClientApp*)entityCommon()->getClientAppNode();
 	GD_SpaceWorld* pSpaceWorldNode = (GD_SpaceWorld*)pAppNode->getSpaceWorldNode();
-
 	if (!pSpaceWorldNode->isWorldInitialized())
 		return;
 
-	bool bPlayer;
-	KBEntity* kbentity = pAppNode->getEntityById(entityCommon()->getId(true), bPlayer);
+	//bool bPlayer;
+	//KBEntity* kbentity = pAppNode->getEntityById(entityCommon()->getId(true), bPlayer);
+	KBEntity* kbentity = entityCommon()->getEntity();
 	if (!kbentity)
 	{
 		pAppNode->setAppInError(GD_CLIENTAPP_ERROR_ENTITY_PROCESS);
@@ -78,21 +75,30 @@ void GD_PlayerEntity::_process(float _delta)
 	{
 		entityCommon()->setLastEntityStatus(kbentity->getState());
 
-		MeshInstance* entityShape = (MeshInstance*)get_node("Shape");
-		if (!entityShape)
+		MeshInstance* entityTail = (MeshInstance*)get_node("Tail");
+		MeshInstance* entityBody = (MeshInstance*)get_node("Body");
+		MeshInstance* entityHead = (MeshInstance*)get_node("Head");
+		if (!entityTail || !entityBody || !entityHead)
 		{
 			pAppNode->setAppInError(GD_CLIENTAPP_ERROR_ENTITY_PROCESS);
 			return;
 		}
 
-		Ref<SpatialMaterial> entityShapeMaterial = entityShape->get_surface_material(0);
-		if (entityShapeMaterial.ptr())
+		Ref<SpatialMaterial> entityBodyMaterial = entityBody->get_surface_material(0);
+		if (entityBodyMaterial.ptr())
 		{
 			Entity_Visuals* ev = pAppNode->getEntityVisuals(GD_CLIENTAPP_ENTITYVISUALS_PLAYER);
-			SpatialMaterial* mat = ev->getEntityShapeMaterial(entityShapeMaterial.ptr(), kbentity->getState());
-			entityShape->set_material_override(mat);
+			SpatialMaterial* mat = ev->getEntityShapeMaterial(entityBodyMaterial.ptr(), kbentity->getState());
+			entityTail->set_material_override(mat);
+			entityBody->set_material_override(mat);
+			entityHead->set_material_override(mat);
 
 			entityCommon()->setEntityInitializationComplete(true);
+		}
+		else
+		{
+			pAppNode->setAppInError(GD_CLIENTAPP_ERROR_ENTITY_PROCESS);
+			return;
 		}
 	}
 	// *******************
@@ -104,9 +110,17 @@ void GD_PlayerEntity::_process(float _delta)
 	// *******************
 	// Set Entity Position
 	// *******************
-	if (m_initPositionFromServer)
+	if (m_initPositionFromServer)		// Initital Position
 	{
+		entityCommon()->CalcPositionOnGround(this);
 		float x, y, z;
+		kbentity->getForClientPosition(x, y, z);
+		Transform t;
+		t = get_transform();
+		t.origin = Vector3(x, y, z);
+		set_transform(t);
+
+		/*float x, y, z;
 		kbentity->getForClientPosition(x, y, z);
 		if (x != 0 || y != 0 || z != 0)
 		{
@@ -118,17 +132,18 @@ void GD_PlayerEntity::_process(float _delta)
 			t = get_transform();
 			t.origin = Vector3(x, aabb_end.y + 10, z);
 			set_transform(t);
-		}
+		}*/
+
 		m_initPositionFromServer = false;
 	}
 	
-	Vector3 newEntityPos;
+	Vector3 currentEntityPos;
 
 	{
 		move(_delta, kbentity);
 		float x, y, z;
 		kbentity->getForClientPosition(x, y, z);
-		newEntityPos.x = x;	newEntityPos.y = y;	newEntityPos.z = z;
+		currentEntityPos.x = x;	currentEntityPos.y = y;	currentEntityPos.z = z;
 	}
 	// *******************
 	// Set Entity Position
@@ -137,24 +152,26 @@ void GD_PlayerEntity::_process(float _delta)
 	// **********************
 	// Set Entity Orientation
 	// **********************
-	if (newEntityPos != lastPos)
+	if (currentEntityPos != lastPos)
 	{
 		//Transform t = get_transform();
-		Vector3 faceTo = newEntityPos + m_realVelocity;
+		Vector3 faceTo = currentEntityPos + m_realVelocity;
 		
-		if (faceTo != newEntityPos)
+		//if (faceTo != currentEntityPos)
+		if (!isEqualVectorWithLimitedPrecision(m_realVelocity, Vector3Zero, 4))
 		{
-			Vector3 realDirection = faceTo - newEntityPos;
+			//Vector3 realDirection = faceTo - currentEntityPos;
+			Vector3 realDirection  = m_realVelocity;
 			float angle = realDirection.angle_to(Vector3UP);
-			if (isEqualWithLimitedPrecision(angle, 0, 6) || isEqualWithLimitedPrecision(angle, 3.141592, 6))
-				Godot::print("angle - " + String(std::to_string(angle).c_str()));
-			else
+			if (!isEqualWithLimitedPrecision(angle, 0, 4) && !isEqualWithLimitedPrecision(angle, 3.1415, 4))
 			{
 				look_at(faceTo, Vector3UP);
-				Godot::print("angle - " + String(std::to_string(angle).c_str()));
-				Godot::print("m_realVelocity - " + String(std::to_string(m_realVelocity.x).c_str()) + " " + String(std::to_string(m_realVelocity.y).c_str()) + " " + String(std::to_string(m_realVelocity.z).c_str()));
-				if (m_realVelocity.x == m_realVelocity.z)
-					Godot::print("AAA");
+				float yaw, pitch, roll;
+				kbentity->getForClientDirection(yaw, pitch, roll);
+				yaw = realDirection.angle_to(VectorX) - kPi;
+				kbentity->setForClientDirection(yaw, pitch, roll);
+				((GD_ClientApp*)entityCommon()->getClientAppNode())->debugPrint("angle - " + String(std::to_string(angle).c_str()));
+				((GD_ClientApp*)entityCommon()->getClientAppNode())->debugPrint("m_realVelocity - " + String(std::to_string(m_realVelocity.x).c_str()) + " " + String(std::to_string(m_realVelocity.y).c_str()) + " " + String(std::to_string(m_realVelocity.z).c_str()));
 			}
 		}
 	}
@@ -164,8 +181,8 @@ void GD_PlayerEntity::_process(float _delta)
 	// Set Entity Orientation
 	// **********************
 
-	if (newEntityPos != lastPos)
-		entityCommon()->setLastPos(newEntityPos);
+	if (currentEntityPos != lastPos)
+		entityCommon()->setLastPos(currentEntityPos);
 
 	// *****************
 	// Set Entity Camera
@@ -209,12 +226,13 @@ void GD_PlayerEntity::_process(float _delta)
 			realDirectionProjectedOnXZPlane.normalize();
 			lineDrawerNode->call("DrawRay", entityPos, realDirectionProjectedOnXZPlane, white, 0.1);*/
 
-			//float desideredYaw, desideredPitch, desideredRoll;
-			//getDesideredDirection(desideredYaw, desideredPitch, desideredRoll);
-			//Vector3 normalX(1, 0, 0);	Vector3 normalY(0, 1, 0);
-			//Vector3 yawDirection = normalX.rotated(normalY, desideredYaw - kPi / 2);
-			//yawDirection.normalize();
-			//lineDrawerNode->call("DrawRay", desideredEntityPos, yawDirection, Color(0, 0, 0, 1), 0.1);
+			Color black(0, 0, 0, 1);
+			float desideredYaw, desideredPitch, desideredRoll;
+			kbentity->getForClientDirection(desideredYaw, desideredPitch, desideredRoll);
+			Vector3 normalX(1, 0, 0);	Vector3 normalY(0, 1, 0);
+			Vector3 yawDirection = normalX.rotated(normalY, desideredYaw - kPi / 2);
+			yawDirection.normalize();
+			lineDrawerNode->call("DrawRay", entityPos, yawDirection, black, 0.1);
 		}
 	}
 	// *************
@@ -241,23 +259,23 @@ godot::Vector2 GD_PlayerEntity::get_2d_movement(void)
 
 	Input* input = Input::get_singleton();
 
-	if (input->is_action_pressed("ui_up") && !input->is_action_pressed("ui_down"))
+	if (input->is_action_pressed("ui_up") && !input->is_action_pressed("ui_down") && !input->is_key_pressed(GlobalConstants::KEY_SHIFT) && !input->is_key_pressed(GlobalConstants::KEY_CONTROL) && !input->is_key_pressed(GlobalConstants::KEY_ALT))
 	{
 		desideredMovement.y = -1;
 		m_facingDirectionAngle = 0;
 	}
-	if (input->is_action_pressed("ui_down") && !input->is_action_pressed("ui_up"))
+	if (input->is_action_pressed("ui_down") && !input->is_action_pressed("ui_up") && !input->is_key_pressed(GlobalConstants::KEY_SHIFT) && !input->is_key_pressed(GlobalConstants::KEY_CONTROL) && !input->is_key_pressed(GlobalConstants::KEY_ALT))
 	{
 		desideredMovement.y = 1;
 		m_facingDirectionAngle = kPi;
 	}
 
-	if (input->is_action_pressed("ui_left") && !input->is_action_pressed("ui_right"))
+	if (input->is_action_pressed("ui_left") && !input->is_action_pressed("ui_right") && !input->is_key_pressed(GlobalConstants::KEY_SHIFT) && !input->is_key_pressed(GlobalConstants::KEY_CONTROL) && !input->is_key_pressed(GlobalConstants::KEY_ALT))
 	{
 		desideredMovement.x = -1;
 		m_facingDirectionAngle = kPi * 0.5;
 	}
-	if (input->is_action_pressed("ui_right") && !input->is_action_pressed("ui_left"))
+	if (input->is_action_pressed("ui_right") && !input->is_action_pressed("ui_left") && !input->is_key_pressed(GlobalConstants::KEY_SHIFT) && !input->is_key_pressed(GlobalConstants::KEY_CONTROL) && !input->is_key_pressed(GlobalConstants::KEY_ALT))
 	{
 		desideredMovement.x = 1;
 		m_facingDirectionAngle = kPi * 1.5;
@@ -343,10 +361,6 @@ void GD_PlayerEntity::move(float _delta, KBEntity* kbentity)
 
 void GD_PlayerEntity::faceForward(void)
 {
-	//Node *pShapeNode = get_node("Shape");
-	//if (!pShapeNode)
-	//	return;
-	//((Spatial*)pShapeNode)->look_at(m_facingDirection, Vector3(0, 1, 0));
 }
 
 bool GD_PlayerEntity::initEntity(int id, Node* pClientApp)

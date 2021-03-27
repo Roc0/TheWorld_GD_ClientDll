@@ -12,7 +12,9 @@
 #include <SpatialMaterial.hpp>
 #include <Position3d.hpp>
 #include <CollisionObject.hpp>
-//#include <SpatialMaterial.hpp>
+#include <PhysicsDirectSpaceState.hpp>
+#include <PhysicsBody.hpp>
+#include <World.hpp>
 
 using namespace godot;
 
@@ -93,6 +95,7 @@ SpatialMaterial* Entity_Visuals::getEntityShapeMaterial(SpatialMaterial* templat
 GD_Entity_Common::GD_Entity_Common()
 {
 	m_id = -1;
+	m_kbentity = NULL;
 	m_pClientAppNode = NULL;
 	setValid(false);
 	setPlayer(false);
@@ -210,7 +213,15 @@ bool GD_Entity_Common::initEntity(int id, Node* pClientApp, Node* pEntityNode)
 		if (!pEntityNodeTemplate)
 			return false;
 
-		Node *pNode = pEntityNodeTemplate->get_node("Shape");
+		Node *pNode = pEntityNodeTemplate->get_node("Tail");
+		if (!pNode)
+			return false;
+		pEntityNode->add_child(pNode->duplicate());
+		pNode = pEntityNodeTemplate->get_node("Body");
+		if (!pNode)
+			return false;
+		pEntityNode->add_child(pNode->duplicate());
+		pNode = pEntityNodeTemplate->get_node("Head");
 		if (!pNode)
 			return false;
 		pEntityNode->add_child(pNode->duplicate());
@@ -241,6 +252,21 @@ int GD_Entity_Common::getId(bool bIgnoreValid)
 		return m_id;
 	else
 		return isValid() ? m_id : -1;
+}
+
+KBEntity* GD_Entity_Common::getEntity(bool bIgnoreValid)
+{
+	if (!isValid() && !bIgnoreValid)
+		return NULL;
+
+	if (m_kbentity)
+		return m_kbentity;
+	else
+	{
+		bool bPlayer;
+		m_kbentity = ((GD_ClientApp*)m_pClientAppNode)->getEntityById(m_id, bPlayer);
+		return m_kbentity;
+	}
 }
 
 String GD_Entity_Common::getEntityName(bool bIgnoreValid)
@@ -279,4 +305,47 @@ String GD_Entity_Common::getClassName(bool bIgnoreValid)
 		m_className = kbentity->getClassName();
 
 	return m_className;
+}
+
+void GD_Entity_Common::CalcPositionOnGround(PhysicsBody* pEntityNode)
+{
+	GD_SpaceWorld* pSpaceWorldNode = (GD_SpaceWorld*)((GD_ClientApp*)m_pClientAppNode)->getSpaceWorldNode();
+
+	if (!pSpaceWorldNode->isWorldInitialized())
+		return;
+
+	AABB aabb = pSpaceWorldNode->get_aabbForWorldCameraInitPos();
+	Vector3 aabb_start = aabb.position;
+	Vector3 aabb_end = aabb.position + aabb.size;
+
+	Vector3 posOnGround;
+
+	PhysicsDirectSpaceState* pSpaceState = pEntityNode->get_world()->get_direct_space_state();
+	KBEntity* kbentity = getEntity();
+	Vector3 entityPos;
+	kbentity->getForClientPosition(entityPos.x, entityPos.y, entityPos.z);
+	Dictionary dict = pSpaceState->intersect_ray(Vector3(entityPos.x, aabb_end.y, entityPos.z), Vector3(entityPos.x, aabb_start.y, entityPos.z));
+	if (dict.empty())
+	{
+		// Something was wrong
+		posOnGround = Vector3(entityPos.x, aabb_end.y, entityPos.z);
+		entityPos.y = posOnGround.y;
+	}
+	else
+	{
+		posOnGround = dict["position"];
+		entityPos.y = posOnGround.y;
+
+		MeshInstance* pMeshI = (MeshInstance*)pEntityNode->get_node("Body");
+		if (pMeshI)
+		{
+			aabb = pMeshI->get_aabb();
+			Vector3 startingPoint = aabb.position;
+			Vector3 endingPoint = startingPoint + aabb.size;
+			float offset = (endingPoint.y - startingPoint.y) / 2;
+			entityPos.y += offset;
+		}
+	}
+
+	kbentity->setForClientPosition(entityPos.x, entityPos.y, entityPos.z);
 }

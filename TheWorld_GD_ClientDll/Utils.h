@@ -4,9 +4,14 @@
 #include <assert.h> 
 
 #include <Godot.hpp>
+#include <Vector3.hpp>
 
 #define Vector3Zero Vector3(0, 0, 0)
 #define Vector3UP Vector3(0, 1, 0)
+
+#define VectorX Vector3(1, 0, 1)
+#define VectorY Vector3(0, 1, 0)
+#define VectorZ Vector3(0, 0, 1)
 
 static constexpr float kPi = 3.14159265358979323846f;
 static constexpr float kPi2 = 6.28318530717958647692f;
@@ -156,4 +161,12 @@ static bool isEqualWithLimitedPrecision(float num1, float num2, int precision)
 		return true;
 
 	return false;
+}
+
+static bool isEqualVectorWithLimitedPrecision(godot::Vector3 v1, godot::Vector3 v2, int precision)
+{
+	if (isEqualWithLimitedPrecision(v1.x, v2.x, precision) && isEqualWithLimitedPrecision(v1.y, v2.y, precision) && isEqualWithLimitedPrecision(v1.z, v2.z, precision))
+		return true;
+	else
+		return false;
 }

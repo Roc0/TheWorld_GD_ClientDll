@@ -3,7 +3,7 @@
 #include <Godot.hpp>
 #include <Spatial.hpp>
 #include <SpatialMaterial.hpp>
-#include <RigidBody.hpp>
+#include <PhysicsBody.hpp>
 
 #include <TheWorld_ClientApp.h>
 
@@ -92,6 +92,8 @@ namespace godot {
 			roll = m_lastDirection.x;
 		};
 
+		void CalcPositionOnGround(PhysicsBody*pEntityNode);
+		
 		void setLastEntityStatus(int iLastEntityStatus) { m_iLastEntityStatus = iLastEntityStatus; }
 		int getLastEntityStatus(void) { return m_iLastEntityStatus; }
 
@@ -100,6 +102,7 @@ namespace godot {
 
 		// Entity Attributes
 		int getId(bool bIgnoreValid = false);
+		KBEntity* getEntity(bool bIgnoreValid = false);
 		String getEntityName(bool bIgnoreValid = false);
 		String getClassName(bool bIgnoreValid = false);
 		void setHP(int HP) { m_HP = HP; }
@@ -114,6 +117,7 @@ namespace godot {
 	private:
 		// Entity Attributes
 		int m_id;
+		KBEntity* m_kbentity;
 		String m_entityName;
 		String m_className;
 		int m_HP, m_MaxHP, m_MP, m_MaxMP;

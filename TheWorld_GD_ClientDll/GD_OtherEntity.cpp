@@ -79,15 +79,17 @@ void GD_OtherEntity::_process(float _delta)
 	{
 		entityCommon()->setLastEntityStatus(kbentity->getState());
 		
-		MeshInstance* entityShape = (MeshInstance*)get_node("Shape");
-		if (!entityShape)
+		MeshInstance* entityTail = (MeshInstance*)get_node("Tail");
+		MeshInstance* entityBody = (MeshInstance*)get_node("Body");
+		MeshInstance* entityHead = (MeshInstance*)get_node("Head");
+		if (!entityTail || !entityBody || !entityHead)
 		{
 			pAppNode->setAppInError(GD_CLIENTAPP_ERROR_ENTITY_PROCESS);
 			return;
 		}
 
-		Ref<SpatialMaterial> entityShapeMaterial = entityShape->get_surface_material(0);
-		if (entityShapeMaterial.ptr())
+		Ref<SpatialMaterial> entityBodyMaterial = entityBody->get_surface_material(0);
+		if (entityBodyMaterial.ptr())
 		{
 			std::wstring s = entityCommon()->getClassName().unicode_str();
 			if (s != L"")
@@ -96,9 +98,10 @@ void GD_OtherEntity::_process(float _delta)
 				if (caseInSensWStringEqual(s, m))
 				{
 					Entity_Visuals* ev = pAppNode->getEntityVisuals(GD_CLIENTAPP_ENTITYVISUALS_MONSTER);
-					SpatialMaterial* mat = ev->getEntityShapeMaterial(entityShapeMaterial.ptr(), kbentity->getState());
-					entityShape->set_material_override(mat);
-					//set_mode(RIGID_BODY_MODE_STATIC);
+					SpatialMaterial* mat = ev->getEntityShapeMaterial(entityBodyMaterial.ptr(), kbentity->getState());
+					entityTail->set_material_override(mat);
+					entityBody->set_material_override(mat);
+					entityHead->set_material_override(mat);
 					
 					setMonster();
 					add_to_group(GD_CLIENTAPP_MONSTERS_GROUP);
@@ -106,15 +109,21 @@ void GD_OtherEntity::_process(float _delta)
 				else
 				{
 					Entity_Visuals* ev = pAppNode->getEntityVisuals(GD_CLIENTAPP_ENTITYVISUALS_NPC);
-					SpatialMaterial* mat = ev->getEntityShapeMaterial(entityShapeMaterial.ptr(), kbentity->getState());
-					entityShape->set_material_override(mat);
-					//set_mode(RIGID_BODY_MODE_STATIC);
+					SpatialMaterial* mat = ev->getEntityShapeMaterial(entityBodyMaterial.ptr(), kbentity->getState());
+					entityTail->set_material_override(mat);
+					entityBody->set_material_override(mat);
+					entityHead->set_material_override(mat);
 
 					setNPC();
 					add_to_group(GD_CLIENTAPP_NPCS_GROUP);
 				}
 				entityCommon()->setEntityInitializationComplete(true);
 			}
+		}
+		else
+		{
+			pAppNode->setAppInError(GD_CLIENTAPP_ERROR_ENTITY_PROCESS);
+			return;
 		}
 	}
 	// *******************
@@ -243,18 +252,15 @@ void GD_OtherEntity::_physics_process(float _delta)
 	if (!entityCommon()->isValid())
 		return;
 
-	//String entityName = getEntityName();
-	//if (entityName == "")
-	//	return;
-
 	GD_ClientApp* pAppNode = (GD_ClientApp*)entityCommon()->getClientAppNode();
 	GD_SpaceWorld* pSpaceWorldNode = (GD_SpaceWorld*)pAppNode->getSpaceWorldNode();
 
 	if (!pSpaceWorldNode->isWorldInitialized())
 		return;
 
-	bool bPlayer;
-	KBEntity* kbentity = pAppNode->getEntityById(entityCommon()->getId(true), bPlayer);
+	//bool bPlayer;
+	//KBEntity* kbentity = pAppNode->getEntityById(entityCommon()->getId(true), bPlayer);
+	KBEntity* kbentity = entityCommon()->getEntity();
 	if (kbentity)
 	{
 		{
@@ -273,25 +279,29 @@ void GD_OtherEntity::_physics_process(float _delta)
 				{
 					if (entityPos.y == 0)
 					{
-						AABB aabb = pSpaceWorldNode->get_aabbForWorldCameraInitPos();
+						entityCommon()->CalcPositionOnGround(this);
+						kbentity->getForClientPosition(entityPos.x, entityPos.y, entityPos.z);
+
+						/*AABB aabb = pSpaceWorldNode->get_aabbForWorldCameraInitPos();
 						Vector3 aabb_start = aabb.position;
 						Vector3 aabb_end = aabb.position + aabb.size;
 
-						Vector3 posOnGround(entityPos.x, aabb_end.y, entityPos.z);
+						Vector3 posOnGround;
 
 						PhysicsDirectSpaceState* pSpaceState = get_world()->get_direct_space_state();
 						Dictionary dict = pSpaceState->intersect_ray(Vector3(entityPos.x, aabb_end.y, entityPos.z), Vector3(entityPos.x, aabb_start.y, entityPos.z));
 						if (dict.empty())
 						{
 							// Something was wrong
-							//serverPos.y = aabb_end.y;
+							posOnGround = Vector3(entityPos.x, aabb_end.y, entityPos.z);
+							entityPos.y = posOnGround.y;
 						}
 						else
 						{
 							posOnGround = dict["position"];
 							entityPos.y = posOnGround.y;
 
-							MeshInstance* pMeshI = (MeshInstance*)get_node("Shape");
+							MeshInstance* pMeshI = (MeshInstance*)get_node("Body");
 							if (pMeshI)
 							{
 								aabb = pMeshI->get_aabb();
@@ -302,7 +312,7 @@ void GD_OtherEntity::_physics_process(float _delta)
 							}
 
 							kbentity->setForClientPosition(entityPos.x, entityPos.y, entityPos.z);
-						}
+						}*/
 					}
 					
 					entityCommon()->setDesideredPos(entityPos);
