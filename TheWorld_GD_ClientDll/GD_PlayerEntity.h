@@ -28,7 +28,7 @@ namespace godot {
 		Vector2 get_2d_movement(void);
 		Vector3 moveVertically(Vector3 direction, float _delta);
 		Vector3 h_accel(Vector3 direction, float _delta);
-		void move(float _delta, KBEntity* kbentity);
+		void move(float _delta);
 		void faceForward(void);
 
 		GD_Entity_Common* entityCommon(void) { return &m_entityCommon; }
@@ -42,6 +42,7 @@ namespace godot {
 		Vector3 m_facingDirection;
 		float m_facingDirectionAngle;
 		bool m_initPositionFromServer;
+		bool m_isMovementRequired;
 
 		const int C_MAX_SPEED = 20;
 		const float C_ACCEL = 5.0;

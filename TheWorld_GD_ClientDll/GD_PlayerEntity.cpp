@@ -27,6 +27,7 @@ GD_PlayerEntity::GD_PlayerEntity()
 	entityCommon()->setPlayer(true);
 	m_facingDirectionAngle = 0;
 	m_initPositionFromServer = true;
+	m_isMovementRequired = false;
 }
 
 GD_PlayerEntity::~GD_PlayerEntity()
@@ -107,81 +108,53 @@ void GD_PlayerEntity::_process(float _delta)
 
 	Vector3 lastPos = entityCommon()->getLastPos();
 
-	// *******************
-	// Set Entity Position
-	// *******************
-	if (m_initPositionFromServer)		// Initital Position
-	{
-		entityCommon()->CalcPositionOnGround(this);
-		float x, y, z;
-		kbentity->getForClientPosition(x, y, z);
-		Transform t;
-		t = get_transform();
-		t.origin = Vector3(x, y, z);
-		set_transform(t);
-
-		/*float x, y, z;
-		kbentity->getForClientPosition(x, y, z);
-		if (x != 0 || y != 0 || z != 0)
-		{
-			AABB aabb = pSpaceWorldNode->get_aabbForWorldCameraInitPos();
-			Vector3 aabb_start = aabb.position;
-			Vector3 aabb_end = aabb.position + aabb.size;
-
-			Transform t;
-			t = get_transform();
-			t.origin = Vector3(x, aabb_end.y + 10, z);
-			set_transform(t);
-		}*/
-
-		m_initPositionFromServer = false;
-	}
-	
 	Vector3 currentEntityPos;
-
-	{
-		move(_delta, kbentity);
-		float x, y, z;
-		kbentity->getForClientPosition(x, y, z);
-		currentEntityPos.x = x;	currentEntityPos.y = y;	currentEntityPos.z = z;
-	}
-	// *******************
-	// Set Entity Position
-	// *******************
+	kbentity->getForClientPosition(currentEntityPos.x, currentEntityPos.y, currentEntityPos.z);
 
 	// **********************
 	// Set Entity Orientation
 	// **********************
-	if (currentEntityPos != lastPos)
+	if (!isEqualVectorWithLimitedPrecision(m_direction, Vector3Zero, 4))		// se non è richiesto il movimento
 	{
-		//Transform t = get_transform();
-		Vector3 faceTo = currentEntityPos + m_realVelocity;
-		
-		//if (faceTo != currentEntityPos)
-		if (!isEqualVectorWithLimitedPrecision(m_realVelocity, Vector3Zero, 4))
+		//if (!isEqualVectorWithLimitedPrecision(currentEntityPos, lastPos, 4))		// se il player si è mosso 1
 		{
-			//Vector3 realDirection = faceTo - currentEntityPos;
-			Vector3 realDirection  = m_realVelocity;
-			float angle = realDirection.angle_to(Vector3UP);
-			if (!isEqualWithLimitedPrecision(angle, 0, 4) && !isEqualWithLimitedPrecision(angle, 3.1415, 4))
+			Vector3 faceTo = currentEntityPos + m_realVelocity;
+
+			//if (!isEqualVectorWithLimitedPrecision(m_realVelocity, Vector3Zero, 4))		// se il player si è mosso 2
 			{
-				look_at(faceTo, Vector3UP);
-				float yaw, pitch, roll;
-				kbentity->getForClientDirection(yaw, pitch, roll);
-				yaw = realDirection.angle_to(VectorX) - kPi;
-				kbentity->setForClientDirection(yaw, pitch, roll);
-				((GD_ClientApp*)entityCommon()->getClientAppNode())->debugPrint("angle - " + String(std::to_string(angle).c_str()));
-				((GD_ClientApp*)entityCommon()->getClientAppNode())->debugPrint("m_realVelocity - " + String(std::to_string(m_realVelocity.x).c_str()) + " " + String(std::to_string(m_realVelocity.y).c_str()) + " " + String(std::to_string(m_realVelocity.z).c_str()));
+				//Vector3 realDirection = faceTo - currentEntityPos;
+				Vector3 realDirection = m_realVelocity;
+				float angle = realDirection.angle_to(Vector3UP);
+				if (!isEqualWithLimitedPrecision(angle, 0, 4) && !isEqualWithLimitedPrecision(angle, 3.1415, 4))		// se la velocità del player non è verticale
+				{
+					look_at(faceTo, Vector3UP);
+					//((GD_ClientApp*)entityCommon()->getClientAppNode())->debugPrint("angle - " + String(std::to_string(angle).c_str()));
+					//((GD_ClientApp*)entityCommon()->getClientAppNode())->debugPrint("m_realVelocity - " + String(std::to_string(m_realVelocity.x).c_str()) + " " + String(std::to_string(m_realVelocity.y).c_str()) + " " + String(std::to_string(m_realVelocity.z).c_str()));
+					//((GD_ClientApp*)entityCommon()->getClientAppNode())->debugPrint("m_direction - " + String(std::to_string(m_direction.x).c_str()) + " " + String(std::to_string(m_direction.y).c_str()) + " " + String(std::to_string(m_direction.z).c_str()));
+				}
 			}
 		}
 	}
 
+	// DEBUG
+	/*if (!isEqualVectorWithLimitedPrecision(m_direction, Vector3Zero, 4))
+	{
+		float yaw, pitch, roll;
+		kbentity->getForClientDirection(yaw, pitch, roll);
+		((GD_ClientApp*)entityCommon()->getClientAppNode())->debugPrint("yaw - " + String(std::to_string(yaw).c_str()));
+		float angleRealDirectionToXAxiz = m_direction.angle_to(Vector3X);
+		float angleRealDirectionToZAxiz = m_direction.angle_to(Vector3Z);
+		((GD_ClientApp*)entityCommon()->getClientAppNode())->debugPrint("realDirection - " + String(std::to_string(m_direction.x).c_str()) + " " + String(std::to_string(m_direction.y).c_str()) + " " + String(std::to_string(m_direction.z).c_str()));
+		((GD_ClientApp*)entityCommon()->getClientAppNode())->debugPrint("angleRealDirectionToXAxiz - " + String(std::to_string(angleRealDirectionToXAxiz).c_str()));
+		((GD_ClientApp*)entityCommon()->getClientAppNode())->debugPrint("angleRealDirectionToZAxiz - " + String(std::to_string(angleRealDirectionToZAxiz).c_str()));
+	}*/
 	//faceForward();
 	// **********************
 	// Set Entity Orientation
 	// **********************
 
-	if (currentEntityPos != lastPos)
+	//if (currentEntityPos != lastPos)
+	if (!isEqualVectorWithLimitedPrecision(currentEntityPos, lastPos, 4))
 		entityCommon()->setLastPos(currentEntityPos);
 
 	// *****************
@@ -246,6 +219,53 @@ void GD_PlayerEntity::_physics_process(float _delta)
 {
 	// To activate _process method add this Node to a Godot Scene
 	//Godot::print("GD_PlayerEntity::_physics_process");
+
+	GD_ClientApp* pAppNode = (GD_ClientApp*)entityCommon()->getClientAppNode();
+	GD_SpaceWorld* pSpaceWorldNode = (GD_SpaceWorld*)pAppNode->getSpaceWorldNode();
+	if (!pSpaceWorldNode->isWorldInitialized())
+		return;
+
+	KBEntity* kbentity = entityCommon()->getEntity();
+	if (!kbentity)
+	{
+		pAppNode->setAppInError(GD_CLIENTAPP_ERROR_ENTITY_PROCESS);
+		return;
+	}
+
+	// *******************
+	// Set Entity Position
+	// *******************
+	if (m_initPositionFromServer)		// Initital Position
+	{
+		entityCommon()->CalcPositionOnGround(this);
+		float x, y, z;
+		kbentity->getForClientPosition(x, y, z);
+		Transform t;
+		t = get_transform();
+		t.origin = Vector3(x, y, z);
+		set_transform(t);
+
+		/*float x, y, z;
+		kbentity->getForClientPosition(x, y, z);
+		if (x != 0 || y != 0 || z != 0)
+		{
+			AABB aabb = pSpaceWorldNode->get_aabbForWorldCameraInitPos();
+			Vector3 aabb_start = aabb.position;
+			Vector3 aabb_end = aabb.position + aabb.size;
+
+			Transform t;
+			t = get_transform();
+			t.origin = Vector3(x, aabb_end.y + 10, z);
+			set_transform(t);
+		}*/
+
+		m_initPositionFromServer = false;
+	}
+
+	move(_delta);
+	// *******************
+	// Set Entity Position
+	// *******************
 }
 
 void GD_PlayerEntity::_input(const Ref<InputEvent> event)
@@ -259,10 +279,13 @@ godot::Vector2 GD_PlayerEntity::get_2d_movement(void)
 
 	Input* input = Input::get_singleton();
 
+	m_isMovementRequired = false;
+
 	if (input->is_action_pressed("ui_up") && !input->is_action_pressed("ui_down") && !input->is_key_pressed(GlobalConstants::KEY_SHIFT) && !input->is_key_pressed(GlobalConstants::KEY_CONTROL) && !input->is_key_pressed(GlobalConstants::KEY_ALT))
 	{
 		desideredMovement.y = -1;
 		m_facingDirectionAngle = 0;
+		m_isMovementRequired = true;;
 	}
 	if (input->is_action_pressed("ui_down") && !input->is_action_pressed("ui_up") && !input->is_key_pressed(GlobalConstants::KEY_SHIFT) && !input->is_key_pressed(GlobalConstants::KEY_CONTROL) && !input->is_key_pressed(GlobalConstants::KEY_ALT))
 	{
@@ -323,7 +346,7 @@ godot::Vector3 GD_PlayerEntity::h_accel(godot::Vector3 direction, float _delta)
 	return m_velocity;
 }
 
-void GD_PlayerEntity::move(float _delta, KBEntity* kbentity)
+void GD_PlayerEntity::move(float _delta)
 {
 	godot::Vector2 desideredMovement = get_2d_movement();
 
@@ -348,15 +371,22 @@ void GD_PlayerEntity::move(float _delta, KBEntity* kbentity)
 
 	m_velocity = h_accel(m_direction, _delta);
 
-	m_realVelocity = move_and_slide(m_velocity, Vector3(0, 1, 0));
+	m_realVelocity = move_and_slide(m_velocity, Vector3UP, true);
 	/*if (m_velocity == m_realVelocity)
 		Godot::print("UGUALI  - " + String(std::to_string(m_velocity.x).c_str()) + " " + String(std::to_string(m_velocity.y).c_str()) + " " + String(std::to_string(m_velocity.z).c_str()) + " - " + String(std::to_string(m_realVelocity.x).c_str()) + " " + String(std::to_string(m_realVelocity.y).c_str()) + " " + String(std::to_string(m_realVelocity.z).c_str()));
 	else
 		Godot::print("DIVERSI - " + String(std::to_string(m_velocity.x).c_str()) + " " + String(std::to_string(m_velocity.y).c_str()) + " " + String(std::to_string(m_velocity.z).c_str()) + " - " + String(std::to_string(m_realVelocity.x).c_str()) + " " + String(std::to_string(m_realVelocity.y).c_str()) + " " + String(std::to_string(m_realVelocity.z).c_str()));*/
 
+	KBEntity* kbentity = entityCommon()->getEntity();
+
 	Transform t;
 	t = get_transform();
 	kbentity->setForClientPosition(t.origin.x, t.origin.y, t.origin.z);
+
+	float yaw, pitch, roll;
+	kbentity->getForClientDirection(yaw, pitch, roll);
+	float angleRealDirectionToZAxiz = m_direction.angle_to(Vector3Z);
+	kbentity->setForClientDirection(angleRealDirectionToZAxiz, pitch, roll);
 }
 
 void GD_PlayerEntity::faceForward(void)

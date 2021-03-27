@@ -9,9 +9,9 @@
 #define Vector3Zero Vector3(0, 0, 0)
 #define Vector3UP Vector3(0, 1, 0)
 
-#define VectorX Vector3(1, 0, 1)
-#define VectorY Vector3(0, 1, 0)
-#define VectorZ Vector3(0, 0, 1)
+#define Vector3X Vector3(1, 0, 1)
+#define Vector3Y Vector3(0, 1, 0)
+#define Vector3Z Vector3(0, 0, 1)
 
 static constexpr float kPi = 3.14159265358979323846f;
 static constexpr float kPi2 = 6.28318530717958647692f;

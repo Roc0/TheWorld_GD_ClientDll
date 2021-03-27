@@ -133,34 +133,19 @@ void GD_OtherEntity::_process(float _delta)
 	// *******************
 	// Set Entity Position
 	// *******************
-	Vector3 desideredEntityPos = entityCommon()->getDesideredPos();
+	Vector3 desideredEntityPosWorldCoord = entityCommon()->getDesideredPos();
 	Vector3 lastPos = entityCommon()->getLastPos();
-	if (desideredEntityPos != lastPos)
+	if (desideredEntityPosWorldCoord != lastPos)
 	{
 		Transform t;
 		t = get_transform();
-		t.origin = desideredEntityPos;
+		t.origin = desideredEntityPosWorldCoord;
 		set_transform(t);
-		entityCommon()->setLastPos(desideredEntityPos);
+		entityCommon()->setLastPos(desideredEntityPosWorldCoord);
 	}
 	// *******************
 	// Set Entity Position
 	// *******************
-
-	/*if (isNPC())
-	{
-		if (entityCommon()->isDebugEnabled())
-		{
-			Godot::print("NPC");
-		}
-	}
-	if (isMonster())
-	{
-		if (entityCommon()->isDebugEnabled())
-		{
-			Godot::print("NPC");
-		}
-	}*/
 
 	// **********************
 	// Set Entity Orientation
@@ -168,7 +153,7 @@ void GD_OtherEntity::_process(float _delta)
 	Vector3 realDirection;
 	if (lastPos != Vector3Zero)
 	{
-		realDirection = desideredEntityPos - lastPos;
+		realDirection = desideredEntityPosWorldCoord - lastPos;
 		realDirection.normalize();
 	}
 	{
@@ -188,13 +173,32 @@ void GD_OtherEntity::_process(float _delta)
 		}
 
 		Transform t = get_transform();
-		Vector3 desideredOrientation = desideredEntityPos + realDirection;
-		if (desideredOrientation != t.origin)
-			look_at(desideredOrientation, Vector3(0, 1, 0));
+		Vector3 desideredOrientationWorldCoord = desideredEntityPosWorldCoord + realDirection;
+		if (desideredOrientationWorldCoord != t.origin)
+			look_at(desideredOrientationWorldCoord, Vector3(0, 1, 0));
 	}
 	// **********************
 	// Set Entity Orientation
 	// **********************
+
+	if (isNPC())
+	{
+	}
+
+	if (isMonster())
+	{
+		/*if (!isEqualVectorWithLimitedPrecision(realDirection, Vector3Zero, 4))
+		{
+			float yaw, pitch, roll;
+			kbentity->getForClientDirection(yaw, pitch, roll);
+			((GD_ClientApp*)entityCommon()->getClientAppNode())->debugPrint("yaw - " + String(std::to_string(yaw).c_str()));
+			float angleRealDirectionToXAxiz = realDirection.angle_to(Vector3X);
+			float angleRealDirectionToZAxiz = realDirection.angle_to(Vector3Z);
+			((GD_ClientApp*)entityCommon()->getClientAppNode())->debugPrint("realDirection - " + String(std::to_string(realDirection.x).c_str()) + " " + String(std::to_string(realDirection.y).c_str()) + " " + String(std::to_string(realDirection.z).c_str()));
+			((GD_ClientApp*)entityCommon()->getClientAppNode())->debugPrint("angleRealDirectionToXAxiz - " + String(std::to_string(angleRealDirectionToXAxiz).c_str()));
+			((GD_ClientApp*)entityCommon()->getClientAppNode())->debugPrint("angleRealDirectionToZAxiz - " + String(std::to_string(angleRealDirectionToZAxiz).c_str()));
+		}*/
+	}
 
 	// *****************
 	// Set Entity Camera
@@ -217,15 +221,15 @@ void GD_OtherEntity::_process(float _delta)
 		Node* lineDrawerNode = get_node_or_null(NodePath("/root/DrawLine3d"));
 		if (lineDrawerNode)
 		{
-			lineDrawerNode->call("DrawCartesianAxis", desideredEntityPos, 1.0);
+			lineDrawerNode->call("DrawCartesianAxis", desideredEntityPosWorldCoord, 1.0);
 
 			Color yellow(244.0 / 256.0, 246.0 / 256.0, 10.0 / 256.0);
-			lineDrawerNode->call("DrawRay", desideredEntityPos, realDirection, yellow, 0.1);
+			lineDrawerNode->call("DrawRay", desideredEntityPosWorldCoord, realDirection, yellow, 0.1);
 
 			Color white(1, 1, 1, 1);
 			Vector3 realDirectionProjectedOnXZPlane(realDirection.x, 0, realDirection.z);
 			realDirectionProjectedOnXZPlane.normalize();
-			lineDrawerNode->call("DrawRay", desideredEntityPos, realDirectionProjectedOnXZPlane, white, 0.1);
+			lineDrawerNode->call("DrawRay", desideredEntityPosWorldCoord, realDirectionProjectedOnXZPlane, white, 0.1);
 
 			Color black(0, 0, 0, 1);
 			float desideredYaw, desideredPitch, desideredRoll;
@@ -233,7 +237,7 @@ void GD_OtherEntity::_process(float _delta)
 			Vector3 normalX(1, 0, 0);	Vector3 normalY(0, 1, 0);
 			Vector3 yawDirection = normalX.rotated(normalY, desideredYaw - kPi / 2);
 			yawDirection.normalize();
-			lineDrawerNode->call("DrawRay", desideredEntityPos, yawDirection, black, 0.1);
+			lineDrawerNode->call("DrawRay", desideredEntityPosWorldCoord, yawDirection, black, 0.1);
 		}
 	}
 	// *************
