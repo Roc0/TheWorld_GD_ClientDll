@@ -148,7 +148,6 @@ void GD_PlayerEntity::_process(float _delta)
 		((GD_ClientApp*)entityCommon()->getClientAppNode())->debugPrint("angleRealDirectionToXAxiz - " + String(std::to_string(angleRealDirectionToXAxiz).c_str()));
 		((GD_ClientApp*)entityCommon()->getClientAppNode())->debugPrint("angleRealDirectionToZAxiz - " + String(std::to_string(angleRealDirectionToZAxiz).c_str()));
 	}*/
-	//faceForward();
 	// **********************
 	// Set Entity Orientation
 	// **********************
@@ -387,10 +386,6 @@ void GD_PlayerEntity::move(float _delta)
 	kbentity->getForClientDirection(yaw, pitch, roll);
 	float angleRealDirectionToZAxiz = m_direction.angle_to(Vector3Z);
 	kbentity->setForClientDirection(angleRealDirectionToZAxiz, pitch, roll);
-}
-
-void GD_PlayerEntity::faceForward(void)
-{
 }
 
 bool GD_PlayerEntity::initEntity(int id, Node* pClientApp)
