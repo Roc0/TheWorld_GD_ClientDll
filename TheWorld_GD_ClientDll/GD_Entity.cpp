@@ -30,7 +30,8 @@ Entity_Visuals::~Entity_Visuals()
 SpatialMaterial* Entity_Visuals::getEntityShapeMaterial(SpatialMaterial* templateMaterial, int iEntityStatus)
 {
 	Color greenEntity(51.0 / 255.0, 102.0 / 255.0, 0.0, 255.0 / 255.0);
-	Color redEntity(128.0 / 255.0, 25.0 / 255.0, 0.0, 255.0 / 255.0);
+	Color redlightEntity(128.0 / 255.0, 25.0 / 255.0, 0.0, 255.0 / 255.0);
+	Color redEntity(255.0 / 255.0, 0.0 / 255.0, 0.0, 255.0 / 255.0);
 	Color lightblueEntity(0.0 / 255.0, 192.0 / 255.0, 255.0 / 255.0, 255.0 / 255.0);
 
 	Color whiteEntity(255.0 / 255.0, 255.0 / 255.0, 255.0 / 255.0, 255.0 / 255.0);
@@ -61,10 +62,22 @@ SpatialMaterial* Entity_Visuals::getEntityShapeMaterial(SpatialMaterial* templat
 		}
 		break;
 
+		case ENTITY_STATE_FIGHT:
+		{
+			if (m_entityShapeMaterial_figthEntity.ptr())
+				return m_entityShapeMaterial_figthEntity.ptr();
+			else
+			{
+				m_entityShapeMaterial_figthEntity = templateMaterial->duplicate();
+				m_entityShapeMaterial_figthEntity->set_albedo(redEntity);
+				return m_entityShapeMaterial_figthEntity.ptr();
+			}
+		}
+		break;
+
 		//case ENTITY_STATE_UNKNOW:
 		//case ENTITY_STATE_FREE:
 		//case ENTITY_STATE_REST:
-		//case ENTITY_STATE_FIGHT:
 		//case ENTITY_STATE_MAX:
 		default:
 		{
@@ -79,7 +92,7 @@ SpatialMaterial* Entity_Visuals::getEntityShapeMaterial(SpatialMaterial* templat
 				}
 				else if (m_iType == GD_CLIENTAPP_ENTITYVISUALS_MONSTER)
 				{
-					m_entityShapeMaterial_freeEntity->set_albedo(redEntity);
+					m_entityShapeMaterial_freeEntity->set_albedo(redlightEntity);
 				}
 				else if (m_iType == GD_CLIENTAPP_ENTITYVISUALS_NPC)
 				{

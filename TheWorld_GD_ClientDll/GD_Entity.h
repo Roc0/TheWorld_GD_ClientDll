@@ -36,6 +36,7 @@ namespace godot {
 		int m_iType;
 		Ref<SpatialMaterial> m_entityShapeMaterial_freeEntity;
 		Ref<SpatialMaterial> m_entityShapeMaterial_deadEntity;
+		Ref<SpatialMaterial> m_entityShapeMaterial_figthEntity;
 	};
 
 	class GD_Entity_Common //: public RigidBody
