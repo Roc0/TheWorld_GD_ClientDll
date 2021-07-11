@@ -4,6 +4,7 @@
 #include "GD_PlayerEntity.h"
 #include "GD_OtherEntity.h"
 #include "GD_Line.h"
+#include "GD_TerrainM.h"
 
 //using namespace godot;
 
@@ -23,4 +24,5 @@ extern "C" void GDN_EXPORT godot_nativescript_init(void *handle) {
 	godot::register_class<godot::GD_PlayerEntity>();
 	godot::register_class<godot::GD_OtherEntity>();
 	godot::register_class<godot::GD_Line>();
+	godot::register_class<godot::GD_TerrainM>();
 }

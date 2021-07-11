@@ -127,7 +127,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\godot-cpp\include\gen;..\godot-cpp\include\core;..\godot-cpp\include;..\godot-cpp\godot_headers;..\..\TheWorld_ClientDll;..\..\..\KBEngine\kbengine\kbe\src\lib;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies/fmt/include;..\..\..\KBEngine\kbengine\kbe\src\lib\python\PC;..\..\..\KBEngine\kbengine\kbe\src\lib\python\Include;..\..\..\KBEngine\kbengine\kbe\src\lib\dependencies\g3dlite;..\..\..\KBEngine\kbengine\kbe\src\server;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies/log4cxx/src/main/include;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies/vsopenssl/include;..\..\boost_1_74_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\godot-cpp\include\gen;..\godot-cpp\include\core;..\godot-cpp\include;..\godot-cpp\godot_headers;..\..\TheWorld_ClientDll;.\Terrain;..\..\..\KBEngine\kbengine\kbe\src\lib;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies/fmt/include;..\..\..\KBEngine\kbengine\kbe\src\lib\python\PC;..\..\..\KBEngine\kbengine\kbe\src\lib\python\Include;..\..\..\KBEngine\kbengine\kbe\src\lib\dependencies\g3dlite;..\..\..\KBEngine\kbengine\kbe\src\server;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies/log4cxx/src/main/include;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies/vsopenssl/include;..\..\boost_1_74_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -148,7 +148,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\godot-cpp\include\gen;..\godot-cpp\include\core;..\godot-cpp\include;..\godot-cpp\godot_headers;..\..\TheWorld_ClientDll;..\..\..\KBEngine\kbengine\kbe\src\lib;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies/fmt/include;..\..\..\KBEngine\kbengine\kbe\src\lib\python\PC;..\..\..\KBEngine\kbengine\kbe\src\lib\python\Include;..\..\..\KBEngine\kbengine\kbe\src\lib\dependencies\g3dlite;..\..\..\KBEngine\kbengine\kbe\src\server;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies/log4cxx/src/main/include;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies/vsopenssl/include;..\..\boost_1_74_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\godot-cpp\include\gen;..\godot-cpp\include\core;..\godot-cpp\include;..\godot-cpp\godot_headers;..\..\TheWorld_ClientDll;.\Terrain;..\..\..\KBEngine\kbengine\kbe\src\lib;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies/fmt/include;..\..\..\KBEngine\kbengine\kbe\src\lib\python\PC;..\..\..\KBEngine\kbengine\kbe\src\lib\python\Include;..\..\..\KBEngine\kbengine\kbe\src\lib\dependencies\g3dlite;..\..\..\KBEngine\kbengine\kbe\src\server;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies/log4cxx/src/main/include;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies;..\..\..\KBEngine\kbengine\kbe\src\lib/dependencies/vsopenssl/include;..\..\boost_1_74_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -170,6 +170,7 @@
     <ClInclude Include="GD_ClientApp.h" />
     <ClInclude Include="GD_SpaceWorld.h" />
     <ClInclude Include="GD_WorldCamera.h" />
+    <ClInclude Include="Terrain\GD_TerrainM.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +209,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="GD_WorldCamera.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Terrain\GD_TerrainM.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>

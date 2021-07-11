@@ -31,6 +31,9 @@
     <ClCompile Include="GD_Line.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Terrain\GD_TerrainM.cpp">
+      <Filter>Source Files\Terrain</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -63,6 +66,9 @@
     <ClInclude Include="GD_Line.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Terrain\GD_TerrainM.h">
+      <Filter>Header Files\Terrain</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -70,6 +76,12 @@
     </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{95b5eb58-751e-4550-83ee-2c8cd1223d88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Terrain">
+      <UniqueIdentifier>{c814f720-6130-494f-ba7d-cd38ed0df562}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Terrain">
+      <UniqueIdentifier>{cd48b086-baf8-487c-9288-c4e279f514ce}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
