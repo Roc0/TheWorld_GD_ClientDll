@@ -233,7 +233,12 @@ bool GD_ClientApp::kbengine_Login(String accountName, String passwd, String data
 	char* _d = data.length() == 0 ? NULL : data.alloc_c_string();
 	KBEngine::uint32 _dl = data.length();
 	char* _ip = ip.length() == 0 ? NULL : ip.alloc_c_string();
-	return TheWorld_ClientApp::kbengine_Login(_name, _pwd, _d, _dl, _ip, port);
+	bool bret = TheWorld_ClientApp::kbengine_Login(_name, _pwd, _d, _dl, _ip, port);
+	godot::api->godot_free(_name);
+	godot::api->godot_free(_pwd);
+	godot::api->godot_free(_d);
+	godot::api->godot_free(_ip);
+	return bret;
 }
 
 bool GD_ClientApp::kbengine_Logout(void)
@@ -406,9 +411,11 @@ bool GD_ClientApp::createAvatar(String avatarName)
 	if (avatarName.length() == 0)
 		return false;
 
-	std::string s = avatarName.alloc_c_string();
+	char* _avatarName = avatarName.alloc_c_string();
+	bool bret = kbengine_CreateAvatar(std::string(_avatarName));
+	godot::api->godot_free(_avatarName);
 
-	return kbengine_CreateAvatar(s);
+	return bret;
 }
 
 bool GD_ClientApp::removeAvatar(String avatarName)
@@ -416,9 +423,11 @@ bool GD_ClientApp::removeAvatar(String avatarName)
 	if (avatarName.length() == 0)
 		return false;
 
-	std::string s = avatarName.alloc_c_string();
+	char* _avatarName = avatarName.alloc_c_string();
+	bool bret = kbengine_RemoveAvatar(std::string(_avatarName));
+	godot::api->godot_free(_avatarName);
 
-	return kbengine_RemoveAvatar(s);
+	return bret;
 }
 
 void GD_ClientApp::onLoginSuccess(void)
