@@ -120,6 +120,7 @@ void GD_ClientApp::_ready()
 {
 	//Godot::print("GD_ClientApp::_ready");
 	//get_node(NodePath("/root/Main/Reset"))->connect("pressed", this, "on_Reset_pressed");
+	SceneTree* scene = get_tree();	// DEBUG
 }
 	
 void GD_ClientApp::_input(const Ref<InputEvent> event)
